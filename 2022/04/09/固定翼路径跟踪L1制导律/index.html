@@ -6,20 +6,46 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
-  <title>SVM算法理论推导 | Hexo</title>
+  <title>固定翼路径跟踪L1制导律 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SVM算法理论推导">
+  <meta name="description" content="固定翼路径跟踪L1导航算法当前PX4、Ardupilot中固定翼路径跟随算法主要基于L1导航算法实现   背景问题：存在目标航点B，期望的航线AB，其中A为上一个航点，B为当前目标航点，飞机位置在P点，如何使飞机一边贴近AB航线一边向B点靠近？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVM算法理论推导">
-<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/index.html">
+<meta property="og:title" content="固定翼路径跟踪L1制导律">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="SVM算法理论推导">
+<meta property="og:description" content="固定翼路径跟踪L1导航算法当前PX4、Ardupilot中固定翼路径跟随算法主要基于L1导航算法实现   背景问题：存在目标航点B，期望的航线AB，其中A为上一个航点，B为当前目标航点，飞机位置在P点，如何使飞机一边贴近AB航线一边向B点靠近？">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-04-09T07:21:06.770Z">
-<meta property="article:modified_time" content="2022-04-09T07:21:06.770Z">
+<meta property="og:image" content="https://camo.githubusercontent.com/c8bbdff5f40d1e2a0ee06174a504ab9dbd313b85a263e93abaa3373fd848a05b/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f323035343537382f3139303034302f34333662333061652d376563342d313165322d393061372d3031666365383731373339322e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/59d699e76b157eedacdbe7a39c760ee70f4c1d2c0f77674d85513f76089e541b/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f323035343537382f3139303035392f66643535396233652d376563352d313165322d383538342d6432316532643831663935322e706e67">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307141150660.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307144823658.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307153233904.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307154124177.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307170300355.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307171942364.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307172050571.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307172212494.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307172318001.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307160303660.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307182017793.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232518732.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232619326.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232653192.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232731075.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232806102.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308011239567.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308011318215.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308011409628.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308012714748.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308012749433.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308013007999.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308013041161.png">
+<meta property="article:published_time" content="2022-04-09T07:35:44.858Z">
+<meta property="article:modified_time" content="2022-04-09T07:35:44.858Z">
 <meta property="article:author" content="�����п���">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/c8bbdff5f40d1e2a0ee06174a504ab9dbd313b85a263e93abaa3373fd848a05b/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f323035343537382f3139303034302f34333662333061652d376563342d313165322d393061372d3031666365383731373339322e706e67">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -168,127 +194,191 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-SVM算法理论推导" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-固定翼路径跟踪L1制导律" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SVM算法理论推导
+      固定翼路径跟踪L1制导律
     </h1>
   
 
         
-        <a href="/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.770Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
+        <a href="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/" class="archive-article-date">
+  	<time datetime="2022-04-09T07:35:44.858Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SVM算法理论推导"><a href="#SVM算法理论推导" class="headerlink" title="SVM算法理论推导"></a>SVM算法理论推导</h1><span id="more"></span>
-<p>断断续续折腾了好几天，终于对SVM算法有了个大致的了解，趁热将自己的理解写下来，一方面加深自己的理解，另一方面以便日后有所遗忘时可随时查阅。理解有不对的地方，请大家多多批评指正。</p>
-<h2 id="1-将原问题化为对偶问题"><a href="#1-将原问题化为对偶问题" class="headerlink" title="(1)将原问题化为对偶问题"></a>(1)将原问题化为对偶问题</h2><p>支持向量机的原问题：</p>
+        <h1 id="固定翼路径跟踪L1导航算法"><a href="#固定翼路径跟踪L1导航算法" class="headerlink" title="固定翼路径跟踪L1导航算法"></a>固定翼路径跟踪L1导航算法</h1><p>当前PX4、Ardupilot中固定翼路径跟随算法主要基于L1导航算法实现</p>
+<p><img src="https://camo.githubusercontent.com/c8bbdff5f40d1e2a0ee06174a504ab9dbd313b85a263e93abaa3373fd848a05b/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f323035343537382f3139303034302f34333662333061652d376563342d313165322d393061372d3031666365383731373339322e706e67" alt="img"></p>
+<p><img src="https://camo.githubusercontent.com/59d699e76b157eedacdbe7a39c760ee70f4c1d2c0f77674d85513f76089e541b/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f323035343537382f3139303035392f66643535396233652d376563352d313165322d383538342d6432316532643831663935322e706e67" alt="img"></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>问题：存在目标航点B，期望的航线AB，其中A为上一个航点，B为当前目标航点，飞机位置在P点，如何使飞机一边贴近AB航线一边向B点靠近？</p>
+<span id="more"></span>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307141150660.png" class="" title="image-20210307141150660">
+<p>正常飞行中，飞机的位置P应该在AB的连线上，但由于某种扰动（如风的干扰），或者初始条件（飞机起飞时就不在AB航线上）导致飞机偏离了原本的AB航线，此时飞机要飞到B点，有如下两种方式：</p>
+<ul>
+<li>从当前P点直接朝B点飞行，飞图中直红线</li>
+<li>逐渐切入AB航线，尽量压着航向飞向B点</li>
+</ul>
+<p>实际飞行中，航点的选择可能本身是要绕开部分障碍物，假设P点和B点之间有障碍物，这时直飞B点的方案就不可行了，我们想要飞机尽快切入AB航线，沿着AB航线飞行。L1算法就是解决该问题一个比较好的方案。</p>
+<h2 id="符号说明"><a href="#符号说明" class="headerlink" title="符号说明"></a>符号说明</h2><script type="math/tex; mode=display">
+V----速度矢量\\
+L_1----连接飞行器位置和目标路径上参考点的线段\\
+\eta----从V到L_1的角度(顺时针方向为正)\\
+a_{s_{cmd}}----横向加速度指令，与飞行器速度方向垂直\\
+d----航迹误差，飞行器当前位置距航线的垂直距离\\
+R----圆或者圆弧的半径\\</script><h2 id="初探L1制导律"><a href="#初探L1制导律" class="headerlink" title="初探L1制导律"></a>初探L1制导律</h2><p>L1制导律在目标路径上选择一个参考点，利用该参考点给出一个横向加速度指令$a<em>{s</em>{cmd}}$来使飞机的潜在路径实时经过参考点。飞机位置和参考点的连线即为L1，这也是L1制导律名字来源。之后的公式和主要图片来源于如下论文：<a target="_blank" rel="noopener" href="http://acl.mit.edu/papers/gnc_park_deyst_how.pdf">http://acl.mit.edu/papers/gnc_park_deyst_how.pdf</a></p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307144823658.png" class="" title="image-20210307144823658">
+<p>横向加速度计算如下：</p>
 <script type="math/tex; mode=display">
-{
-最小化：\frac{1}{2}||W||^2+C\sum_{i=1}^N\xi_i\\
-限制条件：    \begin{cases}
-        \xi_i\ge0~~~i=1\cdots N\\
-        y_i[W^T\varphi(X_i)+b]\ge1-\xi_i~~~i=1\cdots N
-    \end{cases}\tag{1}
-}</script><p>那这个原问题对应的对偶问题是什么样的形式呢？我们再来回顾一下原问题与对偶问题的定义：</p>
-<p><strong>原问题</strong>：</p>
+sin(\eta)=\frac{0.5L_1}{R}
+\\a_{s_{cmd}} = \frac{V^2}{R}=\frac{V^2}{\frac{L_1}{2sin(\eta)}}=2\frac{V^2}{L_1}sin(\eta)</script><p>通过实时更新参考点位置就可以实时更新$a<em>{s</em>{cmd}}$来使得飞行器的轨迹逐渐切入目标路径：</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307153233904.png" class="" title="image-20210307153233904">
+<p>上面的离散点表示中可以看到，飞行器总是趋向于<strong>速度方向</strong>和<strong>L1线段方向</strong>对齐，而<strong>L1线段</strong>逐渐和<strong>目标路径</strong>对齐，进而间接带动飞行器最终速度方向也和目标路径对齐。最终飞回至直线上去，会变为如下情况：</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307154124177.png" class="" title="image-20210307154124177">
+<p>这也可以从加速度方向看出，当$\eta$大于0时，会产生向右加速的指令，来使飞行器速度方向对齐L1，$\eta$小于0时同理。</p>
+<h2 id="两种情形下的L1制导律"><a href="#两种情形下的L1制导律" class="headerlink" title="两种情形下的L1制导律"></a>两种情形下的L1制导律</h2><p>固定翼实际飞行中的路径跟踪主要可分为两种情况：</p>
+<ol>
+<li>跟踪一条直线（常见）</li>
+<li>跟踪一条圆形路径</li>
+</ol>
+<h3 id="弹簧质量阻尼系统"><a href="#弹簧质量阻尼系统" class="headerlink" title="弹簧质量阻尼系统"></a>弹簧质量阻尼系统</h3><img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307170300355.png" class="" title="image-20210307170300355">
+<p>作简单的受力分析可得到：</p>
 <script type="math/tex; mode=display">
-最小化:~~~f(w)\\限制条件:    \begin{cases}        g_i(w)\leq0~~~i=1\cdots K\\        h_i(w)=0~~~i=1\cdots M    \end{cases}\tag{2}</script><p>定义一函数$L(w,\alpha,\beta)$为：</p>
+ma=m\ddot{x}=F-Kx-B\dot{x}</script><p>即：</p>
 <script type="math/tex; mode=display">
-L(w,\alpha,\beta)=f(w)+ \sum_{i=1}^K\alpha_ig_i(w)+\sum_{i=1}^M\beta_ih_i(w)\tag{3}</script><p>当然可以用矩阵写成简单的形式：</p>
+m\ddot{x} + B\dot{x}+Kx = F</script><p>整理一下：</p>
 <script type="math/tex; mode=display">
-L(w,\alpha,\beta)=f(w)+\alpha^Tg(w)+\beta^Th(w) \tag{4}</script><p>公式$(3)$中$\alpha^T$和$g(w)$都是$K$维的，而$\beta^T$和$h(w)$都是$M$维的。<strong>则原问题的对偶问题为</strong>：</p>
+\ddot{x}+\frac{B}{m}\dot{x}+\frac{K}{m}x=\frac{F}{m}</script><p>定义$\omega_n = \sqrt{\frac{K}{m}}$，称为固有频率，$\zeta=\frac{B}{2\sqrt{Km}}$，称为阻尼比，当没有外力时，即F为0，这时上式就可以写成：</p>
 <script type="math/tex; mode=display">
-最大化\quad\theta(\alpha,\beta)=\inf \limits_{所有w}\{~L(w,\alpha,\beta)~\}\\限制条件：\alpha_i~\ge~0\quad(i=1\cdots K)\tag{5}</script><p>其中$\inf \limits_{所有w}{~L(w,\alpha,\beta)~}$的意思是在限制$\alpha$和$\beta$的情况下遍历所有的$w$求最小值，即每确定一个$\alpha$和$\beta$都能算出一个最小值，即每一个$\alpha$和$\beta$都对应一个值，很明显，这是$\alpha$和$\beta$的函数，故写作$\theta(\alpha,\beta)$。那么公式$(4)$是针对所有的$\alpha$和$\beta$求最大值，即在所有的最小值中找最大的。</p>
-<p>我们发现原问题和对偶问题的定义中原问题的限制条件都是小于等于0的，所以为了更好的进行改写，我们也需要对支持向量机的原问题，即公式$(1)$进行适当的改写，这样就可以很方便的写出其对偶问题。我们看到，$(1)$ 中的限制条件都是大于等于0的，我们要将他们改成小于等于0的，以此对应于$(2)$中的${g_i(w)\leq 0}$。具体改法如下：</p>
+\ddot{x}+2\zeta\omega_n\dot{x}+{\omega_n^2}x=0</script><p>该微分方程特征方程为：</p>
 <script type="math/tex; mode=display">
-{首先将\xi_i \ge0 改为\xi_i \leq0\\
-则(1)中的最小化的目标函数就要改为 ：\\
- {\frac{1}{2} \|W\|^2-C \sum_{i=1}^N \xi_i}\\而y_i [W^T \varphi(X_i)+b] \ge1- \xi_i就要改为：\\
- y_i [W^T \varphi(X_i)+b] \ge1+ \xi_i\\
- 对它再进行一次改造就变成：\\1+\xi_i-y_iW^T\varphi(X_i)-y_ib\leq0\\}</script><p>我们也可以看出$(1)$中并没有对应于$(2)$中 $h_i(w)=0$的限制条件。这样支持向量机的原问题$(1)$就可以改写成如下形式的原问题：</p>
+\lambda^2+2\zeta\omega\lambda+\omega_n^2 = 0</script><p>得到：</p>
 <script type="math/tex; mode=display">
-{
-最小化：\frac{1}{2}||W||^2-C\sum_{i=1}^N\xi_i\\
-限制条件：    \begin{cases}
-        \xi_i\leq0~~~i=1\cdots N\\
-        1+\xi_i-y_iW^T\varphi(X_i)-y_ib\leq0~~~i=1\cdots N
-    \end{cases}\tag{6}
-}</script><p>我们就可以写出其对偶问题为：</p>
+\lambda_1=-\zeta\omega_n+\omega_n \sqrt{\zeta^2-1}\\
+\lambda_2=-\zeta\omega_n-\omega_n \sqrt{\zeta^2-1}\\</script><p>这时，可以分以下几种情况：</p>
+<ul>
+<li><p>$\zeta&gt;1$，此时$0&lt;\sqrt{\zeta^2-1}&lt;\zeta$，$\lambda_1&lt;0,\lambda_2&lt;0$，此时微分方程的解为：$x(t)=C_1e^{\lambda_1t}+C_2e^{\lambda_2t}$，这时$x(t)$是直接收敛的</p>
+</li>
+<li><p>$\zeta=1$，此时$\lambda=\lambda_1=\lambda_2=-\omega_n$，此时微分方程的解为：$x(t)=(C_1+C_2t)e^{\lambda}t$,此时也是收敛的。</p>
+</li>
+<li><p>$0&lt;\zeta&lt;1$，此时$\lambda_1=-\zeta\omega_n+i\omega_n\sqrt{1-\zeta^2}$，$\lambda_2=-\zeta\omega_n-i\omega_n\sqrt{1-\zeta^2}$，这是一对共轭复根，此时微分方程的解可以写成：</p>
 <script type="math/tex; mode=display">
-{最大化：\theta(\alpha,\beta)=\inf \limits_{所有W,b,\xi_i}\{\frac{1}{2}||W||^2-C\sum_{i=1}^N\xi_i+\sum_{i=1}^N\beta_i\xi_i+\sum_{i=1}^N\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_ib]\}\\
-限制条件：\alpha_i\ge0,\beta_i\ge0\tag{7}}</script><p>上式中的$\alpha_i,\beta_i$就对应$(5)$式中的$\alpha_i$。$(2)$式中我们待求的是$w$，而对应到$(6)$式中我们待求的就是$W,b,\xi_i$，所以在$(7)$式中的$inf$下面是遍历所有的$W,b,\xi_i$。</p>
-<h2 id="2-对偶问题化简"><a href="#2-对偶问题化简" class="headerlink" title="(2)对偶问题化简"></a>(2)对偶问题化简</h2><p>为了方便，我们令：</p>
+x(t)=e^{-\zeta\omega_nt}(C_1cos\omega_n\sqrt{1-\zeta^2}t+C_2sin\omega_n\sqrt{1-\zeta^2}t)\\
+=e^{-\zeta\omega_nt}\sqrt{C_1^2+C_2^2}sin(\omega_dt+\phi)</script><p>其中$\omega_d$称为阻尼固有频率。</p>
+</li>
+<li><p>$\zeta=0$，此时微分方程的解为：$x(t)=\sqrt{C_1^2+C_2^2}sin(\omega_nt+\phi)$，这时一个正弦函数，频率就是无阻尼自然频率$\omega_n$。</p>
+</li>
+<li><p>$\zeta&lt;0$，发散。</p>
+</li>
+</ul>
+<p>在初始条件不为0时，没有外力输入，则不同的阻尼比会有不同的响应，假设初始的$x=x_0$，$\dot{x}=0$，其实就相当于手将质量块M向右拉动值$x_0$处，然后松手，看$x$如何变化。以阻尼比的不同可有如下响应情况：</p>
+<ul>
+<li>$\zeta&gt;1$，过阻尼：</li>
+<li><img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307171942364.png" class="" title="image-20210307171942364"></li>
+<li>$\zeta=1$，临界阻尼：<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307172050571.png" class="" title="image-20210307172050571"></li>
+<li>$0&lt;\zeta<1$，欠阻尼，这个振动的频率就是$\omega_d$：<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307172212494.png" class="" title="image-20210307172212494"></li>
+<li>$\zeta=0$，无阻尼，此时这个正弦的频率就是$\omega_n$：<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307172318001.png" class="" title="image-20210307172318001"></li>
+<li>$-1&lt;\zeta&lt;0$，这种情况就直接发散了。</li>
+</ul>
+<h3 id="一、跟踪一条直线"><a href="#一、跟踪一条直线" class="headerlink" title="一、跟踪一条直线"></a>一、跟踪一条直线</h3><p>仍统一使用之前的符号说明，假设$\eta$角很小，这在航路飞行中的大部分时间都是满足的。</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307160303660.png" class="" title="image-20210307160303660">
+<p>由于$\eta$很小，所以：</p>
 <script type="math/tex; mode=display">
-L(W,b,\xi_i)=\frac{1}{2}||W||^2-C\sum_{i=1}^N\xi_i+\sum_{i=1}^N\beta_i\xi_i+\sum_{i=1}^N\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_ib]\tag{8}</script><p>遍历所有的$W,b,\xi_i$求$L(W,b,\xi_i)$的最小值，我们利用$L(W,b,\xi_i)$对$W,b,\xi_i$求偏导并使偏导为0来求，最终得到的最小值的表达式肯定是$\alpha,\beta$的函数。</p>
+sin(\eta)\approx\eta=\eta_1+\eta_2</script><p>而且由于$\eta_1$和$\eta_2$很小，所以有：</p>
 <script type="math/tex; mode=display">
-\left\{
-    \begin{array}{c}
-        \frac{\partial L}{\partial W}=W-\sum_{i=1}^N\alpha_iy_i\varphi(X_i)=0\\
-        \frac{\partial L}{\partial b}=-\sum_{i=1}^N\alpha_i y_i=0\\
-        \frac{\partial L}{\partial \xi_i}=-NC+N\beta_i+N\alpha_i=0\tag{9}
-    \end{array}
-\right.</script><p>进一步可推得：</p>
+\eta_1 \approx\sin(\eta_1)=\frac{d}{L_1}\\
+\eta_2 \approx\sin(\eta_2)=\frac{\dot{d}}{V}\\</script><p>综合上面有：</p>
 <script type="math/tex; mode=display">
-W=\sum_{i=1}^N\alpha_iy_i\varphi(X_i)\tag{10}</script><script type="math/tex; mode=display">
-\sum_{i=1}^N\alpha_i y_i=0\tag{11}</script><script type="math/tex; mode=display">
-\alpha_i+\beta_i = C \tag{12}</script><p>将式$(10)、(11)、(12)$带入公式$(7)$得：</p>
+\\a_{s_{cmd}}  =2\frac{V^2}{L_1}sin(\eta)=2\frac{V^2}{L_1}(\frac{d}{L_1}+\frac{\dot{d}}{V})=2\frac{V}{L_1}(\dot{d}+\frac{V}{L_1}d)</script><p>可以看到通过线性化之后，直线路径跟踪的L1制导律可以近似为一个PD控制器，来控制航迹误差。我们假设不考虑内环动力学，如不考虑内环滚转角控制器通过滚转角产生横向加速度的动力学延迟等，我们认为横向加速度是瞬间产生的，同时假设了$\eta_2$很小，则有：</p>
 <script type="math/tex; mode=display">
-最大化：\theta(\alpha,\beta)=\sum_{i=1}^N\alpha_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\tag{13}</script><p>计算时比较麻烦的是$\frac{1}{2}||W||^2$，这里将计算过程记录一下。$||W||^2$可以写作：</p>
+a_{s_{cmd}} = - \ddot{d}</script><p>进而可写成到：</p>
 <script type="math/tex; mode=display">
-||W||^2=W^TW=\sum_{i=1}^N\alpha_iy_i\varphi(X_i)^T \sum_{j=1}^N\alpha_jy_j\varphi(X_j)\tag{14}</script><p>将公式$(14)$展开就可以得到：</p>
+\ddot{d}+2\zeta\omega_n\dot{d}+{\omega_n^2}d=0</script><p>其中$\zeta = \frac{1}{\sqrt{2}}\approx0.707$，$\omega_n=\frac{\sqrt{2}V}{L_1}$，这表明直线跟踪情况可近似看作一个简单二阶系统。</p>
+<h3 id="二、跟踪一条圆形路径"><a href="#二、跟踪一条圆形路径" class="headerlink" title="二、跟踪一条圆形路径"></a>二、跟踪一条圆形路径</h3><img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307182017793.png" class="" title="image-20210307182017793">
+<p>圆弧路径跟踪情况如上图，假设$\eta_1$和$\eta_2$都很小，飞行器的当前位置取决于R+d和$\theta$，而$\psi$决定了飞行器当前速度矢量的方向。因为：</p>
 <script type="math/tex; mode=display">
-||W||^2 = [\alpha_1 y_1 \varphi(X_1)^T+\alpha_2 y_2 \varphi(X_2)^T+\alpha_3 y_3 \varphi(X_3)^T+\cdots +\alpha_N y_N \varphi(X_N)^T]\\*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\tag{15}</script><p>则将式$(15)$中第一行<strong>中括号</strong>里的变量分别乘以整个第二行<strong>整个中括号的表达式</strong>，然后再加起来即可：</p>
+\psi+\eta_2=\theta+\frac{\pi}{2}</script><p>所以：</p>
 <script type="math/tex; mode=display">
-||W||^2 = \alpha_1 y_1 \varphi(X_1)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\\
-+\alpha_2 y_2 \varphi(X_2)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\\
-+\alpha_3 y_3 \varphi(X_3)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\\
-\cdots\\
-+\alpha_N y_N \varphi(X_N)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\tag{16}</script><p>而我们又知道两个$\sum$在一起，表示第一个固定的情况下，第二个从头改变到到尾，然后第一个再改变一下，第二个再从头改变到尾，一直到第一个改变到最后，把整个过程加起来。所以上面的$(16)$式就可以写作：</p>
+\dot{\psi}=\dot{\theta}-\dot{\eta_2}</script><p>由于$\eta_1$比较小，d也比较小，所以有：</p>
 <script type="math/tex; mode=display">
-||W||^2 = \sum_{i=1}^N\sum_{j=1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\tag{17}</script><p>接下来我们来看限制条件有什么变化：</p>
+\frac{L_1}{2}\approx\ Rsin(\eta_3)==>sin(\eta_3)=\frac{L_1}{2R}</script><p>定义：</p>
 <script type="math/tex; mode=display">
-因为：\alpha_i \ge 0,\beta_i \ge0\\根据公式(12)又可知：\alpha_i+\beta_i = C\\
-所以可得：0 \leq \alpha_i \leq C\\
-根据公式(11)又有：\sum_{i=1}^N\alpha_i y_i=0</script><p>所以最终可得对偶问题化简以后问题为：</p>
+c = cos(\eta_3)=\sqrt{1-{sin(\eta_3)}^2}\approx\ \sqrt{1-(\frac{L_1}{2R})^2}</script><p>基于上面小角度假设，位置误差的变化率就可表示为：</p>
 <script type="math/tex; mode=display">
-{最大化：\theta(\alpha,\beta)=\sum_{i=1}^N\alpha_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\\
-限制条件：\begin{cases}
-        0 \leq \alpha_i \leq C ~~~i=1\cdots N\\
-        \sum_{i=1}^N\alpha_i y_i=0~~~i=1\cdots N
-    \end{cases}\tag{18}
-}</script><p>其中的$\varphi(X_i)^T\varphi(X_j)$正好是核函数，从这点可看出我们并不需要知道$\varphi(X)$ 的显示表达就可进行求解。同时这也是一个二次规划问题，可以使用通用的二次规划算法来求解，但有一种更高效简单的算法叫SMO算法。这个算法我们以后再说。</p>
-<h2 id="3-求出分割超平面"><a href="#3-求出分割超平面" class="headerlink" title="(3)求出分割超平面"></a>(3)求出分割超平面</h2><p>当我们要求$W$时，我们发现一个问题：</p>
+\dot{d}=Vsin(\eta_2)\approx\ V\eta_2</script><p>则：</p>
 <script type="math/tex; mode=display">
-W=\sum_{i=1}^N\alpha_i y_i\varphi(X_i)\tag{19}</script><p>我们并不知道$\varphi(X_i)$的具体表达式，根本无法求出$W$，事实是我们根本不用求出$W$。因为我们最终的结果是测试时，每输入一个样本$X$，看$W^T \varphi(X)+b$的结果是大于等于0还是小于0就行了。大于等于0的是一类，小于0的是另一类。于是我们有：</p>
+\ddot{d}=V\dot{\eta_2}</script><p>因此横向加速度可表示为：</p>
 <script type="math/tex; mode=display">
-W^T \varphi(X)=\sum_{i=1}^N\alpha_i y_i\varphi(X_i)^T\varphi(X)=\sum_{i=1}^N\alpha_i y_i K(X_i,X)\tag{20}</script><p>核函数又一次出现，解决了这个问题。接下来我们求$b$，根据$KKT$条件，对所有的$i=1\cdots N$，有：</p>
+a_{s_{cmd}}=V\dot{\psi}=V\dot{\theta}-V\dot{\eta_2}=V\dot{\theta}-\ddot{d}</script><p>在$\eta_1$和$\eta_2$都很小的假设下：</p>
 <script type="math/tex; mode=display">
-\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_i b]=0\\
-\beta_i \xi_i = 0\Rightarrow (C-\alpha_i) \beta_i = 0</script><p>$\alpha$是一个向量，可以写成矩阵形式$\alpha=[\alpha_1,\alpha_2,\alpha_3\cdots \alpha_k\cdots\alpha_N]^T$，如果对于$\alpha$的某一个分量$\alpha_k$，有$\alpha_k\neq0$且$\alpha_k\neq C$，则根据$KKT$条件，必有$\xi_k = 0$，且：</p>
+V\dot{\theta}\approx\ \frac{V^2}{R}</script><p><strong>以上是以速度V绕半径R的圆所需要的向心加速度</strong>，则：</p>
 <script type="math/tex; mode=display">
-1+\xi_k-y_kW^T\varphi(X_k)-y_k b = 0\tag{21}</script><p>其种$X_k$就是$\alpha_k$对应的训练样本，$y_kW^T\varphi(X_k)$可以写成：</p>
+a_{s_{cmd}}\approx\ \frac{V^2}{R}-\ddot{d}</script><p>在$\eta_1$和$\eta_2$都很小的假设下</p>
 <script type="math/tex; mode=display">
-y_kW^T\varphi(X_k) = y_k \sum_{i=1}^N \alpha_i  y_i K(X_i,X_k)\tag{22}</script><p>所以，只须找一个$0 \leq \alpha_k \leq C$，就可将$b$求出：</p>
+2\frac{V^2}{L_1}sin(\eta) = 2\frac{V^2}{L_1}sin(\eta_1+\eta_2+\eta_3)=2\frac{V^2}{L_1}[sin(\eta_1+\eta_2)cos(\eta_3)+cos(\eta_1+\eta_2)sin(\eta_3)]\\
+=2\frac{V^2}{L_1}[\eta_1cos(\eta_3)+\eta_2cos(\eta_3)+sin(\eta_3)]</script><p>其中：</p>
 <script type="math/tex; mode=display">
-b=\frac{1-y_k \sum_{i=1}^N \alpha_i  y_i K(X_i,X_k)}{y_k}\tag{23}</script><p>实际任务中常采用一种更鲁棒的做法：选择多个处于$0$到$C$之间的$\alpha$的分量求出多个$b$然后取平均。</p>
-<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="(4)测试"></a>(4)测试</h2><p>对于一个测试样本$X$，我们要判断其所属的类别，则我们计算</p>
+\eta_1\approx\ \frac{dcos(\eta_3)}{L_1},\eta_2\approx\ \frac{\dot{d}}{V},c=cos(\eta_3)</script><p>于是化简可得：</p>
 <script type="math/tex; mode=display">
-W^T \varphi(X)+b=\sum_{i=1}^N \alpha_i y_i \varphi(X_i)^T \varphi(X)+b\tag{24} = \sum_{i=1}^N \alpha_i y_i K(X_i,X)+b</script><p>判别标准为：</p>
+2\frac{V^2}{L_1}sin(\eta) =a_{s_{cmd}}\approx\ \frac{V^2}{R}-\ddot{d} = \frac{2V^2c^2}{L_1^2}d+\frac{2Vc}{L_1}\dot{d}+\frac{V^2}{R}</script><p>于是又可得到：</p>
 <script type="math/tex; mode=display">
-\begin{cases}
-        如果\sum_{i=1}^N \alpha_i y_i K(X_i,X)+b \ge 0，则X \in C_1\\
-        如果\sum_{i=1}^N \alpha_i y_i K(X_i,X)+b < 0，则X \in C_2
-\end{cases}</script><p>最终我们只通过核函数也能完成对$X$的类别判决。</p>
-
+\ddot{d}+2\zeta\omega_n\dot{d}+{\omega_n^2}d=0</script><p>其中：</p>
+<script type="math/tex; mode=display">
+\zeta=0.707,~~~~~~ \omega_n = \frac{\sqrt{2}Vc}{L_1}</script><p>可以看到，跟踪圆的情况也可以近似看成是一个简单二阶系统。</p>
+<h2 id="PX4中关于该算法的改进"><a href="#PX4中关于该算法的改进" class="headerlink" title="PX4中关于该算法的改进"></a>PX4中关于该算法的改进</h2><p>从上面的分析可以看出，L1制导算法可以看成一个典型的二阶系统，阻尼比是固定的0.707，自然频率$\omega_n$正比于飞行器速度与L1的比值，也就是说，如果L1是固定的，那么这个二阶系统的自然频率是随着飞行速度变化而变化的，这就不能保证飞机在任何速度下都能有良好的跟踪性能，所以px4中L1和V的比值是固定的，这样就可以保证系统的自然频率是固定的。</p>
+<p>同理，上面的计算也可以看出系统的阻尼比$\zeta$也是固定的，为0.707，但是实际飞行时，切向加速度达到期望值存在响应延迟时间，融合速度反馈也存在延迟，因此系统的阻尼比应可以调节，以满足考虑内环动力学系统之后整体系统阻尼比的要求。</p>
+<p>PX4中，调节L1控制系统阻尼比的参数为FW_L1_DAMPING，调节自然频率的参数为FW_L1_PERIOD，其实实际调试好系统姿态环参数之后，关于L1调试的参数重要的只有这两个参数，且这两个参数调节起来也异常简单。那么如何实现阻尼比和自然频率的修改呢，通过修改加速度增益参数即可。以直线跟踪为例：</p>
+<p>上面的推导中我们得到：</p>
+<script type="math/tex; mode=display">
+\\a_{s_{cmd}}  =2\frac{V^2}{L_1}sin(\eta)=2\frac{V}{L_1}(\dot{d}+\frac{V}{L_1}d)</script><p>增加加速度增益后，期望的横向加速度表示为：</p>
+<script type="math/tex; mode=display">
+a_{s_{cmd}}= K\frac{V^2}{L_1}sin(\eta)=K\frac{V}{L_1}(\dot{d}+\frac{V}{L_1}d)</script><p>又有：</p>
+<script type="math/tex; mode=display">
+a_{s_{cmd}}=-\ddot{d}</script><p>所以系统微分方程可写成如下形式：</p>
+<script type="math/tex; mode=display">
+\ddot{d}+K\frac{V}{L_1}\dot{d}+K\frac{V^2}{L_1^2}d = 0</script><p>对照二阶系统微分方程格式：</p>
+<script type="math/tex; mode=display">
+\ddot{d}+2\zeta\omega_n\dot{d}+{\omega_n^2}d=0</script><p>有：</p>
+<script type="math/tex; mode=display">
+2\zeta\omega_n=K\frac{V}{L_1}~~~~~~~ \omega_n^2 = K \frac{V^2}{L_1^2}</script><p>这样我们通过FW_L1_DAMPING参数设置了$\zeta$，即$\zeta$=FW_L1_DAMPING，程序中会自动计算出K来，其中 $\omega_n = \sqrt{K}\frac{V}{L_1}$，所以有：</p>
+<script type="math/tex; mode=display">
+\zeta 2\sqrt{K}=K===>K=4\zeta^2</script><p>同理我们通过FW_L1_PERIOD可以设置系统的自然周期，也就间接设定了系统的自然频率，注意到FW_L1_PERIOD的单位是s，所以：</p>
+<script type="math/tex; mode=display">
+\omega_n = \frac{2\pi}{T}=\frac{2\pi}{FW\underline{}L1\underline{}PERIOD}</script><p>我们之前已经通过参数确定了阻尼比$\zeta$，进而K也确定了，现在我们也确定了自然频率$\omega_n$，那么就可以通过当前速度计算出当前L1制导中使用的L1线段长度：</p>
+<script type="math/tex; mode=display">
+L_1=\frac{\sqrt{K}V}{\omega_n}=\frac{2\zeta V}{\omega_n}=\frac{FW\underline{}L1\underline{}PERIOD*FW\underline{}L1\underline{}DAMPING*V}{\pi}</script><p>这样处理之后就可以保证达到我们想要的系统阻尼比和自然频率了。PX4中该部分处理如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void ECL_L1_Pos_Controller::set_l1_period(float period)</span><br><span class="line">&#123;</span><br><span class="line">	_L1_period = period;</span><br><span class="line"></span><br><span class="line">	/* calculate the ratio introduced in [2] */</span><br><span class="line">	_L1_ratio = 1.0f / M_PI_F * _L1_damping * _L1_period;</span><br><span class="line"></span><br><span class="line">	/* calculate normalized frequency for heading tracking */</span><br><span class="line">	_heading_omega = sqrtf(2.0f) * M_PI_F / _L1_period;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void ECL_L1_Pos_Controller::set_l1_damping(float damping)</span><br><span class="line">&#123;</span><br><span class="line">	_L1_damping = damping;</span><br><span class="line"></span><br><span class="line">	/* calculate the ratio introduced in [2] */</span><br><span class="line">	_L1_ratio = 1.0f / M_PI_F * _L1_damping * _L1_period;</span><br><span class="line"></span><br><span class="line">	/* calculate the L1 gain (following [2]) */</span><br><span class="line">	_K_L1 = 4.0f * _L1_damping * _L1_damping;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>求L1长度：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* calculate the L1 length required for the desired period */</span><br><span class="line">_L1_distance = _L1_ratio * ground_speed;</span><br></pre></td></tr></table></figure>
+<p>求期望的切向加速度：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_lateral_accel = _K_L1 * ground_speed * ground_speed / _L1_distance * sinf(eta);</span><br></pre></td></tr></table></figure>
+<p><strong>以直线航点跟踪跟踪为例，px4代码中的跟踪逻辑为：</strong></p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232518732.png" class="" title="image-20210314232518732">
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232619326.png" class="" title="image-20210314232619326">
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232653192.png" class="" title="image-20210314232653192">
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232731075.png" class="" title="image-20210314232731075">
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210314232806102.png" class="" title="image-20210314232806102">
+<h2 id="仿真"><a href="#仿真" class="headerlink" title="仿真"></a>仿真</h2><p>gazebo仿真下可以观察不同的FW_L1_PERIOD参数和FW_L1_DAMPING参数在飞行器拐入航线时的情况。</p>
+<h3 id="一、FW-L1-PERIOD不变"><a href="#一、FW-L1-PERIOD不变" class="headerlink" title="一、FW_L1_PERIOD不变"></a>一、FW_L1_PERIOD不变</h3><p>1、FW_L1_DAMPING  = 0.75，= FW_L1_PERIOD = 12</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308011239567.png" class="" title="image-20210308011239567">
+<p>2、FW_L1_DAMPING  = 0.3，   FW_L1_PERIOD = 12</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308011318215.png" class="" title="image-20210308011318215">
+<p>3、FW_L1_DAMPING  = 1.2，FW_L1_PERIOD = 12</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308011409628.png" class="" title="image-20210308011409628">
+<h3 id="二、固定FW-L1-DAMPING不变"><a href="#二、固定FW-L1-DAMPING不变" class="headerlink" title="二、固定FW_L1_DAMPING不变"></a>二、固定FW_L1_DAMPING不变</h3><p>FW_L1_DAMPING  = 0.3， FW_L1_PERIOD = 12</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308012714748.png" class="" title="image-20210308012714748">
+<p>FW_L1_DAMPING  = 0.3，= FW_L1_PERIOD = 3</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308012749433.png" class="" title="image-20210308012749433">
+<p>FW_L1_DAMPING  = 0.3，=FW_L1_PERIOD = 50</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308013007999.png" class="" title="image-20210308013007999">
+<p>放在同一张图下看：</p>
+<img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210308013041161.png" class="" title="image-20210308013041161">
       
 
       
@@ -393,7 +483,7 @@ W^T \varphi(X)+b=\sum_{i=1}^N \alpha_i y_i \varphi(X_i)^T \varphi(X)+b\tag{24} =
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -407,18 +497,9 @@ W^T \varphi(X)+b=\sum_{i=1}^N \alpha_i y_i \varphi(X_i)^T \varphi(X)+b\tag{24} =
   
 <nav id="article-nav">
   
-    <a href="/2022/04/09/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          我的第一篇博客文章
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/04/09/SVM%E5%A4%84%E7%90%86%E9%9D%9E%E7%BA%BF%E6%80%A7%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SVM处理非线性问题理解</div>
+    <a href="/2022/04/09/%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%85%B3%E7%B3%BB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">原问题与对偶问题的定义和关系</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -445,7 +526,7 @@ W^T \varphi(X)+b=\sum_{i=1}^N \alpha_i y_i \varphi(X_i)^T \varphi(X)+b\tag{24} =
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC"><span class="toc-number">1.</span> <span class="toc-text">SVM算法理论推导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B0%86%E5%8E%9F%E9%97%AE%E9%A2%98%E5%8C%96%E4%B8%BA%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">(1)将原问题化为对偶问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E5%8C%96%E7%AE%80"><span class="toc-number">1.2.</span> <span class="toc-text">(2)对偶问题化简</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B1%82%E5%87%BA%E5%88%86%E5%89%B2%E8%B6%85%E5%B9%B3%E9%9D%A2"><span class="toc-number">1.3.</span> <span class="toc-text">(3)求出分割超平面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.</span> <span class="toc-text">(4)测试</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%AF%BC%E8%88%AA%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">固定翼路径跟踪L1导航算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%AF%B4%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">符号说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E6%8E%A2L1%E5%88%B6%E5%AF%BC%E5%BE%8B"><span class="toc-number">1.3.</span> <span class="toc-text">初探L1制导律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E6%83%85%E5%BD%A2%E4%B8%8B%E7%9A%84L1%E5%88%B6%E5%AF%BC%E5%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text">两种情形下的L1制导律</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%B9%E7%B0%A7%E8%B4%A8%E9%87%8F%E9%98%BB%E5%B0%BC%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.4.1.</span> <span class="toc-text">弹簧质量阻尼系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%B7%9F%E8%B8%AA%E4%B8%80%E6%9D%A1%E7%9B%B4%E7%BA%BF"><span class="toc-number">1.4.2.</span> <span class="toc-text">一、跟踪一条直线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%B7%9F%E8%B8%AA%E4%B8%80%E6%9D%A1%E5%9C%86%E5%BD%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">1.4.3.</span> <span class="toc-text">二、跟踪一条圆形路径</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PX4%E4%B8%AD%E5%85%B3%E4%BA%8E%E8%AF%A5%E7%AE%97%E6%B3%95%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">1.5.</span> <span class="toc-text">PX4中关于该算法的改进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F"><span class="toc-number">1.6.</span> <span class="toc-text">仿真</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81FW-L1-PERIOD%E4%B8%8D%E5%8F%98"><span class="toc-number">1.6.1.</span> <span class="toc-text">一、FW_L1_PERIOD不变</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9B%BA%E5%AE%9AFW-L1-DAMPING%E4%B8%8D%E5%8F%98"><span class="toc-number">1.6.2.</span> <span class="toc-text">二、固定FW_L1_DAMPING不变</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
