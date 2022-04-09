@@ -237,7 +237,7 @@ R----圆或者圆弧的半径\\</script><h2 id="初探L1制导律"><a href="#初
 <p>横向加速度计算如下：</p>
 <script type="math/tex; mode=display">
 sin(\eta)=\frac{0.5L_1}{R}
-\\a_{s_{cmd}} = \frac{V^2}{R}=\frac{V^2}{\frac{L_1}{2sin(\eta)}}=2\frac{V^2}{L_1}sin(\eta)</script><p>通过实时更新参考点位置就可以实时更新$a<em>{s</em>{cmd}}$来使得飞行器的轨迹逐渐切入目标路径：</p>
+\\a_{s_{cmd}} = \frac{V^2}{R}=\frac{V^2}{\frac{L_1}{2sin(\eta)}}=2\frac{V^2}{L_1}sin(\eta)</script><p>通过实时更新参考点位置就可以实时更新<script type="math/tex">a_{s_{cmd}}</script>来使得飞行器的轨迹逐渐切入目标路径：</p>
 <img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307153233904.png" class="" title="image-20210307153233904">
 <p>上面的离散点表示中可以看到，飞行器总是趋向于<strong>速度方向</strong>和<strong>L1线段方向</strong>对齐，而<strong>L1线段</strong>逐渐和<strong>目标路径</strong>对齐，进而间接带动飞行器最终速度方向也和目标路径对齐。最终飞回至直线上去，会变为如下情况：</p>
 <img src="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/image-20210307154124177.png" class="" title="image-20210307154124177">
