@@ -5,18 +5,18 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://example.com">
+  <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
   <title>SVM算法理论推导 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="SVM算法理论推导">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SVM算法理论推导">
-<meta property="og:url" content="http://example.com/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/index.html">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="SVM算法理论推导">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-09T05:52:31.481Z">
-<meta property="article:modified_time" content="2020-03-07T10:19:57.566Z">
+<meta property="article:modified_time" content="2022-04-09T05:52:31.481Z">
 <meta property="article:author" content="�����п���">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
@@ -190,15 +190,104 @@
       
         <h1 id="SVM算法理论推导"><a href="#SVM算法理论推导" class="headerlink" title="SVM算法理论推导"></a>SVM算法理论推导</h1><span id="more"></span>
 <p>断断续续折腾了好几天，终于对SVM算法有了个大致的了解，趁热将自己的理解写下来，一方面加深自己的理解，另一方面以便日后有所遗忘时可随时查阅。理解有不对的地方，请大家多多批评指正。</p>
-<h2 id="1-将原问题化为对偶问题"><a href="#1-将原问题化为对偶问题" class="headerlink" title="(1)将原问题化为对偶问题"></a>(1)将原问题化为对偶问题</h2><p>支持向量机的原问题：<br>$$<br>{<br>最小化：\frac{1}{2}||W||^2+C\sum_{i&#x3D;1}^N\xi_i\<br>限制条件：    \begin{cases}<br>        \xi_i\ge0~~~i&#x3D;1\cdots N\<br>        y_i[W^T\varphi(X_i)+b]\ge1-\xi_i~~~i&#x3D;1\cdots N<br>    \end{cases}\tag{1}<br>}<br>$$<br>那这个原问题对应的对偶问题是什么样的形式呢？我们再来回顾一下原问题与对偶问题的定义：</p>
-<p><strong>原问题</strong>：<br>$$<br>最小化:~~~f(w)\限制条件:    \begin{cases}        g_i(w)\leq0~~~i&#x3D;1\cdots K\        h_i(w)&#x3D;0~~~i&#x3D;1\cdots M    \end{cases}\tag{2}<br>$$<br>定义一函数$L(w,\alpha,\beta)$为：<br>$$<br>L(w,\alpha,\beta)&#x3D;f(w)+ \sum_{i&#x3D;1}^K\alpha_ig_i(w)+\sum_{i&#x3D;1}^M\beta_ih_i(w)\tag{3}<br>$$<br>当然可以用矩阵写成简单的形式：<br>$$<br>L(w,\alpha,\beta)&#x3D;f(w)+\alpha^Tg(w)+\beta^Th(w) \tag{4}<br>$$<br>公式$(3)$中$\alpha^T$和$g(w)$都是$K$维的，而$\beta^T$和$h(w)$都是$M$维的。<strong>则原问题的对偶问题为</strong>：<br>$$<br>最大化\quad\theta(\alpha,\beta)&#x3D;\inf \limits_{所有w}{<del>L(w,\alpha,\beta)</del>}\限制条件：\alpha_i<del>\ge</del>0\quad(i&#x3D;1\cdots K)\tag{5}<br>$$<br>其中$\inf \limits_{所有w}{<del>L(w,\alpha,\beta)</del>}$的意思是在限制$\alpha$和$\beta$的情况下遍历所有的$w$求最小值，即每确定一个$\alpha$和$\beta$都能算出一个最小值，即每一个$\alpha$和$\beta$都对应一个值，很明显，这是$\alpha$和$\beta$的函数，故写作$\theta(\alpha,\beta)$。那么公式$(4)$是针对所有的$\alpha$和$\beta$求最大值，即在所有的最小值中找最大的。</p>
-<p>我们发现原问题和对偶问题的定义中原问题的限制条件都是小于等于0的，所以为了更好的进行改写，我们也需要对支持向量机的原问题，即公式$(1)$进行适当的改写，这样就可以很方便的写出其对偶问题。我们看到，$(1)$ 中的限制条件都是大于等于0的，我们要将他们改成小于等于0的，以此对应于$(2)$中的${g_i(w)\leq 0}$。具体改法如下：<br>$$<br>{首先将\xi_i \ge0 改为\xi_i \leq0\<br>则(1)中的最小化的目标函数就要改为 ：\<br> {\frac{1}{2} |W|^2-C \sum_{i&#x3D;1}^N \xi_i}\而y_i [W^T \varphi(X_i)+b] \ge1- \xi_i就要改为：\<br> y_i [W^T \varphi(X_i)+b] \ge1+ \xi_i\<br> 对它再进行一次改造就变成：\1+\xi_i-y_iW^T\varphi(X_i)-y_ib\leq0\}<br>$$<br>我们也可以看出$(1)$中并没有对应于$(2)$中 $h_i(w)&#x3D;0$的限制条件。这样支持向量机的原问题$(1)$就可以改写成如下形式的原问题：<br>$$<br>{<br>最小化：\frac{1}{2}||W||^2-C\sum_{i&#x3D;1}^N\xi_i\<br>限制条件：    \begin{cases}<br>        \xi_i\leq0~~~i&#x3D;1\cdots N\<br>        1+\xi_i-y_iW^T\varphi(X_i)-y_ib\leq0~~~i&#x3D;1\cdots N<br>    \end{cases}\tag{6}<br>}<br>$$<br>我们就可以写出其对偶问题为：<br>$$<br>{最大化：\theta(\alpha,\beta)&#x3D;\inf \limits_{所有W,b,\xi_i}{\frac{1}{2}||W||^2-C\sum_{i&#x3D;1}^N\xi_i+\sum_{i&#x3D;1}^N\beta_i\xi_i+\sum_{i&#x3D;1}^N\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_ib]}\<br>限制条件：\alpha_i\ge0,\beta_i\ge0\tag{7}}<br>$$<br>上式中的$\alpha_i,\beta_i$就对应$(5)$式中的$\alpha_i$。$(2)$式中我们待求的是$w$，而对应到$(6)$式中我们待求的就是$W,b,\xi_i$，所以在$(7)$式中的$inf$下面是遍历所有的$W,b,\xi_i$。</p>
-<h2 id="2-对偶问题化简"><a href="#2-对偶问题化简" class="headerlink" title="(2)对偶问题化简"></a>(2)对偶问题化简</h2><p>为了方便，我们令：<br>$$<br>L(W,b,\xi_i)&#x3D;\frac{1}{2}||W||^2-C\sum_{i&#x3D;1}^N\xi_i+\sum_{i&#x3D;1}^N\beta_i\xi_i+\sum_{i&#x3D;1}^N\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_ib]\tag{8}<br>$$<br>遍历所有的$W,b,\xi_i$求$L(W,b,\xi_i)$的最小值，我们利用$L(W,b,\xi_i)$对$W,b,\xi_i$求偏导并使偏导为0来求，最终得到的最小值的表达式肯定是$\alpha,\beta$的函数。<br>$$<br>\left{<br>    \begin{array}{c}<br>        \frac{\partial L}{\partial W}&#x3D;W-\sum_{i&#x3D;1}^N\alpha_iy_i\varphi(X_i)&#x3D;0\<br>        \frac{\partial L}{\partial b}&#x3D;-\sum_{i&#x3D;1}^N\alpha_i y_i&#x3D;0\<br>        \frac{\partial L}{\partial \xi_i}&#x3D;-NC+N\beta_i+N\alpha_i&#x3D;0\tag{9}<br>    \end{array}<br>\right.<br>$$<br>进一步可推得：<br>$$<br>W&#x3D;\sum_{i&#x3D;1}^N\alpha_iy_i\varphi(X_i)\tag{10}<br>$$</p>
-<p>$$<br>\sum_{i&#x3D;1}^N\alpha_i y_i&#x3D;0\tag{11}<br>$$</p>
-<p>$$<br>\alpha_i+\beta_i &#x3D; C \tag{12}<br>$$</p>
-<p>将式$(10)、(11)、(12)$带入公式$(7)$得：<br>$$<br>最大化：\theta(\alpha,\beta)&#x3D;\sum_{i&#x3D;1}^N\alpha_i-\frac{1}{2}\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\tag{13}<br>$$<br>计算时比较麻烦的是$\frac{1}{2}||W||^2$，这里将计算过程记录一下。$||W||^2$可以写作：<br>$$<br>||W||^2&#x3D;W^TW&#x3D;\sum_{i&#x3D;1}^N\alpha_iy_i\varphi(X_i)^T \sum_{j&#x3D;1}^N\alpha_jy_j\varphi(X_j)\tag{14}<br>$$<br>将公式$(14)$展开就可以得到：<br>$$<br>||W||^2 &#x3D; [\alpha_1 y_1 \varphi(X_1)^T+\alpha_2 y_2 \varphi(X_2)^T+\alpha_3 y_3 \varphi(X_3)^T+\cdots +\alpha_N y_N \varphi(X_N)^T]\<em>[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\tag{15}<br>$$<br>则将式$(15)$中第一行<strong>中括号</strong>里的变量分别乘以整个第二行<strong>整个中括号的表达式</strong>，然后再加起来即可：<br>$$<br>||W||^2 &#x3D; \alpha_1 y_1 \varphi(X_1)^T</em>[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\<br>+\alpha_2 y_2 \varphi(X_2)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\<br>+\alpha_3 y_3 \varphi(X_3)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\<br>\cdots\<br>+\alpha_N y_N \varphi(X_N)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\tag{16}<br>$$<br>而我们又知道两个$\sum$在一起，表示第一个固定的情况下，第二个从头改变到到尾，然后第一个再改变一下，第二个再从头改变到尾，一直到第一个改变到最后，把整个过程加起来。所以上面的$(16)$式就可以写作：<br>$$<br>||W||^2 &#x3D; \sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\tag{17}<br>$$<br>接下来我们来看限制条件有什么变化：<br>$$<br>因为：\alpha_i \ge 0,\beta_i \ge0\根据公式(12)又可知：\alpha_i+\beta_i &#x3D; C\<br>所以可得：0 \leq \alpha_i \leq C\<br>根据公式(11)又有：\sum_{i&#x3D;1}^N\alpha_i y_i&#x3D;0<br>$$<br>所以最终可得对偶问题化简以后问题为：<br>$$<br>{最大化：\theta(\alpha,\beta)&#x3D;\sum_{i&#x3D;1}^N\alpha_i-\frac{1}{2}\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\<br>限制条件：\begin{cases}<br>        0 \leq \alpha_i \leq C ~~~i&#x3D;1\cdots N\<br>        \sum_{i&#x3D;1}^N\alpha_i y_i&#x3D;0~~~i&#x3D;1\cdots N<br>    \end{cases}\tag{18}<br>}<br>$$<br>其中的$\varphi(X_i)^T\varphi(X_j)$正好是核函数，从这点可看出我们并不需要知道$\varphi(X)$ 的显示表达就可进行求解。同时这也是一个二次规划问题，可以使用通用的二次规划算法来求解，但有一种更高效简单的算法叫SMO算法。这个算法我们以后再说。</p>
-<h2 id="3-求出分割超平面"><a href="#3-求出分割超平面" class="headerlink" title="(3)求出分割超平面"></a>(3)求出分割超平面</h2><p>当我们要求$W$时，我们发现一个问题：<br>$$<br>W&#x3D;\sum_{i&#x3D;1}^N\alpha_i y_i\varphi(X_i)\tag{19}<br>$$<br>我们并不知道$\varphi(X_i)$的具体表达式，根本无法求出$W$，事实是我们根本不用求出$W$。因为我们最终的结果是测试时，每输入一个样本$X$，看$W^T \varphi(X)+b$的结果是大于等于0还是小于0就行了。大于等于0的是一类，小于0的是另一类。于是我们有：<br>$$<br>W^T \varphi(X)&#x3D;\sum_{i&#x3D;1}^N\alpha_i y_i\varphi(X_i)^T\varphi(X)&#x3D;\sum_{i&#x3D;1}^N\alpha_i y_i K(X_i,X)\tag{20}<br>$$<br>核函数又一次出现，解决了这个问题。接下来我们求$b$，根据$KKT$条件，对所有的$i&#x3D;1\cdots N$，有：<br>$$<br>\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_i b]&#x3D;0\<br>\beta_i \xi_i &#x3D; 0\Rightarrow (C-\alpha_i) \beta_i &#x3D; 0<br>$$<br>$\alpha$是一个向量，可以写成矩阵形式$\alpha&#x3D;[\alpha_1,\alpha_2,\alpha_3\cdots \alpha_k\cdots\alpha_N]^T$，如果对于$\alpha$的某一个分量$\alpha_k$，有$\alpha_k\neq0$且$\alpha_k\neq C$，则根据$KKT$条件，必有$\xi_k &#x3D; 0$，且：<br>$$<br>1+\xi_k-y_kW^T\varphi(X_k)-y_k b &#x3D; 0\tag{21}<br>$$<br>其种$X_k$就是$\alpha_k$对应的训练样本，$y_kW^T\varphi(X_k)$可以写成：<br>$$<br>y_kW^T\varphi(X_k) &#x3D; y_k \sum_{i&#x3D;1}^N \alpha_i  y_i K(X_i,X_k)\tag{22}<br>$$<br>所以，只须找一个$0 \leq \alpha_k \leq C$，就可将$b$求出：<br>$$<br>b&#x3D;\frac{1-y_k \sum_{i&#x3D;1}^N \alpha_i  y_i K(X_i,X_k)}{y_k}\tag{23}<br>$$<br>实际任务中常采用一种更鲁棒的做法：选择多个处于$0$到$C$之间的$\alpha$的分量求出多个$b$然后取平均。</p>
-<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="(4)测试"></a>(4)测试</h2><p>对于一个测试样本$X$，我们要判断其所属的类别，则我们计算<br>$$<br>W^T \varphi(X)+b&#x3D;\sum_{i&#x3D;1}^N \alpha_i y_i \varphi(X_i)^T \varphi(X)+b\tag{24} &#x3D; \sum_{i&#x3D;1}^N \alpha_i y_i K(X_i,X)+b<br>$$<br>判别标准为：<br>$$<br>\begin{cases}<br>        如果\sum_{i&#x3D;1}^N \alpha_i y_i K(X_i,X)+b \ge 0，则X \in C_1\<br>        如果\sum_{i&#x3D;1}^N \alpha_i y_i K(X_i,X)+b &lt; 0，则X \in C_2<br>\end{cases}<br>$$<br>最终我们只通过核函数也能完成对$X$的类别判决。</p>
+<h2 id="1-将原问题化为对偶问题"><a href="#1-将原问题化为对偶问题" class="headerlink" title="(1)将原问题化为对偶问题"></a>(1)将原问题化为对偶问题</h2><p>支持向量机的原问题：</p>
+<script type="math/tex; mode=display">
+{
+最小化：\frac{1}{2}||W||^2+C\sum_{i=1}^N\xi_i\\
+限制条件：    \begin{cases}
+        \xi_i\ge0~~~i=1\cdots N\\
+        y_i[W^T\varphi(X_i)+b]\ge1-\xi_i~~~i=1\cdots N
+    \end{cases}\tag{1}
+}</script><p>那这个原问题对应的对偶问题是什么样的形式呢？我们再来回顾一下原问题与对偶问题的定义：</p>
+<p><strong>原问题</strong>：</p>
+<script type="math/tex; mode=display">
+最小化:~~~f(w)\\限制条件:    \begin{cases}        g_i(w)\leq0~~~i=1\cdots K\\        h_i(w)=0~~~i=1\cdots M    \end{cases}\tag{2}</script><p>定义一函数$L(w,\alpha,\beta)$为：</p>
+<script type="math/tex; mode=display">
+L(w,\alpha,\beta)=f(w)+ \sum_{i=1}^K\alpha_ig_i(w)+\sum_{i=1}^M\beta_ih_i(w)\tag{3}</script><p>当然可以用矩阵写成简单的形式：</p>
+<script type="math/tex; mode=display">
+L(w,\alpha,\beta)=f(w)+\alpha^Tg(w)+\beta^Th(w) \tag{4}</script><p>公式$(3)$中$\alpha^T$和$g(w)$都是$K$维的，而$\beta^T$和$h(w)$都是$M$维的。<strong>则原问题的对偶问题为</strong>：</p>
+<script type="math/tex; mode=display">
+最大化\quad\theta(\alpha,\beta)=\inf \limits_{所有w}\{~L(w,\alpha,\beta)~\}\\限制条件：\alpha_i~\ge~0\quad(i=1\cdots K)\tag{5}</script><p>其中$\inf \limits_{所有w}{~L(w,\alpha,\beta)~}$的意思是在限制$\alpha$和$\beta$的情况下遍历所有的$w$求最小值，即每确定一个$\alpha$和$\beta$都能算出一个最小值，即每一个$\alpha$和$\beta$都对应一个值，很明显，这是$\alpha$和$\beta$的函数，故写作$\theta(\alpha,\beta)$。那么公式$(4)$是针对所有的$\alpha$和$\beta$求最大值，即在所有的最小值中找最大的。</p>
+<p>我们发现原问题和对偶问题的定义中原问题的限制条件都是小于等于0的，所以为了更好的进行改写，我们也需要对支持向量机的原问题，即公式$(1)$进行适当的改写，这样就可以很方便的写出其对偶问题。我们看到，$(1)$ 中的限制条件都是大于等于0的，我们要将他们改成小于等于0的，以此对应于$(2)$中的${g_i(w)\leq 0}$。具体改法如下：</p>
+<script type="math/tex; mode=display">
+{首先将\xi_i \ge0 改为\xi_i \leq0\\
+则(1)中的最小化的目标函数就要改为 ：\\
+ {\frac{1}{2} \|W\|^2-C \sum_{i=1}^N \xi_i}\\而y_i [W^T \varphi(X_i)+b] \ge1- \xi_i就要改为：\\
+ y_i [W^T \varphi(X_i)+b] \ge1+ \xi_i\\
+ 对它再进行一次改造就变成：\\1+\xi_i-y_iW^T\varphi(X_i)-y_ib\leq0\\}</script><p>我们也可以看出$(1)$中并没有对应于$(2)$中 $h_i(w)=0$的限制条件。这样支持向量机的原问题$(1)$就可以改写成如下形式的原问题：</p>
+<script type="math/tex; mode=display">
+{
+最小化：\frac{1}{2}||W||^2-C\sum_{i=1}^N\xi_i\\
+限制条件：    \begin{cases}
+        \xi_i\leq0~~~i=1\cdots N\\
+        1+\xi_i-y_iW^T\varphi(X_i)-y_ib\leq0~~~i=1\cdots N
+    \end{cases}\tag{6}
+}</script><p>我们就可以写出其对偶问题为：</p>
+<script type="math/tex; mode=display">
+{最大化：\theta(\alpha,\beta)=\inf \limits_{所有W,b,\xi_i}\{\frac{1}{2}||W||^2-C\sum_{i=1}^N\xi_i+\sum_{i=1}^N\beta_i\xi_i+\sum_{i=1}^N\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_ib]\}\\
+限制条件：\alpha_i\ge0,\beta_i\ge0\tag{7}}</script><p>上式中的$\alpha_i,\beta_i$就对应$(5)$式中的$\alpha_i$。$(2)$式中我们待求的是$w$，而对应到$(6)$式中我们待求的就是$W,b,\xi_i$，所以在$(7)$式中的$inf$下面是遍历所有的$W,b,\xi_i$。</p>
+<h2 id="2-对偶问题化简"><a href="#2-对偶问题化简" class="headerlink" title="(2)对偶问题化简"></a>(2)对偶问题化简</h2><p>为了方便，我们令：</p>
+<script type="math/tex; mode=display">
+L(W,b,\xi_i)=\frac{1}{2}||W||^2-C\sum_{i=1}^N\xi_i+\sum_{i=1}^N\beta_i\xi_i+\sum_{i=1}^N\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_ib]\tag{8}</script><p>遍历所有的$W,b,\xi_i$求$L(W,b,\xi_i)$的最小值，我们利用$L(W,b,\xi_i)$对$W,b,\xi_i$求偏导并使偏导为0来求，最终得到的最小值的表达式肯定是$\alpha,\beta$的函数。</p>
+<script type="math/tex; mode=display">
+\left\{
+    \begin{array}{c}
+        \frac{\partial L}{\partial W}=W-\sum_{i=1}^N\alpha_iy_i\varphi(X_i)=0\\
+        \frac{\partial L}{\partial b}=-\sum_{i=1}^N\alpha_i y_i=0\\
+        \frac{\partial L}{\partial \xi_i}=-NC+N\beta_i+N\alpha_i=0\tag{9}
+    \end{array}
+\right.</script><p>进一步可推得：</p>
+<script type="math/tex; mode=display">
+W=\sum_{i=1}^N\alpha_iy_i\varphi(X_i)\tag{10}</script><script type="math/tex; mode=display">
+\sum_{i=1}^N\alpha_i y_i=0\tag{11}</script><script type="math/tex; mode=display">
+\alpha_i+\beta_i = C \tag{12}</script><p>将式$(10)、(11)、(12)$带入公式$(7)$得：</p>
+<script type="math/tex; mode=display">
+最大化：\theta(\alpha,\beta)=\sum_{i=1}^N\alpha_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\tag{13}</script><p>计算时比较麻烦的是$\frac{1}{2}||W||^2$，这里将计算过程记录一下。$||W||^2$可以写作：</p>
+<script type="math/tex; mode=display">
+||W||^2=W^TW=\sum_{i=1}^N\alpha_iy_i\varphi(X_i)^T \sum_{j=1}^N\alpha_jy_j\varphi(X_j)\tag{14}</script><p>将公式$(14)$展开就可以得到：</p>
+<script type="math/tex; mode=display">
+||W||^2 = [\alpha_1 y_1 \varphi(X_1)^T+\alpha_2 y_2 \varphi(X_2)^T+\alpha_3 y_3 \varphi(X_3)^T+\cdots +\alpha_N y_N \varphi(X_N)^T]\\*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\tag{15}</script><p>则将式$(15)$中第一行<strong>中括号</strong>里的变量分别乘以整个第二行<strong>整个中括号的表达式</strong>，然后再加起来即可：</p>
+<script type="math/tex; mode=display">
+||W||^2 = \alpha_1 y_1 \varphi(X_1)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\\
++\alpha_2 y_2 \varphi(X_2)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\\
++\alpha_3 y_3 \varphi(X_3)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\\
+\cdots\\
++\alpha_N y_N \varphi(X_N)^T*[\alpha_1 y_1 \varphi(X_1)+\alpha_2 y_2 \varphi(X_2)+\alpha_3 y_3 \varphi(X_3)+\cdots +\alpha_N y_N \varphi(X_N)]\tag{16}</script><p>而我们又知道两个$\sum$在一起，表示第一个固定的情况下，第二个从头改变到到尾，然后第一个再改变一下，第二个再从头改变到尾，一直到第一个改变到最后，把整个过程加起来。所以上面的$(16)$式就可以写作：</p>
+<script type="math/tex; mode=display">
+||W||^2 = \sum_{i=1}^N\sum_{j=1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\tag{17}</script><p>接下来我们来看限制条件有什么变化：</p>
+<script type="math/tex; mode=display">
+因为：\alpha_i \ge 0,\beta_i \ge0\\根据公式(12)又可知：\alpha_i+\beta_i = C\\
+所以可得：0 \leq \alpha_i \leq C\\
+根据公式(11)又有：\sum_{i=1}^N\alpha_i y_i=0</script><p>所以最终可得对偶问题化简以后问题为：</p>
+<script type="math/tex; mode=display">
+{最大化：\theta(\alpha,\beta)=\sum_{i=1}^N\alpha_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Ny_iy_j\alpha_i\alpha_j\varphi(X_i)^T\varphi(X_j)\\
+限制条件：\begin{cases}
+        0 \leq \alpha_i \leq C ~~~i=1\cdots N\\
+        \sum_{i=1}^N\alpha_i y_i=0~~~i=1\cdots N
+    \end{cases}\tag{18}
+}</script><p>其中的$\varphi(X_i)^T\varphi(X_j)$正好是核函数，从这点可看出我们并不需要知道$\varphi(X)$ 的显示表达就可进行求解。同时这也是一个二次规划问题，可以使用通用的二次规划算法来求解，但有一种更高效简单的算法叫SMO算法。这个算法我们以后再说。</p>
+<h2 id="3-求出分割超平面"><a href="#3-求出分割超平面" class="headerlink" title="(3)求出分割超平面"></a>(3)求出分割超平面</h2><p>当我们要求$W$时，我们发现一个问题：</p>
+<script type="math/tex; mode=display">
+W=\sum_{i=1}^N\alpha_i y_i\varphi(X_i)\tag{19}</script><p>我们并不知道$\varphi(X_i)$的具体表达式，根本无法求出$W$，事实是我们根本不用求出$W$。因为我们最终的结果是测试时，每输入一个样本$X$，看$W^T \varphi(X)+b$的结果是大于等于0还是小于0就行了。大于等于0的是一类，小于0的是另一类。于是我们有：</p>
+<script type="math/tex; mode=display">
+W^T \varphi(X)=\sum_{i=1}^N\alpha_i y_i\varphi(X_i)^T\varphi(X)=\sum_{i=1}^N\alpha_i y_i K(X_i,X)\tag{20}</script><p>核函数又一次出现，解决了这个问题。接下来我们求$b$，根据$KKT$条件，对所有的$i=1\cdots N$，有：</p>
+<script type="math/tex; mode=display">
+\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_i b]=0\\
+\beta_i \xi_i = 0\Rightarrow (C-\alpha_i) \beta_i = 0</script><p>$\alpha$是一个向量，可以写成矩阵形式$\alpha=[\alpha_1,\alpha_2,\alpha_3\cdots \alpha_k\cdots\alpha_N]^T$，如果对于$\alpha$的某一个分量$\alpha_k$，有$\alpha_k\neq0$且$\alpha_k\neq C$，则根据$KKT$条件，必有$\xi_k = 0$，且：</p>
+<script type="math/tex; mode=display">
+1+\xi_k-y_kW^T\varphi(X_k)-y_k b = 0\tag{21}</script><p>其种$X_k$就是$\alpha_k$对应的训练样本，$y_kW^T\varphi(X_k)$可以写成：</p>
+<script type="math/tex; mode=display">
+y_kW^T\varphi(X_k) = y_k \sum_{i=1}^N \alpha_i  y_i K(X_i,X_k)\tag{22}</script><p>所以，只须找一个$0 \leq \alpha_k \leq C$，就可将$b$求出：</p>
+<script type="math/tex; mode=display">
+b=\frac{1-y_k \sum_{i=1}^N \alpha_i  y_i K(X_i,X_k)}{y_k}\tag{23}</script><p>实际任务中常采用一种更鲁棒的做法：选择多个处于$0$到$C$之间的$\alpha$的分量求出多个$b$然后取平均。</p>
+<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="(4)测试"></a>(4)测试</h2><p>对于一个测试样本$X$，我们要判断其所属的类别，则我们计算</p>
+<script type="math/tex; mode=display">
+W^T \varphi(X)+b=\sum_{i=1}^N \alpha_i y_i \varphi(X_i)^T \varphi(X)+b\tag{24} = \sum_{i=1}^N \alpha_i y_i K(X_i,X)+b</script><p>判别标准为：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+        如果\sum_{i=1}^N \alpha_i y_i K(X_i,X)+b \ge 0，则X \in C_1\\
+        如果\sum_{i=1}^N \alpha_i y_i K(X_i,X)+b < 0，则X \in C_2
+\end{cases}</script><p>最终我们只通过核函数也能完成对$X$的类别判决。</p>
 
       
 
@@ -304,7 +393,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -646,5 +735,5 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 </html>

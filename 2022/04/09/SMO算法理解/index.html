@@ -5,18 +5,18 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://example.com">
+  <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
   <title>SMO算法理解 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="SMO算法理解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SMO算法理解">
-<meta property="og:url" content="http://example.com/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="SMO算法理解">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-09T05:52:31.479Z">
-<meta property="article:modified_time" content="2020-03-07T11:31:42.586Z">
+<meta property="article:modified_time" content="2022-04-09T05:52:31.479Z">
 <meta property="article:author" content="�����п���">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
@@ -189,16 +189,95 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="SMO算法理解"><a href="#SMO算法理解" class="headerlink" title="SMO算法理解"></a>SMO算法理解</h1><span id="more"></span>
-<p>我们知道SVM的对偶问题如下：<br>$$<br>{最大化：\theta(\alpha,\beta)&#x3D;\sum_{i&#x3D;1}^N\alpha_i-\frac{1}{2}\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^Ny_iy_j\alpha_i\alpha_j X_i^T X_j\<br>限制条件：\begin{cases}<br>        0 \leq \alpha_i \leq C ~~~i&#x3D;1\cdots N\<br>        \sum_{i&#x3D;1}^N\alpha_i y_i&#x3D;0~~~i&#x3D;1\cdots N<br>    \end{cases}\tag{1}<br>}<br>$$<br>这是一个二次规划问题，可以使用通用的二次规划算法来求解，然而，该问题的规模正比于训练样本数，这会在实际任务中造成很大的开销，而SMO算法就是利用问题本身的特性来避开这个障碍，从而高效求解这个问题。</p>
-<p>从公式$(1)$我们可以看出它只是$\alpha$的函数，我们的目的就是求出一个$\alpha$使公式$(1)$有最大值，同时满足下面的限制条件。假设我们找到了一个$\alpha &#x3D;[\alpha_1,\alpha_2,\alpha_3\cdots\alpha_N]^T$，它就是上面的最优解，那么我们就可以利用KKT条件求解出原问题的最优解$(W,b)$，进而我们可以得到分离超平面：<br>$$<br>f(X)&#x3D;W^T X+b &#x3D; \sum_{i&#x3D;1}^N \alpha_i y_i X_i^T X +b\tag{2}<br>$$<br>我们又知道原问题满足的限制条件为：<br>$$<br>\begin{cases}<br>        \xi_i\leq0~~~i&#x3D;1\cdots N\<br>        1+\xi_i-y_iW^T\varphi(X_i)-y_ib\leq0~~~i&#x3D;1\cdots N<br>    \end{cases}\tag{3}<br>$$<br>根据KKT条件我们可以知道：<br>$$<br>\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_i b]&#x3D;0\<br>\beta_i \xi_i &#x3D; 0\Rightarrow (C-\alpha_i) \xi_i &#x3D; 0\tag{4}<br>$$<br>这个结果可以参考我上一篇博客：SVM算法理论推导。这里我们为了讨论方便，假设不进行低维到高维的映射，</p>
-<p>公式(3)可以写作：<br>$$<br>\begin{cases}<br>        \xi_i\leq0~~~i&#x3D;1\cdots N\<br>        1+\xi_i-y_iW^T X_i-y_ib\leq0~~~i&#x3D;1\cdots N<br>    \end{cases}\tag{5}<br>$$<br>公式$(4)$就可以写成：<br>$$<br>\alpha_i[1+\xi_i-y_iW^T X_i-y_i b]&#x3D;0\<br>\beta_i \xi_i &#x3D; 0\Rightarrow (C-\alpha_i) \xi_i &#x3D; 0\tag{6}<br>$$<br>当$\alpha_i$取不同的值时我们可以得到以下三种不同的结果：<br>$$<br>{当\alpha_i &#x3D; 0时：\<br>因为\alpha_i &#x3D; 0，则C\xi_i &#x3D; 0，则\xi_i &#x3D; 0根据公式(5)有1+\xi_i-y_iW^T X_i-y_i b\leq0\<br>则<del>y_iW^T X_i+y_i b\ge 1\<br>~~\<br>当0 &lt; \alpha_i &lt; C时：\<br>因为C-\alpha_i \neq 0，则\xi_i &#x3D; 0，又\alpha_i \neq 0，则根据公式(6)有1-y_iW^T X_i-y_i b &#x3D; 0\<br>则</del>y_iW^T X_i+y_i b&#x3D; 1\<br>~~\<br>当\alpha_i &#x3D; C时，根据公式(6)有1+\xi_i-y_iW^T X_i-y_i b&#x3D;0，又根据公式(5)有\xi_i \leq 0\<br>则y_iW^T X_i+y_i b \leq 1}<br>$$<br>综上我们可以得到，当求得最佳$\alpha$时，所有样本必须满足：<br>$$<br>\begin{cases}<br>        \alpha_i &#x3D; 0，y_i f(X_i) \ge 1\<br>        0&lt; \alpha_i &lt;C，y_i f(X_i) &#x3D; 1 \<br>        \alpha_i &#x3D; C，y_i f(X_i) \leq 1<br>    \end{cases}\tag{7}<br>$$<br>那么如果我找到了一个$\alpha$，它除了满足公式$(1)$的限制条件，还满足公式(7)的条件，那么这个$\alpha$就是对偶问题的最优解。所以我们求解$\alpha$的思路就来了：先初始化一个$\alpha$，让它满足对偶问题的两个初始条件，即公式 $(1)$ 的条件，然后我们不断去优化它，使它确定的分离超平面满足公式$(7)$的条件，同时在优化的过程中始终使它满足对偶问题的两个初始条件，这样就可以找到最优解。</p>
+<p>我们知道SVM的对偶问题如下：</p>
+<script type="math/tex; mode=display">
+{最大化：\theta(\alpha,\beta)=\sum_{i=1}^N\alpha_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Ny_iy_j\alpha_i\alpha_j X_i^T X_j\\
+限制条件：\begin{cases}
+        0 \leq \alpha_i \leq C ~~~i=1\cdots N\\
+        \sum_{i=1}^N\alpha_i y_i=0~~~i=1\cdots N
+    \end{cases}\tag{1}
+}</script><p>这是一个二次规划问题，可以使用通用的二次规划算法来求解，然而，该问题的规模正比于训练样本数，这会在实际任务中造成很大的开销，而SMO算法就是利用问题本身的特性来避开这个障碍，从而高效求解这个问题。</p>
+<p>从公式$(1)$我们可以看出它只是$\alpha$的函数，我们的目的就是求出一个$\alpha$使公式$(1)$有最大值，同时满足下面的限制条件。假设我们找到了一个$\alpha =[\alpha_1,\alpha_2,\alpha_3\cdots\alpha_N]^T$，它就是上面的最优解，那么我们就可以利用KKT条件求解出原问题的最优解$(W,b)$，进而我们可以得到分离超平面：</p>
+<script type="math/tex; mode=display">
+f(X)=W^T X+b = \sum_{i=1}^N \alpha_i y_i X_i^T X +b\tag{2}</script><p>我们又知道原问题满足的限制条件为：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+        \xi_i\leq0~~~i=1\cdots N\\
+        1+\xi_i-y_iW^T\varphi(X_i)-y_ib\leq0~~~i=1\cdots N
+    \end{cases}\tag{3}</script><p>根据KKT条件我们可以知道：</p>
+<script type="math/tex; mode=display">
+\alpha_i[1+\xi_i-y_iW^T\varphi(X_i)-y_i b]=0\\
+\beta_i \xi_i = 0\Rightarrow (C-\alpha_i) \xi_i = 0\tag{4}</script><p>这个结果可以参考我上一篇博客：SVM算法理论推导。这里我们为了讨论方便，假设不进行低维到高维的映射，</p>
+<p>公式(3)可以写作：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+        \xi_i\leq0~~~i=1\cdots N\\
+        1+\xi_i-y_iW^T X_i-y_ib\leq0~~~i=1\cdots N
+    \end{cases}\tag{5}</script><p>公式$(4)$就可以写成：</p>
+<script type="math/tex; mode=display">
+\alpha_i[1+\xi_i-y_iW^T X_i-y_i b]=0\\
+\beta_i \xi_i = 0\Rightarrow (C-\alpha_i) \xi_i = 0\tag{6}</script><p>当$\alpha_i$取不同的值时我们可以得到以下三种不同的结果：</p>
+<script type="math/tex; mode=display">
+{当\alpha_i = 0时：\\
+因为\alpha_i = 0，则C\xi_i = 0，则\xi_i = 0根据公式(5)有1+\xi_i-y_iW^T X_i-y_i b\leq0\\
+则~y_iW^T X_i+y_i b\ge 1\\
+~~\\
+当0 < \alpha_i < C时：\\
+因为C-\alpha_i \neq 0，则\xi_i = 0，又\alpha_i \neq 0，则根据公式(6)有1-y_iW^T X_i-y_i b = 0\\
+则~y_iW^T X_i+y_i b= 1\\
+~~\\
+当\alpha_i = C时，根据公式(6)有1+\xi_i-y_iW^T X_i-y_i b=0，又根据公式(5)有\xi_i \leq 0\\
+则y_iW^T X_i+y_i b \leq 1}</script><p>综上我们可以得到，当求得最佳$\alpha$时，所有样本必须满足：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+        \alpha_i = 0，y_i f(X_i) \ge 1\\
+        0< \alpha_i <C，y_i f(X_i) = 1 \\
+        \alpha_i = C，y_i f(X_i) \leq 1
+    \end{cases}\tag{7}</script><p>那么如果我找到了一个$\alpha$，它除了满足公式$(1)$的限制条件，还满足公式(7)的条件，那么这个$\alpha$就是对偶问题的最优解。所以我们求解$\alpha$的思路就来了：先初始化一个$\alpha$，让它满足对偶问题的两个初始条件，即公式 $(1)$ 的条件，然后我们不断去优化它，使它确定的分离超平面满足公式$(7)$的条件，同时在优化的过程中始终使它满足对偶问题的两个初始条件，这样就可以找到最优解。</p>
 <p>$\alpha$的优化必须遵循两个原则：</p>
 <ul>
-<li>每次优化时，必须同时优化$\alpha$的两个分量，因为如果只优化一个分量的话，新的$\alpha$就不满足公式$(1)$中的限制条件的等式条件。原因：$\sum_{i&#x3D;1}^N\alpha_i y_i&#x3D;0$中$y_i$的取值只有正负1，所以如果只有一个$\alpha_i$变了的话，这个等式条件就不满足了。</li>
+<li>每次优化时，必须同时优化$\alpha$的两个分量，因为如果只优化一个分量的话，新的$\alpha$就不满足公式$(1)$中的限制条件的等式条件。原因：$\sum_{i=1}^N\alpha_i y_i=0$中$y_i$的取值只有正负1，所以如果只有一个$\alpha_i$变了的话，这个等式条件就不满足了。</li>
 <li>每次优化的两个变量应当是违反公式$(7)$条件比较多的。</li>
 </ul>
-<p>我们先选第一个分量，先从大于0小于C的分量中选择，实在没有选择时再从等于0和等于C的分量中选。我们选择两个分量，假设就是$\alpha_1、\alpha_2$，即$\alpha$的第一个和第二个分量，以方便后面讨论。此时我们可以将其余的分量看做固定的值。因为存在约束条件：<br>$$<br>\sum_{i&#x3D;1}^N\alpha_i y_i&#x3D;0<br>$$<br>所以如果我们确定了$\alpha_1$优化后的值，我们就可以通过此关系确定$\alpha_2$优化后的值。</p>
-<p>那么怎么知道$\alpha_1,\alpha_2$优化后，其违反公式$(7)$条件的程度变小了呢，这时我们来看一下对偶问题：<br>$$<br>{最大化：\theta(\alpha,\beta)&#x3D;\sum_{i&#x3D;1}^N\alpha_i-\frac{1}{2}\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^Ny_iy_j\alpha_i\alpha_j X_i^T X_j\<br>限制条件：\begin{cases}<br>        0 \leq \alpha_i \leq C ~~~i&#x3D;1\cdots N\<br>        \sum_{i&#x3D;1}^N\alpha_i y_i&#x3D;0~~~i&#x3D;1\cdots N<br>    \end{cases}\tag{8}<br>}<br>$$<br>虽然我们不知道怎么优化后使其违反公式$(7)$条件的程度变小，但是我们可以让它们优化后使目标函数的值变大，使目标函数值变大，肯定是朝着正确方向优化的，也肯定是朝着违反公式$(7)$程度变小的方向优化。这时对偶问题就变成了简单的二次函数优化问题，我们将$\alpha_1,\alpha_2$之外的变量看作常数，则公式$(8)$就可以化为：<br>$$<br>min<del>f(\alpha_1,\alpha_2)&#x3D;\alpha_1 + \alpha_2 + \sum_{i&#x3D;3}^N \alpha_i -\frac{1}{2}\alpha_1 y_1 y_1 \alpha_1 X_1^T X_1 -\frac{1}{2}\alpha_1 y_1 y_2 \alpha_2 X_1^T X_2\-\frac{1}{2}\alpha_1 \sum_{j&#x3D;3}^N y_1 y_j \alpha_j X_1^T X_j<br>-\frac{1}{2}y_2 y_1 \alpha_2 \alpha_1 X_2^T X_1 - \frac{1}{2}y_2 y_2 \alpha_2 \alpha_2 X_2^T X_2 \- \frac{1}{2} \alpha_2 \sum_{j&#x3D;3}^N y_2 y_j \alpha_j X_2^T X_j -\frac{1}{2}\sum_{i&#x3D;3}^N\sum_{j&#x3D;3}^Ny_iy_j\alpha_i\alpha_j X_i^T X_j\tag{9}<br>$$<br>通过合并同类项可得：<br>$$<br>min</del>f(\alpha_1,\alpha_2)&#x3D;(\alpha_1 + \alpha_2 -\frac{1}{2}\alpha_1 \sum_{j&#x3D;3}^N y_1 y_j \alpha_j X_1^T X_j- \frac{1}{2} \alpha_2 \sum_{j&#x3D;3}^N y_2 y_j \alpha_j X_2^T X_j)\<br>-\frac{1}{2}(\alpha_1 y_1 y_1 \alpha_1 X_1^T X_1)\<br>-\frac{1}{2}(\alpha_1 y_1 y_2 \alpha_2 X_1^T X_2 + y_2 y_1 \alpha_2 \alpha_1 X_2^T X_1)\<br>-\frac{1}{2}y_2 y_2 \alpha_2 \alpha_2 X_2^T X_2 \<br>+(\sum_{i&#x3D;3}^N \alpha_i -\frac{1}{2}\sum_{i&#x3D;3}^N\sum_{j&#x3D;3}^Ny_iy_j\alpha_i\alpha_j X_i^T X_j)\tag{10}<br>$$<br>这个时候我们就可以进一步将公式$(10)$化简：<br>$$<br>min~~f(\alpha_1,\alpha_2)&#x3D;K_1 \alpha_1 + K_2 \alpha_2 +A_1 \alpha_1^2 + A_2 \alpha_2^2 +B \alpha_1 \alpha_2 + D \tag{11}<br>$$<br>根据公式$(8)$中的限制条件，我们可以得到：<br>$$<br>\begin{cases}<br>        y_1 \alpha_1 + y_2 \alpha_2 &#x3D; -\sum_{i&#x3D;3}^N \alpha_i y_i &#x3D; K  \<br>        0 \leq \alpha_1 \leq C,0 \leq \alpha_2 \leq C<br>    \end{cases}\tag{12}<br>$$<br>这个时候问题就变得很简单了，假设$y_1 &#x3D; 1,y_2 &#x3D; 1$，则公式$(12)$的第一个限制条件就变成了：<br>$$<br>\alpha_1 + \alpha_2 &#x3D; K \tag{13}<br>$$<br>这时我们将:<br>$$<br>\alpha_1&#x3D;K-\alpha_2\tag{13-1}<br>$$<br>代入目标函数就可以得到关于 $\alpha_2$  的一元二次函数。对 $\alpha_2 $ 求导，同时令导数为零就可以求出 $\alpha_{2new}  $。观察限制条件，有：<br>$$<br>0 \leq K - \alpha_2 \leq C \tag{14}<br>$$<br>进而求得：<br>$$<br>K - C \leq \alpha_2 \leq K \tag{15}<br>$$<br>再加上原有的限制：<br>$$<br>0 \leq \alpha_2 \leq C \tag{16}<br>$$<br>可得：<br>$$<br>max(K -C ,0) \leq \alpha_2 \leq min (K,C) \tag{17}<br>$$<br>如果 $\alpha_{2new} $ 在这个范围内，那就使用这个求出$\alpha_{1new}$，完成一轮迭代。如果$\alpha_{2new}$不在这个范围内，进行截断，得到新的$\alpha_{2new}$，再求得$\alpha_{1new}$，此轮迭代照样结束。不断重复上述过程，直到$\alpha$的每一个分量都被优化完成，此时我们也就得到了最优的$\alpha$值。至于如何对$\alpha_{2new}$进行截断，以后再说。</p>
+<p>我们先选第一个分量，先从大于0小于C的分量中选择，实在没有选择时再从等于0和等于C的分量中选。我们选择两个分量，假设就是$\alpha_1、\alpha_2$，即$\alpha$的第一个和第二个分量，以方便后面讨论。此时我们可以将其余的分量看做固定的值。因为存在约束条件：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^N\alpha_i y_i=0</script><p>所以如果我们确定了$\alpha_1$优化后的值，我们就可以通过此关系确定$\alpha_2$优化后的值。</p>
+<p>那么怎么知道$\alpha_1,\alpha_2$优化后，其违反公式$(7)$条件的程度变小了呢，这时我们来看一下对偶问题：</p>
+<script type="math/tex; mode=display">
+{最大化：\theta(\alpha,\beta)=\sum_{i=1}^N\alpha_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Ny_iy_j\alpha_i\alpha_j X_i^T X_j\\
+限制条件：\begin{cases}
+        0 \leq \alpha_i \leq C ~~~i=1\cdots N\\
+        \sum_{i=1}^N\alpha_i y_i=0~~~i=1\cdots N
+    \end{cases}\tag{8}
+}</script><p>虽然我们不知道怎么优化后使其违反公式$(7)$条件的程度变小，但是我们可以让它们优化后使目标函数的值变大，使目标函数值变大，肯定是朝着正确方向优化的，也肯定是朝着违反公式$(7)$程度变小的方向优化。这时对偶问题就变成了简单的二次函数优化问题，我们将$\alpha_1,\alpha_2$之外的变量看作常数，则公式$(8)$就可以化为：</p>
+<script type="math/tex; mode=display">
+min~~f(\alpha_1,\alpha_2)=\alpha_1 + \alpha_2 + \sum_{i=3}^N \alpha_i -\frac{1}{2}\alpha_1 y_1 y_1 \alpha_1 X_1^T X_1 -\frac{1}{2}\alpha_1 y_1 y_2 \alpha_2 X_1^T X_2\\-\frac{1}{2}\alpha_1 \sum_{j=3}^N y_1 y_j \alpha_j X_1^T X_j
+-\frac{1}{2}y_2 y_1 \alpha_2 \alpha_1 X_2^T X_1 - \frac{1}{2}y_2 y_2 \alpha_2 \alpha_2 X_2^T X_2 \\- \frac{1}{2} \alpha_2 \sum_{j=3}^N y_2 y_j \alpha_j X_2^T X_j -\frac{1}{2}\sum_{i=3}^N\sum_{j=3}^Ny_iy_j\alpha_i\alpha_j X_i^T X_j\tag{9}</script><p>通过合并同类项可得：</p>
+<script type="math/tex; mode=display">
+min~~f(\alpha_1,\alpha_2)=(\alpha_1 + \alpha_2 -\frac{1}{2}\alpha_1 \sum_{j=3}^N y_1 y_j \alpha_j X_1^T X_j- \frac{1}{2} \alpha_2 \sum_{j=3}^N y_2 y_j \alpha_j X_2^T X_j)\\
+-\frac{1}{2}(\alpha_1 y_1 y_1 \alpha_1 X_1^T X_1)\\
+-\frac{1}{2}(\alpha_1 y_1 y_2 \alpha_2 X_1^T X_2 + y_2 y_1 \alpha_2 \alpha_1 X_2^T X_1)\\
+-\frac{1}{2}y_2 y_2 \alpha_2 \alpha_2 X_2^T X_2 \\
++(\sum_{i=3}^N \alpha_i -\frac{1}{2}\sum_{i=3}^N\sum_{j=3}^Ny_iy_j\alpha_i\alpha_j X_i^T X_j)\tag{10}</script><p>这个时候我们就可以进一步将公式$(10)$化简：</p>
+<script type="math/tex; mode=display">
+min~~f(\alpha_1,\alpha_2)=K_1 \alpha_1 + K_2 \alpha_2 +A_1 \alpha_1^2 + A_2 \alpha_2^2 +B \alpha_1 \alpha_2 + D \tag{11}</script><p>根据公式$(8)$中的限制条件，我们可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+        y_1 \alpha_1 + y_2 \alpha_2 = -\sum_{i=3}^N \alpha_i y_i = K  \\
+        0 \leq \alpha_1 \leq C,0 \leq \alpha_2 \leq C
+    \end{cases}\tag{12}</script><p>这个时候问题就变得很简单了，假设$y_1 = 1,y_2 = 1$，则公式$(12)$的第一个限制条件就变成了：</p>
+<script type="math/tex; mode=display">
+\alpha_1 + \alpha_2 = K \tag{13}</script><p>这时我们将:</p>
+<script type="math/tex; mode=display">
+\alpha_1=K-\alpha_2\tag{13-1}</script><p>代入目标函数就可以得到关于 $\alpha<em>2$  的一元二次函数。对 $\alpha_2 $ 求导，同时令导数为零就可以求出 $\alpha</em>{2new}  $。观察限制条件，有：</p>
+<script type="math/tex; mode=display">
+0 \leq K - \alpha_2 \leq C \tag{14}</script><p>进而求得：</p>
+<script type="math/tex; mode=display">
+K - C \leq \alpha_2 \leq K \tag{15}</script><p>再加上原有的限制：</p>
+<script type="math/tex; mode=display">
+0 \leq \alpha_2 \leq C \tag{16}</script><p>可得：</p>
+<script type="math/tex; mode=display">
+max(K -C ,0) \leq \alpha_2 \leq min (K,C) \tag{17}</script><p>如果 $\alpha<em>{2new} $ 在这个范围内，那就使用这个求出$\alpha</em>{1new}$，完成一轮迭代。如果$\alpha<em>{2new}$不在这个范围内，进行截断，得到新的$\alpha</em>{2new}$，再求得$\alpha<em>{1new}$，此轮迭代照样结束。不断重复上述过程，直到$\alpha$的每一个分量都被优化完成，此时我们也就得到了最优的$\alpha$值。至于如何对$\alpha</em>{2new}$进行截断，以后再说。</p>
 <p>这篇文章主要参考了下面这位大佬的博客，加上了一些自己的记录，以便随时翻阅，有错误的地方还请大家批评指正。</p>
 <p>参考博客链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39521554/article/details/80723770">https://blog.csdn.net/qq_39521554/article/details/80723770</a></p>
 
@@ -306,7 +385,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -648,5 +727,5 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 </html>
