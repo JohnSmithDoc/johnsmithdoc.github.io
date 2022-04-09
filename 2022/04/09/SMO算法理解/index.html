@@ -269,7 +269,7 @@ min~~f(\alpha_1,\alpha_2)=K_1 \alpha_1 + K_2 \alpha_2 +A_1 \alpha_1^2 + A_2 \alp
 <script type="math/tex; mode=display">
 \alpha_1 + \alpha_2 = K \tag{13}</script><p>这时我们将:</p>
 <script type="math/tex; mode=display">
-\alpha_1=K-\alpha_2\tag{13-1}</script><p>代入目标函数就可以得到关于 $\alpha<em>2$  的一元二次函数。对 $\alpha_2 $ 求导，同时令导数为零就可以求出 $\alpha</em>{2new}  $。观察限制条件，有：</p>
+\alpha_1=K-\alpha_2\tag{13-1}</script><p>代入目标函数就可以得到关于 <script type="math/tex">\alpha_2</script>  的一元二次函数。对 <script type="math/tex">\alpha_2</script> 求导，同时令导数为零就可以求出 <script type="math/tex">\alpha_{2new}</script>。观察限制条件，有：</p>
 <script type="math/tex; mode=display">
 0 \leq K - \alpha_2 \leq C \tag{14}</script><p>进而求得：</p>
 <script type="math/tex; mode=display">
@@ -277,7 +277,7 @@ K - C \leq \alpha_2 \leq K \tag{15}</script><p>再加上原有的限制：</p>
 <script type="math/tex; mode=display">
 0 \leq \alpha_2 \leq C \tag{16}</script><p>可得：</p>
 <script type="math/tex; mode=display">
-max(K -C ,0) \leq \alpha_2 \leq min (K,C) \tag{17}</script><p>如果 $\alpha<em>{2new} $ 在这个范围内，那就使用这个求出$\alpha</em>{1new}$，完成一轮迭代。如果$\alpha<em>{2new}$不在这个范围内，进行截断，得到新的$\alpha</em>{2new}$，再求得$\alpha<em>{1new}$，此轮迭代照样结束。不断重复上述过程，直到$\alpha$的每一个分量都被优化完成，此时我们也就得到了最优的$\alpha$值。至于如何对$\alpha</em>{2new}$进行截断，以后再说。</p>
+max(K -C ,0) \leq \alpha_2 \leq min (K,C) \tag{17}</script><p>如果 <script type="math/tex">\alpha_{2new}</script> 在这个范围内，那就使用这个求出<script type="math/tex">\alpha_{1new}</script>，完成一轮迭代。如果<script type="math/tex">\alpha_{2new}</script>不在这个范围内，进行截断，得到新的<script type="math/tex">\alpha_{2new}</script>，再求得<script type="math/tex">\alpha_{1new}</script>，此轮迭代照样结束。不断重复上述过程，直到<script type="math/tex">\alpha</script>的每一个分量都被优化完成，此时我们也就得到了最优的<script type="math/tex">\alpha</script>值。至于如何对<script type="math/tex">\alpha_{2new}</script>进行截断，以后再说。</p>
 <p>这篇文章主要参考了下面这位大佬的博客，加上了一些自己的记录，以便随时翻阅，有错误的地方还请大家批评指正。</p>
 <p>参考博客链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39521554/article/details/80723770">https://blog.csdn.net/qq_39521554/article/details/80723770</a></p>
 
@@ -568,6 +568,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">飞控</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
