@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
-  <title>Archives: 2022/4 | Hexo</title>
+  <title>PX4位置控制的姿态角限制实现 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/archives/2022/04/index.html">
+  <meta name="description" content="PX4中位置控制时的姿态角限制PX4中进行位置控制时，经过位置控制的PID计算，会得到在NED坐标系下的期望推力矢量，期望推力矢量最终会映射到期望姿态上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PX4位置控制的姿态角限制实现">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="PX4中位置控制时的姿态角限制PX4中进行位置控制时，经过位置控制的PID计算，会得到在NED坐标系下的期望推力矢量，期望推力矢量最终会映射到期望姿态上">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216142957661.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216152022132.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216153738863.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216160857743.png">
+<meta property="article:published_time" content="2022-04-10T15:04:58.687Z">
+<meta property="article:modified_time" content="2022-04-10T15:04:58.687Z">
 <meta property="article:author" content="东边有棵树">
+<meta property="article:tag" content="飞控">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://johnsmithdoc.github.io/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216142957661.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -167,36 +177,131 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-PX4位置控制的姿态角限制实现" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      PX4位置控制的姿态角限制实现
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
+
+        
+        <a href="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
   	<time datetime="2022-04-10T15:04:58.687Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/">PX4位置控制的姿态角限制实现</a>
-    </h1>
-  
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">595字</span>
+      </span>
+    </span>
 
-        <div class="article-info info-on-right">
-          
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">2分</span>
+      </span>
+    </span>
+</div>
+		  
+		  
+		
+      </header>
+	  
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="PX4中位置控制时的姿态角限制"><a href="#PX4中位置控制时的姿态角限制" class="headerlink" title="PX4中位置控制时的姿态角限制"></a>PX4中位置控制时的姿态角限制</h1><p>PX4中进行位置控制时，经过位置控制的PID计算，会得到在NED坐标系下的期望推力矢量，期望推力矢量最终会映射到期望姿态上</p>
+<span id="more"></span>
+<p>去，姿态角限制是在计算期望推力矢量时完成的，图中Zb和T的方向是相反的：<img src="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216142957661.png" class="" title="image-20211216142957661"></p>
+<p>其中针对姿态角限制的代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void limitTilt(Vector3f &amp;body_unit, const Vector3f &amp;world_unit, const float max_angle)</span><br><span class="line">&#123;</span><br><span class="line">	// determine tilt</span><br><span class="line">	const float dot_product_unit = body_unit.dot(world_unit);</span><br><span class="line">	float angle = acosf(dot_product_unit);</span><br><span class="line">	// limit tilt</span><br><span class="line">	angle = math::min(angle, max_angle);</span><br><span class="line">	Vector3f rejection = body_unit - (dot_product_unit * world_unit);</span><br><span class="line"></span><br><span class="line">	// corner case exactly parallel vectors</span><br><span class="line">	if (rejection.norm_squared() &lt; FLT_EPSILON) &#123;</span><br><span class="line">		rejection(0) = 1.f;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	body_unit = cosf(angle) * world_unit + sinf(angle) * rejection.unit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>px4中并没有分别对俯仰角和横滚角进行限制，而是限制了倾斜角<strong>tilt</strong>，即限制的是<strong>机体系Z轴和NED坐标系Z轴</strong>之间的夹角</p>
+<h2 id="限制过程"><a href="#限制过程" class="headerlink" title="限制过程"></a>限制过程</h2><p>经过位置控制PID计算会得到NED坐标系下3个轴的加速度设定值，同时假设垂向的加速度为1个g，以此来计算在该水平期望加速度下，<strong>负的总推力矢量（推力矢量在机体坐标系下总是和Z轴平行的）</strong>，单位化之后，在NED坐标系下的坐标，记改矢量为<script type="math/tex">body_z</script>：</p>
+<img src="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216152022132.png" class="" title="image-20211216152022132">
+<ol>
+<li><p>首先计算，当前水平推力设定下，需要的姿态角<strong>angle_raw</strong>，计算方式如下：</p>
+<script type="math/tex; mode=display">
+angle_{raw} = arccos(body_z .* [0,0,1]^T)</script></li>
+<li><p>当<script type="math/tex">angle_{raw}</script>大于我们设定的角度限制时，即<script type="math/tex">angle_{raw}>angle_{limit}</script>时，直接以<script type="math/tex">angle_{limit}</script>计算新的<strong>body_z</strong>：<img src="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216153738863.png" class="" title="image-20211216153738863"></p>
+<ol>
+<li><p>先计算一个向量<strong><script type="math/tex">rejection</script></strong>，计算方式如下：</p>
+<script type="math/tex; mode=display">
+rejection = body_z - (body_z * [0,0,1]^T)*[0,0,1]^T</script></li>
+<li><p>然后作特殊处理，当rejection模值特别小时，body_z和[0,0,1]，向量是平行的，同时当<strong>rejection</strong>模式很小时，需要作特殊处理，因为之后会用到<strong>rejection</strong>的单位向量<strong>rejection.unit</strong>，若不作处理在计算<strong>rejection</strong>的单位向量<strong>rejection.unit</strong>时可能会出现除零的情况，处理如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// corner case exactly parallel vectors</span><br><span class="line">	if (rejection.norm_squared() &lt; FLT_EPSILON) &#123;</span><br><span class="line">		rejection(0) = 1.f;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>根据限制的倾角，反算新的body_z，即body_z_limit：<img src="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/image-20211216160857743.png" class="" title="image-20211216160857743"></p>
+<ol>
+<li><p>首先计算向量A：</p>
+<script type="math/tex; mode=display">
+A = cos(angle)*[0,0,1]^T</script></li>
+<li><p>然后计算向量B：</p>
+<script type="math/tex; mode=display">
+B=sin(angle)*rejection.unit</script></li>
+</ol>
+</li>
+<li><p>最后计算新的body_z即body_z_limit:</p>
+<script type="math/tex; mode=display">
+body_{zlimit} = A + B</script><p><strong>至此，期望的机体Z轴方向限制完成，间接限制了最终的姿态设定值</strong></p>
+</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -208,285 +313,120 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:35:44.858Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">固定翼路径跟踪L1制导律</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/">固定翼路径跟踪L1制导律</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PX4%E4%B8%AD%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E6%97%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">PX4中位置控制时的姿态角限制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%90%E5%88%B6%E8%BF%87%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">限制过程</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%85%B3%E7%B3%BB/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.775Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%85%B3%E7%B3%BB/">原问题与对偶问题的定义和关系</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.770Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/">SVM算法理论推导</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SVM%E5%A4%84%E7%90%86%E9%9D%9E%E7%BA%BF%E6%80%A7%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.768Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SVM%E5%A4%84%E7%90%86%E9%9D%9E%E7%BA%BF%E6%80%A7%E9%97%AE%E9%A2%98/">SVM处理非线性问题理解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.766Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/">SMO算法理解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/LagrangeAndKKT/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.765Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/LagrangeAndKKT/">Lagrange And KKT</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/L1%E8%88%AA%E5%90%91%E8%A7%92%E9%80%9F%E7%8E%87%E8%AE%A1%E7%AE%97/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.763Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/L1%E8%88%AA%E5%90%91%E8%A7%92%E9%80%9F%E7%8E%87%E8%AE%A1%E7%AE%97/">L1航向角速率计算</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -509,8 +449,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
