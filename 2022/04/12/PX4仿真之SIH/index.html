@@ -390,25 +390,28 @@
   
 
   
-  <div id="gitment-ctn"></div> 
-<!-- <link rel="stylesheet" href="//johnsmithdoc.github.io/gitment/style/default.css">
-<script src="//johnsmithdoc.github.io/gitment/dist/gitment.browser.js"></script> -->
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
-<!-- <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script> -->
-<script>
-var gitment = new Gitment({
-  id: "http://johnsmithdoc.github.io/# http://example.com/2022/04/12/PX4%E4%BB%BF%E7%9C%9F%E4%B9%8BSIH/",
-  owner: 'JohnSmithDoc',
-  repo: 'johnsmithdoc.github.io',
-  oauth: {
-    client_id: '754b3bd9d09ffd71286e',
-    client_secret: '2897e76ff7aa974792ab27bc60d45c0f017fa51c',
-  },
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '754b3bd9d09ffd71286e',
+  	clientSecret: '2897e76ff7aa974792ab27bc60d45c0f017fa51c',
+  	repo: 'johnsmithdoc.github.io',
+  	owner: 'JohnSmithDoc',
+  	admin: ['johnsmithdoc.github.io'],
+  	id: 'Tue Apr 12 2022 22:22:41 GMT+0800',
+  	distractionFreeMode: 'true'
 })
-gitment.render('gitment-ctn')
+gitalk.render('gitalk-container') 
+}
 </script>
+
+  
+  
   
 
 

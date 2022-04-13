@@ -435,25 +435,28 @@ body_{zlimit} = A + B</script><p><strong>至此，期望的机体Z轴方向限�
   
 
   
-  <div id="gitment-ctn"></div> 
-<!-- <link rel="stylesheet" href="//johnsmithdoc.github.io/gitment/style/default.css">
-<script src="//johnsmithdoc.github.io/gitment/dist/gitment.browser.js"></script> -->
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
-<!-- <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script> -->
-<script>
-var gitment = new Gitment({
-  id: "http://johnsmithdoc.github.io/# http://example.com/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/",
-  owner: 'JohnSmithDoc',
-  repo: 'johnsmithdoc.github.io',
-  oauth: {
-    client_id: '754b3bd9d09ffd71286e',
-    client_secret: '2897e76ff7aa974792ab27bc60d45c0f017fa51c',
-  },
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '754b3bd9d09ffd71286e',
+  	clientSecret: '2897e76ff7aa974792ab27bc60d45c0f017fa51c',
+  	repo: 'johnsmithdoc.github.io',
+  	owner: 'JohnSmithDoc',
+  	admin: ['johnsmithdoc.github.io'],
+  	id: 'Sun Apr 10 2022 23:04:58 GMT+0800',
+  	distractionFreeMode: 'true'
 })
-gitment.render('gitment-ctn')
+gitalk.render('gitalk-container') 
+}
 </script>
+
+  
+  
   
 
 
