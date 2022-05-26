@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
-  <title>Archives: 2022/5 | Hexo</title>
+  <title>Airsim设置相关说明 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/archives/2022/05/index.html">
+  <meta name="description" content="只是记录官方文档，以便随时翻阅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Airsim设置相关说明">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2022/05/26/Airsim%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="只是记录官方文档，以便随时翻阅">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/05/26/Airsim%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/camera_noise_demo.png">
+<meta property="article:published_time" content="2022-05-26T09:21:22.782Z">
+<meta property="article:modified_time" content="2022-05-26T09:21:22.782Z">
 <meta property="article:author" content="东边有棵树">
+<meta property="article:tag" content="仿真">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://johnsmithdoc.github.io/2022/05/26/Airsim%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/camera_noise_demo.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -167,36 +174,214 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Airsim设置相关说明" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Airsim设置相关说明
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/05/26/Airsim%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/" class="archive-article-date">
+
+        
+        <a href="/2022/05/26/Airsim%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/" class="archive-article-date">
   	<time datetime="2022-05-26T09:21:22.782Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-26</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/05/26/Airsim%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/">Airsim设置相关说明</a>
-    </h1>
-  
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">4.3k字</span>
+      </span>
+    </span>
 
-        <div class="article-info info-on-right">
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">26分</span>
+      </span>
+    </span>
+</div>
+		  
+
+    
+        <span class="archive-article-date">
+          阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
           
+
+		
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>只是记录官方文档，以便随时翻阅</p>
+<span id="more"></span>
+<hr>
+<h1 id="AirSim-Settings"><a href="#AirSim-Settings" class="headerlink" title="AirSim Settings"></a>AirSim Settings</h1><h2 id="Where-are-Settings-Stored"><a href="#Where-are-Settings-Stored" class="headerlink" title="Where are Settings Stored?"></a>Where are Settings Stored?</h2><p>AirSim is searching for the settings definition in 4 different ways in the following order. The first match will be used:</p>
+<ol>
+<li>Looking at the (absolute) path specified by the <code>--settings</code> command line argument.<br>For example, in Windows: <code>AirSim.exe --settings &#39;C:\path\to\settings.json&#39;</code><br>In Linux <code>./Blocks.sh --settings &#39;/home/$USER/path/to/settings.json&#39;</code></li>
+<li>Looking for a json document passed as a command line argument by the <code>--settings</code> argument.<br>For example, in Windows: <code>AirSim.exe --settings &#39;&#123;&quot;foo&quot; : &quot;bar&quot;&#125;&#39;</code><br>In Linux <code>./Blocks.sh --settings &#39;&#123;&quot;foo&quot; : &quot;bar&quot;&#125;&#39;</code></li>
+<li>Looking in the folder of the executable for a file called <code>settings.json</code>.</li>
+<li>Looking in the users home folder for a file called <code>settings.json</code>. The AirSim subfolder is located at <code>Documents\AirSim</code> on Windows and <code>~/Documents/AirSim</code> on Linux systems.</li>
+</ol>
+<p>The file is in usual <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/JSON">json format</a>. On first startup AirSim would create <code>settings.json</code> file with no settings at the users home folder. To avoid problems, always use ASCII format to save json file.</p>
+<h2 id="How-to-Chose-Between-Car-and-Multirotor"><a href="#How-to-Chose-Between-Car-and-Multirotor" class="headerlink" title="How to Chose Between Car and Multirotor?"></a>How to Chose Between Car and Multirotor?</h2><p>The default is to use multirotor. To use car simple set <code>&quot;SimMode&quot;: &quot;Car&quot;</code> like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;SettingsVersion&quot;: 1.2,</span><br><span class="line">  &quot;SimMode&quot;: &quot;Car&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>To choose multirotor, set <code>&quot;SimMode&quot;: &quot;Multirotor&quot;</code>. If you want to prompt user to select vehicle type then use <code>&quot;SimMode&quot;: &quot;&quot;</code>.</p>
+<h2 id="Available-Settings-and-Their-Defaults"><a href="#Available-Settings-and-Their-Defaults" class="headerlink" title="Available Settings and Their Defaults"></a>Available Settings and Their Defaults</h2><p>Below are complete list of settings available along with their default values. If any of the settings is missing from json file, then default value is used. Some default values are simply specified as <code>&quot;&quot;</code> which means actual value may be chosen based on the vehicle you are using. For example, <code>ViewMode</code> setting has default value <code>&quot;&quot;</code> which translates to <code>&quot;FlyWithMe&quot;</code> for drones and <code>&quot;SpringArmChase&quot;</code> for cars.</p>
+<p><strong>WARNING:</strong> Do not copy paste all of below in your settings.json. We strongly recommend adding only those settings that you don’t want default values. Only required element is <code>&quot;SettingsVersion&quot;</code>.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;SimMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ClockType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ClockSpeed&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;LocalHostIp&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;RecordUIVisible&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;LogMessagesVisible&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ViewMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;RpcEnabled&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;EngineSound&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;PhysicsEngineName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;SpeedUnitFactor&quot;</span><span class="punctuation">:</span> <span class="number">1.0</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;SpeedUnitLabel&quot;</span><span class="punctuation">:</span> <span class="string">&quot;m/s&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Wind&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;X&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;Y&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;Z&quot;</span><span class="punctuation">:</span> <span class="number">0</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Recording&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;RecordOnMove&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;RecordInterval&quot;</span><span class="punctuation">:</span> <span class="number">0.05</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Cameras&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;PixelsAsFloat&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="attr">&quot;Compress&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span> <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;CameraDefaults&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;CaptureSettings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Width&quot;</span><span class="punctuation">:</span> <span class="number">256</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Height&quot;</span><span class="punctuation">:</span> <span class="number">144</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;FOV_Degrees&quot;</span><span class="punctuation">:</span> <span class="number">90</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;AutoExposureSpeed&quot;</span><span class="punctuation">:</span> <span class="number">100</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;AutoExposureBias&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;AutoExposureMaxBrightness&quot;</span><span class="punctuation">:</span> <span class="number">0.64</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;AutoExposureMinBrightness&quot;</span><span class="punctuation">:</span> <span class="number">0.03</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;MotionBlurAmount&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;TargetGamma&quot;</span><span class="punctuation">:</span> <span class="number">1.0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;ProjectionMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;OrthoWidth&quot;</span><span class="punctuation">:</span> <span class="number">5.12</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;NoiseSettings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Enabled&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;RandContrib&quot;</span><span class="punctuation">:</span> <span class="number">0.2</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;RandSpeed&quot;</span><span class="punctuation">:</span> <span class="number">100000.0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;RandSize&quot;</span><span class="punctuation">:</span> <span class="number">500.0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;RandDensity&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;HorzWaveContrib&quot;</span><span class="punctuation">:</span><span class="number">0.03</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;HorzWaveStrength&quot;</span><span class="punctuation">:</span> <span class="number">0.08</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;HorzWaveVertSize&quot;</span><span class="punctuation">:</span> <span class="number">1.0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;HorzWaveScreenSize&quot;</span><span class="punctuation">:</span> <span class="number">1.0</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;HorzNoiseLinesContrib&quot;</span><span class="punctuation">:</span> <span class="number">1.0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;HorzNoiseLinesDensityY&quot;</span><span class="punctuation">:</span> <span class="number">0.01</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;HorzNoiseLinesDensityXY&quot;</span><span class="punctuation">:</span> <span class="number">0.5</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;HorzDistortionContrib&quot;</span><span class="punctuation">:</span> <span class="number">1.0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;HorzDistortionStrength&quot;</span><span class="punctuation">:</span> <span class="number">0.002</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Gimbal&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Stabilization&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Pitch&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Roll&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Yaw&quot;</span><span class="punctuation">:</span> NaN</span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="attr">&quot;X&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Y&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Z&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Pitch&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Roll&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Yaw&quot;</span><span class="punctuation">:</span> NaN</span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;OriginGeopoint&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Latitude&quot;</span><span class="punctuation">:</span> <span class="number">47.641468</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Longitude&quot;</span><span class="punctuation">:</span> <span class="number">-122.140165</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Altitude&quot;</span><span class="punctuation">:</span> <span class="number">122</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;TimeOfDay&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Enabled&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;StartDateTime&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;CelestialClockSpeed&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;StartDateTimeDst&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;UpdateIntervalSecs&quot;</span><span class="punctuation">:</span> <span class="number">60</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;SubWindows&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span> <span class="attr">&quot;VehicleName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span> <span class="attr">&quot;VehicleName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;VehicleName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;SegmentationSettings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;InitMethod&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;MeshNamingMethod&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;OverrideExisting&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;PawnPaths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;BareboneCar&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;PawnBP&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Class&#x27;/AirSim/VehicleAdv/Vehicle/VehicleAdvPawn.VehicleAdvPawn_C&#x27;&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;DefaultCar&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;PawnBP&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Class&#x27;/AirSim/VehicleAdv/SUV/SuvCarPawn.SuvCarPawn_C&#x27;&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;DefaultQuadrotor&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;PawnBP&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Class&#x27;/AirSim/Blueprints/BP_FlyingPawn.BP_FlyingPawn_C&#x27;&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;DefaultComputerVision&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;PawnBP&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Class&#x27;/AirSim/Blueprints/BP_ComputerVisionPawn.BP_ComputerVisionPawn_C&#x27;&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Vehicles&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;SimpleFlight&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;VehicleType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SimpleFlight&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;DefaultVehicleState&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Armed&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AutoCreate&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;PawnPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;EnableCollisionPassthrogh&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;EnableCollisions&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AllowAPIAlways&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;RC&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;RemoteControlID&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;AllowAPIWhenDisconnected&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Cameras&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="comment">//same elements as CameraDefaults above, key as name</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;X&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Y&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Z&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Pitch&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Roll&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Yaw&quot;</span><span class="punctuation">:</span> NaN</span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;PhysXCar&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;VehicleType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PhysXCar&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;DefaultVehicleState&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AutoCreate&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;PawnPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;EnableCollisionPassthrogh&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;EnableCollisions&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;RC&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;RemoteControlID&quot;</span><span class="punctuation">:</span> <span class="number">-1</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Cameras&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;MyCamera1&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="comment">//same elements as elements inside CameraDefaults above</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;MyCamera2&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="comment">//same elements as elements inside CameraDefaults above</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;X&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Y&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Z&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Pitch&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Roll&quot;</span><span class="punctuation">:</span> NaN<span class="punctuation">,</span> <span class="attr">&quot;Yaw&quot;</span><span class="punctuation">:</span> NaN</span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="SimMode"><a href="#SimMode" class="headerlink" title="SimMode"></a>SimMode</h2><p>SimMode determines which simulation mode will be used. Below are currently supported values:</p>
+<ul>
+<li><code>&quot;&quot;</code>: prompt user to select vehicle type multirotor or car</li>
+<li><code>&quot;Multirotor&quot;</code>: Use multirotor simulation</li>
+<li><code>&quot;Car&quot;</code>: Use car simulation</li>
+<li><code>&quot;ComputerVision&quot;</code>: Use only camera, no vehicle or physics</li>
+</ul>
+<h2 id="ViewMode"><a href="#ViewMode" class="headerlink" title="ViewMode"></a>ViewMode</h2><p>The ViewMode determines which camera to use as default and how camera will follow the vehicle. For multirotors, the default ViewMode is <code>&quot;FlyWithMe&quot;</code> while for cars the default ViewMode is <code>&quot;SpringArmChase&quot;</code>.</p>
+<ul>
+<li><code>FlyWithMe</code>: Chase the vehicle from behind with 6 degrees of freedom</li>
+<li><code>GroundObserver</code>: Chase the vehicle from 6’ above the ground but with full freedom in XY plane.</li>
+<li><code>Fpv</code>: View the scene from front camera of vehicle</li>
+<li><code>Manual</code>: Don’t move camera automatically. Use arrow keys and ASWD keys for move camera manually.</li>
+<li><code>SpringArmChase</code>: Chase the vehicle with camera mounted on (invisible) arm that is attached to the vehicle via spring (so it has some latency in movement).</li>
+<li><code>NoDisplay</code>: This will freeze rendering for main screen however rendering for subwindows, recording and APIs remain active. This mode is useful to save resources in “headless” mode where you are only interested in getting images and don’t care about what gets rendered on main screen. This may also improve FPS for recording images.</li>
+</ul>
+<h2 id="TimeOfDay"><a href="#TimeOfDay" class="headerlink" title="TimeOfDay"></a>TimeOfDay</h2><p>This setting controls the position of Sun in the environment. By default <code>Enabled</code> is false which means Sun’s position is left at whatever was the default in the environment and it doesn’t change over the time. If <code>Enabled</code> is true then Sun position is computed using longitude, latitude and altitude specified in <code>OriginGeopoint</code> section for the date specified in <code>StartDateTime</code> in the string format as <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/io/manip/get_time">%Y-%m-%d %H:%M:%S</a>, for example, <code>2018-02-12 15:20:00</code>. If this string is empty then current date and time is used. If <code>StartDateTimeDst</code> is true then we adjust for day light savings time. The Sun’s position is then continuously updated at the interval specified in <code>UpdateIntervalSecs</code>. In some cases, it might be desirable to have celestial clock run faster or slower than simulation clock. This can be specified using <code>CelestialClockSpeed</code>, for example, value 100 means for every 1 second of simulation clock, Sun’s position is advanced by 100 seconds so Sun will move in sky much faster.</p>
+<p>Also see <a href="apis.md#time-of-day-api">Time of Day API</a>.</p>
+<h2 id="OriginGeopoint"><a href="#OriginGeopoint" class="headerlink" title="OriginGeopoint"></a>OriginGeopoint</h2><p>This setting specifies the latitude, longitude and altitude of the Player Start component placed in the Unreal environment. The vehicle’s home point is computed using this transformation. Note that all coordinates exposed via APIs are using NED system in SI units which means each vehicle starts at (0, 0, 0) in NED system. Time of Day settings are computed for geographical coordinates specified in <code>OriginGeopoint</code>.</p>
+<h2 id="SubWindows"><a href="#SubWindows" class="headerlink" title="SubWindows"></a>SubWindows</h2><p>This setting determines what is shown in each of 3 subwindows which are visible when you press 0,1,2 keys. The <code>WindowID</code> can be 0 to 2, <code>CameraName</code> is any <a href="image_apis.md#available_cameras">available camera</a> on the vehicle. <code>ImageType</code> integer value determines what kind of image gets shown according to <a href="image_apis.md#available-imagetype">ImageType enum</a>. <code>VehicleName</code> string allows you to specify the vehicle to use the camera from, used when multiple vehicles are specified in the settings. First vehicle’s camera will be used if there are any mistakes such as incorrect vehicle name, or only a single vehicle.</p>
+<p>For example, for a single car vehicle, below shows driver view, front bumper view and rear view as scene, depth and surface normals respectively.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;SubWindows&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;3&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">6</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;4&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<p>In case of multiple vehicles, different vehicles can be specified as follows-</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;SubWindows&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span> <span class="attr">&quot;VehicleName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Car1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span> <span class="attr">&quot;VehicleName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Car2&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;WindowID&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> <span class="attr">&quot;CameraName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;VehicleName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Car1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Visible&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<h2 id="Recording"><a href="#Recording" class="headerlink" title="Recording"></a>Recording</h2><p>The recording feature allows you to record data such as position, orientation, velocity along with the captured image at specified intervals. You can start recording by pressing red Record button on lower right or the R key. The data is stored in the <code>Documents\AirSim</code> folder, in a time stamped subfolder for each recording session, as tab separated file.</p>
+<ul>
+<li><code>RecordInterval</code>: specifies minimal interval in seconds between capturing two images.</li>
+<li><code>RecordOnMove</code>: specifies that do not record frame if there was vehicle’s position or orientation hasn’t changed.</li>
+<li><code>Cameras</code>: this element controls which cameras are used to capture images. By default scene image from camera 0 is recorded as compressed png format. This setting is json array so you can specify multiple cameras to capture images, each with potentially different <a href="settings.md#image-capture-settings">image types</a>. When PixelsAsFloat is true, image is saved as <a href="pfm.md">pfm</a> file instead of png file.</li>
+</ul>
+<h2 id="ClockSpeed"><a href="#ClockSpeed" class="headerlink" title="ClockSpeed"></a>ClockSpeed</h2><p>This setting allows you to set the speed of simulation clock with respect to wall clock. For example, value of 5.0 would mean simulation clock has 5 seconds elapsed when wall clock has 1 second elapsed (i.e. simulation is running faster). The value of 0.1 means that simulation clock is 10X slower than wall clock. The value of 1 means simulation is running in real time. It is important to realize that quality of simulation may decrease as the simulation clock runs faster. You might see artifacts like object moving past obstacles because collision is not detected. However slowing down simulation clock (i.e. values &lt; 1.0) generally improves the quality of simulation.</p>
+<h2 id="Segmentation-Settings"><a href="#Segmentation-Settings" class="headerlink" title="Segmentation Settings"></a>Segmentation Settings</h2><p>The <code>InitMethod</code> determines how object IDs are initialized at startup to generate <a href="image_apis.md#segmentation">segmentation</a>. The value “” or “CommonObjectsRandomIDs” (default) means assign random IDs to each object at startup. This will generate segmentation view with random colors assign to each object. The value “None” means don’t initialize object IDs. This will cause segmentation view to have single solid colors. This mode is useful if you plan to set up object IDs using <a href="image_apis.md#segmentation">APIs</a> and it can save lot of delay at startup for large environments like CityEnviron.</p>
+<p> If <code>OverrideExisting</code> is false then initialization does not alter non-zero object IDs already assigned otherwise it does.</p>
+<p> If <code>MeshNamingMethod</code> is “” or “OwnerName” then we use mesh’s owner name to generate random hash as object IDs. If it is “StaticMeshName” then we use static mesh’s name to generate random hash as object IDs. Note that it is not possible to tell individual instances of the same static mesh apart this way, but the names are often more intuitive.</p>
+<h2 id="Wind-Settings"><a href="#Wind-Settings" class="headerlink" title="Wind Settings"></a>Wind Settings</h2><p>This setting specifies the wind speed in World frame, in NED direction. Values are in m/s. By default, speed is 0, i.e. no wind.</p>
+<h2 id="Camera-Settings"><a href="#Camera-Settings" class="headerlink" title="Camera Settings"></a>Camera Settings</h2><p>The <code>CameraDefaults</code> element at root level specifies defaults used for all cameras. These defaults can be overridden for individual camera in <code>Cameras</code> element inside <code>Vehicles</code> as described later.</p>
+<h3 id="Note-on-ImageType-element"><a href="#Note-on-ImageType-element" class="headerlink" title="Note on ImageType element"></a>Note on ImageType element</h3><p>The <code>ImageType</code> element in JSON array determines which image type that settings applies to. The valid values are described in <a href="image_apis.md#available-imagetype">ImageType section</a>. In addition, we also support special value <code>ImageType: -1</code> to apply the settings to external camera (i.e. what you are looking at on the screen).</p>
+<p>For example, <code>CaptureSettings</code> element is json array so you can add settings for multiple image types easily.</p>
+<h3 id="CaptureSettings"><a href="#CaptureSettings" class="headerlink" title="CaptureSettings"></a>CaptureSettings</h3><p>The <code>CaptureSettings</code> determines how different image types such as scene, depth, disparity, surface normals and segmentation views are rendered. The Width, Height and FOV settings should be self explanatory. The AutoExposureSpeed decides how fast eye adaptation works. We set to generally high value such as 100 to avoid artifacts in image capture. Similarly we set MotionBlurAmount to 0 by default to avoid artifacts in ground truth images. The <code>ProjectionMode</code> decides the projection used by the capture camera and can take value “perspective” (default) or “orthographic”. If projection mode is “orthographic” then <code>OrthoWidth</code> determines width of projected area captured in meters.</p>
+<p>For explanation of other settings, please see <a target="_blank" rel="noopener" href="https://docs.unrealengine.com/latest/INT/Engine/Rendering/PostProcessEffects/AutomaticExposure/">this article</a>.</p>
+<h3 id="NoiseSettings"><a href="#NoiseSettings" class="headerlink" title="NoiseSettings"></a>NoiseSettings</h3><p>The <code>NoiseSettings</code> allows to add noise to the specified image type with a goal of simulating camera sensor noise, interference and other artifacts. By default no noise is added, i.e., <code>Enabled: false</code>. If you set <code>Enabled: true</code> then following different types of noise and interference artifacts are enabled, each can be further tuned using setting. The noise effects are implemented as shader created as post processing material in Unreal Engine called <a target="_blank" rel="noopener" href="https://github.com/Microsoft/AirSim/blob/master/Unreal/Plugins/AirSim/Content/HUDAssets/CameraSensorNoise.uasset">CameraSensorNoise</a>.</p>
+<p>Demo of camera noise and interference simulation:</p>
+<img src="/2022/05/26/Airsim%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/camera_noise_demo.png" class="" title="camera_noise_demo">
+<p>Link:<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1BeCEZmQyp0">AirSim Camera Noise and Interference Simulation - YouTube</a></p>
+<h4 id="Random-noise"><a href="#Random-noise" class="headerlink" title="Random noise"></a>Random noise</h4><p>This adds random noise blobs with following parameters.</p>
+<ul>
+<li><code>RandContrib</code>: This determines blend ratio of noise pixel with image pixel, 0 means no noise and 1 means only noise.</li>
+<li><code>RandSpeed</code>: This determines how fast noise fluctuates, 1 means no fluctuation and higher values like 1E6 means full fluctuation.</li>
+<li><code>RandSize</code>: This determines how coarse noise is, 1 means every pixel has its own noise while higher value means more than 1 pixels share same noise value.</li>
+<li><code>RandDensity</code>: This determines how many pixels out of total will have noise, 1 means all pixels while higher value means lesser number of pixels (exponentially).</li>
+</ul>
+<h4 id="Horizontal-bump-distortion"><a href="#Horizontal-bump-distortion" class="headerlink" title="Horizontal bump distortion"></a>Horizontal bump distortion</h4><p>This adds horizontal bumps / flickering / ghosting effect.</p>
+<ul>
+<li><code>HorzWaveContrib</code>: This determines blend ratio of noise pixel with image pixel, 0 means no noise and 1 means only noise.</li>
+<li><code>HorzWaveStrength</code>: This determines overall strength of the effect.</li>
+<li><code>HorzWaveVertSize</code>: This determines how many vertical pixels would be effected by the effect.</li>
+<li><code>HorzWaveScreenSize</code>: This determines how much of the screen is effected by the effect.</li>
+</ul>
+<h4 id="Horizontal-noise-lines"><a href="#Horizontal-noise-lines" class="headerlink" title="Horizontal noise lines"></a>Horizontal noise lines</h4><p>This adds regions of noise on horizontal lines.</p>
+<ul>
+<li><code>HorzNoiseLinesContrib</code>: This determines blend ratio of noise pixel with image pixel, 0 means no noise and 1 means only noise.</li>
+<li><code>HorzNoiseLinesDensityY</code>: This determines how many pixels in horizontal line gets affected.</li>
+<li><code>HorzNoiseLinesDensityXY</code>: This determines how many lines on screen gets affected.</li>
+</ul>
+<h4 id="Horizontal-line-distortion"><a href="#Horizontal-line-distortion" class="headerlink" title="Horizontal line distortion"></a>Horizontal line distortion</h4><p>This adds fluctuations on horizontal line.</p>
+<ul>
+<li><code>HorzDistortionContrib</code>: This determines blend ratio of noise pixel with image pixel, 0 means no noise and 1 means only noise.</li>
+<li><code>HorzDistortionStrength</code>: This determines how large is the distortion.</li>
+</ul>
+<h3 id="Gimbal"><a href="#Gimbal" class="headerlink" title="Gimbal"></a>Gimbal</h3><p>The <code>Gimbal</code> element allows to freeze camera orientation for pitch, roll and/or yaw. This setting is ignored unless <code>ImageType</code> is -1. The <code>Stabilization</code> is defaulted to 0 meaning no gimbal i.e. camera orientation changes with body orientation on all axis. The value of 1 means full stabilization. The value between 0 to 1 acts as a weight for fixed angles specified (in degrees, in world-frame) in <code>Pitch</code>, <code>Roll</code> and <code>Yaw</code> elements and orientation of the vehicle body. When any of the angles is omitted from json or set to NaN, that angle is not stabilized (i.e. it moves along with vehicle body).</p>
+<h2 id="Vehicles-Settings"><a href="#Vehicles-Settings" class="headerlink" title="Vehicles Settings"></a>Vehicles Settings</h2><p>Each simulation mode will go through the list of vehicles specified in this setting and create the ones that has <code>&quot;AutoCreate&quot;: true</code>. Each vehicle specified in this setting has key which becomes the name of the vehicle. If <code>&quot;Vehicles&quot;</code> element is missing then this list is populated with default car named “PhysXCar” and default multirotor named “SimpleFlight”.</p>
+<h3 id="Common-Vehicle-Setting"><a href="#Common-Vehicle-Setting" class="headerlink" title="Common Vehicle Setting"></a>Common Vehicle Setting</h3><ul>
+<li><code>VehicleType</code>: This could be any one of the following - <code>PhysXCar</code>, <code>SimpleFlight</code>, <code>PX4Multirotor</code>, <code>ComputerVision</code>, <code>ArduCopter</code> &amp; <code>ArduRover</code>. There is no default value therefore this element must be specified.</li>
+<li><code>PawnPath</code>: This allows to override the pawn blueprint to use for the vehicle. For example, you may create new pawn blueprint derived from ACarPawn for a warehouse robot in your own project outside the AirSim code and then specify its path here. See also <a href="#PawnPaths">PawnPaths</a>.</li>
+<li><code>DefaultVehicleState</code>: Possible value for multirotors is <code>Armed</code> or <code>Disarmed</code>.</li>
+<li><code>AutoCreate</code>: If true then this vehicle would be spawned (if supported by selected sim mode).</li>
+<li><code>RC</code>: This sub-element allows to specify which remote controller to use for vehicle using <code>RemoteControlID</code>. The value of -1 means use keyboard (not supported yet for multirotors). The value &gt;= 0 specifies one of many remote controllers connected to the system. The list of available RCs can be seen in Game Controllers panel in Windows, for example.</li>
+<li><code>X, Y, Z, Yaw, Roll, Pitch</code>: These elements allows you to specify the initial position and orientation of the vehicle. Position is in NED coordinates in SI units with origin set to Player Start location in Unreal environment. The orientation is specified in degrees.</li>
+<li><code>IsFpvVehicle</code>: This setting allows to specify which vehicle camera will follow and the view that will be shown when ViewMode is set to Fpv. By default, AirSim selects the first vehicle in settings as FPV vehicle.</li>
+<li><code>Sensors</code>: This element specifies the sensors associated with the vehicle, see <a href="sensors.md">Sensors page</a> for details.</li>
+<li><code>Cameras</code>: This element specifies camera settings for vehicle. The key in this element is name of the <a href="image_apis.md#available_cameras">available camera</a> and the value is same as <code>CameraDefaults</code> as described above. For example, to change FOV for the front center camera to 120 degrees, you can use this for <code>Vehicles</code> setting:</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Vehicles&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;FishEyeDrone&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;VehicleType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SimpleFlight&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Cameras&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;front-center&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;CaptureSettings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;ImageType&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;FOV_Degrees&quot;</span><span class="punctuation">:</span> <span class="number">120</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Using-PX4"><a href="#Using-PX4" class="headerlink" title="Using PX4"></a>Using PX4</h3><p>By default we use <a href="simple_flight.md">simple_flight</a> so you don’t have to do separate HITL or SITL setups. We also support <a href="px4_setup.md">“PX4”</a> for advanced users. To use PX4 with AirSim, you can use the following for <code>Vehicles</code> setting:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;Vehicles&quot;: &#123;</span><br><span class="line">    &quot;PX4&quot;: &#123;</span><br><span class="line">      &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Additional-PX4-Settings"><a href="#Additional-PX4-Settings" class="headerlink" title="Additional PX4 Settings"></a>Additional PX4 Settings</h4><p>The defaults for PX4 is to enable hardware-in-loop setup. There are various other settings available for PX4 as follows with their default values:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&quot;Vehicles&quot;: &#123;</span><br><span class="line">    &quot;PX4&quot;: &#123;</span><br><span class="line">      &quot;VehicleType&quot;: &quot;PX4Multirotor&quot;,</span><br><span class="line"></span><br><span class="line">      &quot;ControlIp&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">      &quot;ControlPort&quot;: 14580,</span><br><span class="line">      &quot;LogViewerHostIp&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">      &quot;LogViewerPort&quot;: 14388,</span><br><span class="line">      &quot;OffboardCompID&quot;: 1,</span><br><span class="line">      &quot;OffboardSysID&quot;: 134,</span><br><span class="line">      &quot;QgcHostIp&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">      &quot;QgcPort&quot;: 14550,</span><br><span class="line">      &quot;SerialBaudRate&quot;: 115200,</span><br><span class="line">      &quot;SerialPort&quot;: &quot;*&quot;,</span><br><span class="line">      &quot;SimCompID&quot;: 42,</span><br><span class="line">      &quot;SimSysID&quot;: 142,</span><br><span class="line">      &quot;TcpPort&quot;: 4560,</span><br><span class="line">      &quot;UdpIp&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">      &quot;UdpPort&quot;: 14560,</span><br><span class="line">      &quot;UseSerial&quot;: true,</span><br><span class="line">      &quot;UseTcp&quot;: false,</span><br><span class="line">      &quot;VehicleCompID&quot;: 1,</span><br><span class="line">      &quot;VehicleSysID&quot;: 135,</span><br><span class="line">      &quot;Model&quot;: &quot;Generic&quot;,</span><br><span class="line">      &quot;LocalHostIp&quot;: &quot;127.0.0.1&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>These settings define the MavLink SystemId and ComponentId for the Simulator (SimSysID, SimCompID), and for the vehicle (VehicleSysID, VehicleCompID)<br>and the node that allows remote control of the drone from another app this is called the offboard node (OffboardSysID, OffboardCompID).</p>
+<p>If you want the simulator to also talk to your ground control app (like QGroundControl) you can also set the UDP address for that in case you want to run<br>that on a different machine (QgcHostIp, QgcPort).  The default is local host so QGroundControl should “just work” if it is running on the same machine.</p>
+<p>You can connect the simulator to the LogViewer app, provided in this repo, by setting the UDP address for that (LogViewerHostIp, LogViewerPort).</p>
+<p>And for each flying drone added to the simulator there is a named block of additional settings.  In the above you see the default name “PX4”.   You can change this name from the Unreal Editor when you add a new BP_FlyingPawn asset.  You will see these properties grouped under the category “MavLink”. The MavLink node for this pawn can be remote over UDP or it can be connected to a local serial port.  If serial then set UseSerial to true, otherwise set UseSerial to false.  For serial connections you also need to set the appropriate SerialBaudRate.  The default of 115200 works with Pixhawk version 2 over USB.</p>
+<p>When communicating with the PX4 drone over serial port both the HIL<em>* messages and vehicle control messages share the same serial port.<br>When communicating over UDP or TCP PX4 requires two separate channels.  If UseTcp is false, then UdpIp, UdpPort are used to send HIL</em>* messages,<br>otherwise the TcpPort is used.  TCP support in PX4 was added in 1.9.2 with the <code>lockstep</code> feature because the guarantee of message delivery that<br>TCP provides is required for the proper functioning of lockstep.  AirSim becomes a TCP server in that case, and waits for a connection<br>from the PX4 app.  The second channel for controlling the vehicle is defined by (ControlIp, ControlPort) and is always a UDP channel.</p>
+<h3 id="Using-ArduPilot"><a href="#Using-ArduPilot" class="headerlink" title="Using ArduPilot"></a>Using ArduPilot</h3><p><a target="_blank" rel="noopener" href="https://ardupilot.org/">ArduPilot</a> Copter &amp; Rover vehicles are supported in latest AirSim master &amp; releases <code>v1.3.0</code> and later. For settings and how to use, please see <a target="_blank" rel="noopener" href="https://ardupilot.org/dev/docs/sitl-with-airsim.html">ArduPilot SITL with AirSim</a></p>
+<h2 id="Other-Settings"><a href="#Other-Settings" class="headerlink" title="Other Settings"></a>Other Settings</h2><h3 id="EngineSound"><a href="#EngineSound" class="headerlink" title="EngineSound"></a>EngineSound</h3><p>To turn off the engine sound use <a href="settings.md">setting</a> <code>&quot;EngineSound&quot;: false</code>. Currently this setting applies only to car.</p>
+<h3 id="PawnPaths"><a href="#PawnPaths" class="headerlink" title="PawnPaths"></a>PawnPaths</h3><p>This allows you to specify your own vehicle pawn blueprints, for example, you can replace the default car in AirSim with your own car. Your vehicle BP can reside in Content folder of your own Unreal project (i.e. outside of AirSim plugin folder). For example, if you have a car BP located in file <code>Content\MyCar\MySedanBP.uasset</code> in your project then you can set <code>&quot;DefaultCar&quot;: &#123;&quot;PawnBP&quot;:&quot;Class&#39;/Game/MyCar/MySedanBP.MySedanBP_C&#39;&quot;&#125;</code>. The <code>XYZ.XYZ_C</code> is a special notation required to specify class for BP <code>XYZ</code>. Please note that your BP must be derived from CarPawn class. By default this is not the case but you can re-parent the BP using the “Class Settings” button in toolbar in UE editor after you open the BP and then choosing “Car Pawn” for Parent Class settings in Class Options. It is also a good idea to disable “Auto Possess Player” and “Auto Possess AI” as well as set AI Controller Class to None in BP details. Please make sure your asset is included for cooking in packaging options if you are creating binary.</p>
+<h3 id="PhysicsEngineName"><a href="#PhysicsEngineName" class="headerlink" title="PhysicsEngineName"></a>PhysicsEngineName</h3><p>For cars, we support only PhysX for now (regardless of value in this setting). For multirotors, we support <code>&quot;FastPhysicsEngine&quot;</code> only.</p>
+<h3 id="LocalHostIp-Setting"><a href="#LocalHostIp-Setting" class="headerlink" title="LocalHostIp Setting"></a>LocalHostIp Setting</h3><p>Now when connecting to remote machines you may need to pick a specific Ethernet adapter to reach those machines, for example, it might be<br>over Ethernet or over Wi-Fi, or some other special virtual adapter or a VPN.  Your PC may have multiple networks, and those networks might not<br>be allowed to talk to each other, in which case the UDP messages from one network will not get through to the others.</p>
+<p>So the LocalHostIp allows you to configure how you are reaching those machines.  The default of 127.0.0.1 is not able to reach external machines,<br>this default is only used when everything you are talking to is contained on a single PC.</p>
+<h3 id="SpeedUnitFactor"><a href="#SpeedUnitFactor" class="headerlink" title="SpeedUnitFactor"></a>SpeedUnitFactor</h3><p>Unit conversion factor for speed related to <code>m/s</code>, default is 1. Used in conjunction with SpeedUnitLabel. This may be only used for display purposes for example on-display speed when car is being driven. For example, to get speed in <code>miles/hr</code> use factor 2.23694.</p>
+<h3 id="SpeedUnitLabel"><a href="#SpeedUnitLabel" class="headerlink" title="SpeedUnitLabel"></a>SpeedUnitLabel</h3><p>Unit label for speed, default is <code>m/s</code>.  Used in conjunction with SpeedUnitFactor.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -208,57 +393,143 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2022/05/26/Airsim%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E8%AF%B4%E6%98%8E/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2022-05-26T08:24:16.929Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Airsim仿真数据记录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/">Airsim仿真数据记录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">仿真</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AirSim-Settings"><span class="toc-number">1.</span> <span class="toc-text">AirSim Settings</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Where-are-Settings-Stored"><span class="toc-number">1.1.</span> <span class="toc-text">Where are Settings Stored?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-to-Chose-Between-Car-and-Multirotor"><span class="toc-number">1.2.</span> <span class="toc-text">How to Chose Between Car and Multirotor?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Available-Settings-and-Their-Defaults"><span class="toc-number">1.3.</span> <span class="toc-text">Available Settings and Their Defaults</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SimMode"><span class="toc-number">1.4.</span> <span class="toc-text">SimMode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ViewMode"><span class="toc-number">1.5.</span> <span class="toc-text">ViewMode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TimeOfDay"><span class="toc-number">1.6.</span> <span class="toc-text">TimeOfDay</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OriginGeopoint"><span class="toc-number">1.7.</span> <span class="toc-text">OriginGeopoint</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SubWindows"><span class="toc-number">1.8.</span> <span class="toc-text">SubWindows</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Recording"><span class="toc-number">1.9.</span> <span class="toc-text">Recording</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ClockSpeed"><span class="toc-number">1.10.</span> <span class="toc-text">ClockSpeed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Segmentation-Settings"><span class="toc-number">1.11.</span> <span class="toc-text">Segmentation Settings</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wind-Settings"><span class="toc-number">1.12.</span> <span class="toc-text">Wind Settings</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Camera-Settings"><span class="toc-number">1.13.</span> <span class="toc-text">Camera Settings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Note-on-ImageType-element"><span class="toc-number">1.13.1.</span> <span class="toc-text">Note on ImageType element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CaptureSettings"><span class="toc-number">1.13.2.</span> <span class="toc-text">CaptureSettings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NoiseSettings"><span class="toc-number">1.13.3.</span> <span class="toc-text">NoiseSettings</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Random-noise"><span class="toc-number">1.13.3.1.</span> <span class="toc-text">Random noise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Horizontal-bump-distortion"><span class="toc-number">1.13.3.2.</span> <span class="toc-text">Horizontal bump distortion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Horizontal-noise-lines"><span class="toc-number">1.13.3.3.</span> <span class="toc-text">Horizontal noise lines</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Horizontal-line-distortion"><span class="toc-number">1.13.3.4.</span> <span class="toc-text">Horizontal line distortion</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gimbal"><span class="toc-number">1.13.4.</span> <span class="toc-text">Gimbal</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vehicles-Settings"><span class="toc-number">1.14.</span> <span class="toc-text">Vehicles Settings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Vehicle-Setting"><span class="toc-number">1.14.1.</span> <span class="toc-text">Common Vehicle Setting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-PX4"><span class="toc-number">1.14.2.</span> <span class="toc-text">Using PX4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Additional-PX4-Settings"><span class="toc-number">1.14.2.1.</span> <span class="toc-text">Additional PX4 Settings</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-ArduPilot"><span class="toc-number">1.14.3.</span> <span class="toc-text">Using ArduPilot</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other-Settings"><span class="toc-number">1.15.</span> <span class="toc-text">Other Settings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#EngineSound"><span class="toc-number">1.15.1.</span> <span class="toc-text">EngineSound</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PawnPaths"><span class="toc-number">1.15.2.</span> <span class="toc-text">PawnPaths</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PhysicsEngineName"><span class="toc-number">1.15.3.</span> <span class="toc-text">PhysicsEngineName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalHostIp-Setting"><span class="toc-number">1.15.4.</span> <span class="toc-text">LocalHostIp Setting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpeedUnitFactor"><span class="toc-number">1.15.5.</span> <span class="toc-text">SpeedUnitFactor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpeedUnitLabel"><span class="toc-number">1.15.6.</span> <span class="toc-text">SpeedUnitLabel</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '754b3bd9d09ffd71286e',
+  	clientSecret: '2897e76ff7aa974792ab27bc60d45c0f017fa51c',
+  	repo: 'johnsmithdoc.github.io',
+  	owner: 'JohnSmithDoc',
+  	admin: ['JohnSmithDoc'],
+  	id: 'Thu May 26 2022 17:21:22 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
+  
+  
+  
+
 
 
           </div>
@@ -301,8 +572,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
