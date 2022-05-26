@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
-  <title>Archives | Hexo</title>
+  <title>Airsim仿真数据记录 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/archives/index.html">
+  <meta name="description" content="最近正在将VTOL的simulink模型生成的C代码移植到Airsim，在调试时发现需要获取一些比较关键的数据，所以查找了一下关于Airsim的数据记录，发现官方提供的数据记录很方便，所以在此记录下来如何添加自己想要记录的数据，以免以后遗忘。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Airsim仿真数据记录">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最近正在将VTOL的simulink模型生成的C代码移植到Airsim，在调试时发现需要获取一些比较关键的数据，所以查找了一下关于Airsim的数据记录，发现官方提供的数据记录很方便，所以在此记录下来如何添加自己想要记录的数据，以免以后遗忘。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526163948928.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526164341216.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526165148941.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526165630447.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526165831579.png">
+<meta property="article:published_time" content="2022-05-26T08:24:16.929Z">
+<meta property="article:modified_time" content="2022-05-26T08:24:16.929Z">
 <meta property="article:author" content="东边有棵树">
+<meta property="article:tag" content="仿真">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://johnsmithdoc.github.io/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526163948928.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -167,36 +178,111 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Airsim仿真数据记录" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2022-05-26T08:24:16.929Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/">Airsim仿真数据记录</a>
+    <h1 class="article-title" itemprop="name">
+      Airsim仿真数据记录
     </h1>
   
 
-        <div class="article-info info-on-right">
+        
+        <a href="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2022-05-26T08:24:16.929Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-26</time>
+</a>
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">565字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">2分</span>
+      </span>
+    </span>
+</div>
+		  
+
+    
+        <span class="archive-article-date">
+          阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
           
+
+		
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近正在将<strong>VTOL</strong>的<strong>simulink</strong>模型生成的<strong>C</strong>代码移植到<strong>Airsim</strong>，在调试时发现需要获取一些比较关键的数据，所以查找了一下关于<strong>Airsim</strong>的数据记录，发现官方提供的数据记录很方便，所以在此记录下来如何添加自己想要记录的数据，以免以后遗忘。</p>
+<span id="more"></span>
+<p>关于Airsim数据记录的一些讲解参考如下：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/kuvinxu/article/details/124457219?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-2-124457219-blog-122182289.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-2-124457219-blog-122182289.pc_relevant_default&amp;utm_relevant_index=5">(2条消息) AirSim(四）—- 数据记录篇： Recording 记录数据、图像捕捉、图像类型_致知在格物，物格而后知至的博客-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42704954/article/details/122182289?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3-122182289-blog-109190605.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-3-122182289-blog-109190605.pc_relevant_default&amp;utm_relevant_index=6">(2条消息) airsim机体坐标系下的机体速度的获取与recording函数修改_RL_FEIWU的博客-CSDN博客_airsim 坐标系</a></li>
+<li><a target="_blank" rel="noopener" href="https://microsoft.github.io/AirSim/modify_recording_data/">Modifying Recording Data - AirSim (microsoft.github.io)</a></li>
+</ul>
+<p>首先明确下数据记录的格式和位置，记录的数据以制表符Tab分隔的格式写入<strong><em>airsim_rec.txt</em></strong>文件，图像位于<strong><em>images</em>/</strong>文件夹中。整个文件夹默认存在于<strong>Documents</strong>文件夹中(或在设置中指定)，关于数据的记录设置，可以通过<strong>setting.jason</strong>文件进行设置，具体的设置可以参考<strong>Airsim</strong>源码提供的<strong>settings.md</strong>文档:Airsim仿真数据记录<img src="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526163948928.png" class="" title="image-20220526163948928"></p>
+<p>由于我希望记录的是<strong>.csv</strong>的数据，这样可以通过一些其他的工具直接查看，所以需要对官方原始的记录格式进行下修改，我们知道：数据在存储为<strong>txt</strong>文件中的时候，每一列数据用逗号隔开，每一行进行换行，直接将后缀名<strong>“txt”</strong>改为<strong>“csv”</strong>就可以得到对应的<strong>.csv</strong>文件，所以对数据记录处进行修改：<img src="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526164341216.png" class="" title="image-20220526164341216"></p>
+<p>这样修改之后，在运行的时候，通过按键盘上的<strong>R键</strong>或者点击<strong>Unreal</strong>窗口右下角的红色<strong>REC</strong>按钮可以开始和关闭数据记录，数据记录完成后，可以在<strong>Documents\Airsim</strong>中找到：<img src="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526165148941.png" class="" title="image-20220526165148941"></p>
+<p>打开看<strong>airsim_rec.txt</strong>文件，发现里面记录的数据的格式是我们想要的可以直接转换成<strong>.csv</strong>的格式：<img src="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526165630447.png" class="" title="image-20220526165630447"></p>
+<p>之后再把文件扩展名从<strong>.txt</strong>改为<strong>.csv</strong>即可，此时就可以得到<strong>.csv</strong>文件：<img src="/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/image-20220526165831579.png" class="" title="image-20220526165831579"></p>
+<p>之后就可以使用一些其他工具对数据进行查看和分析了。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -208,365 +294,143 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2022/05/26/Airsim%E4%BB%BF%E7%9C%9F%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/23/%E5%A4%A7%E5%AD%A6%E6%97%B6%E6%9C%9F%E7%9A%84%E4%BD%9C%E5%93%81/" class="archive-article-date">
-  	<time datetime="2022-04-23T09:22:29.389Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/23/%E5%A4%A7%E5%AD%A6%E6%97%B6%E6%9C%9F%E7%9A%84%E4%BD%9C%E5%93%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">大学时期的小制作</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/23/%E5%A4%A7%E5%AD%A6%E6%97%B6%E6%9C%9F%E7%9A%84%E4%BD%9C%E5%93%81/">大学时期的小制作</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/12/PX4%E4%BB%BF%E7%9C%9F%E4%B9%8BSIH/" class="archive-article-date">
-  	<time datetime="2022-04-12T14:22:41.571Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-12</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/12/PX4%E4%BB%BF%E7%9C%9F%E4%B9%8BSIH/">PX4仿真之SIH</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2022-04-10T15:04:58.687Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/">PX4位置控制的姿态角限制实现</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:35:44.858Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/">固定翼路径跟踪L1制导律</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%85%B3%E7%B3%BB/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.775Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '754b3bd9d09ffd71286e',
+  	clientSecret: '2897e76ff7aa974792ab27bc60d45c0f017fa51c',
+  	repo: 'johnsmithdoc.github.io',
+  	owner: 'JohnSmithDoc',
+  	admin: ['JohnSmithDoc'],
+  	id: 'Thu May 26 2022 16:24:16 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%85%B3%E7%B3%BB/">原问题与对偶问题的定义和关系</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.770Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/">SVM算法理论推导</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SVM%E5%A4%84%E7%90%86%E9%9D%9E%E7%BA%BF%E6%80%A7%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.768Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SVM%E5%A4%84%E7%90%86%E9%9D%9E%E7%BA%BF%E6%80%A7%E9%97%AE%E9%A2%98/">SVM处理非线性问题理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.766Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/">SMO算法理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/LagrangeAndKKT/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.765Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/LagrangeAndKKT/">Lagrange And KKT</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -609,8 +473,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
