@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
-  <title>Archives | Hexo</title>
+  <title>RNN前向传播与反向传播 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/archives/page/2/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="RNN前向传播与反向传播">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/RNNFB.jpeg">
+<meta property="article:published_time" content="2025-08-27T08:24:14.790Z">
+<meta property="article:modified_time" content="2025-08-27T08:24:14.790Z">
 <meta property="article:author" content="东边有棵树">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://johnsmithdoc.github.io/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/RNNFB.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -179,36 +184,238 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-RNN前向传播与反向传播" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RNN前向传播与反向传播
+    </h1>
+  
+
+        
+        <a href="/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" class="archive-article-date">
+  	<time datetime="2025-08-27T08:24:14.790Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-27</time>
+</a>
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">1.8k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">8分</span>
+      </span>
+    </span>
+</div>
+		  
+
     
+        <span class="archive-article-date">
+          阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+          
+
+		
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/RNNFB.jpeg" class="" title="RNNFB">
+<span id="more"></span>
+<h2 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h2><ol>
+<li>第一层<ol>
+<li>$ S_1 = tanh(Ux_1+WS_0+b_a) $</li>
+<li>$ y_1 = softmax(VS_1+b_y) $    </li>
+<li>$ L_1 = L(y_1) $</li>
+</ol>
+</li>
+<li>第二层<ol>
+<li>$ S_2 = tanh(Ux_2+WS_1+b_a) $</li>
+<li>$ y_2 = softmax(VS_2+b_y) $    </li>
+<li>$ L_2 = L(y_2) $</li>
+</ol>
+</li>
+<li>第三层<ol>
+<li>$ S_3 = tanh(Ux_3+WS_2+b_a) $</li>
+<li>$ y_3 = softmax(VS_3+b_y) $    </li>
+<li>$ L_3 = L(y_3) $</li>
+</ol>
+</li>
+<li>对于最终的损失函数，是每一层的损失函数相加即：<ol>
+<li>$ L = L_1 + L_2 + L_3 $</li>
+</ol>
+</li>
+<li><strong>注：U V W ba by参数是共享的</strong></li>
+</ol>
+<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><ol>
+<li><p>第三层</p>
+<ol>
+<li>$\begin{cases} \frac{\partial L}{\partial V} = \frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial V} \\ \frac{\partial L}{\partial b_y} = \frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial b_y} \end{cases}$</li>
+<li>$ \frac{\partial L}{\partial S_3} = \frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial S_3} $    </li>
+<li>$\begin{cases} \frac{\partial L}{\partial U} = \frac{\partial L}{\partial S_3} \frac{\partial S_3}{\partial U} \\<br>\frac{\partial L}{\partial W} = \frac{\partial L}{\partial S_3} \frac{\partial S_3}{\partial W} \\<br>\frac{\partial L}{\partial b_a} = \frac{\partial L}{\partial S_3} \frac{\partial S_3}{\partial b_a} \end{cases} $</li>
+</ol>
+</li>
+<li><p>第二层</p>
+<ol>
+<li><p>$\begin{cases} \frac{\partial L}{\partial V} = \frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial V} \\<br>\frac{\partial L}{\partial b_y} = \frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial b_y} \end{cases}$</p>
+</li>
+<li><p>对$ S_2 $的求导有些不同，因为它有2条路径可以到达损失函数 </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& S_2 \to y_2 \to L_2 \to L\\
+& \downarrow \\
+& S_3 \to y_3 \to L_3 \to L
+\end{aligned}</script><p><strong>因此，对</strong>$ S_2 $​<strong>的求导为：</strong></p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial S_2} = \frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2} +
+
+\frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial S_3} \frac{\partial S_3}{\partial S_2} \\
+
+=\frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2} +
+
+\frac{\partial L}{\partial S_3}  \frac{\partial S_3}{\partial S_2}</script></li>
+<li><p>$ \begin{cases}<br>\frac{\partial L}{\partial U} = \frac{\partial L}{\partial S_2} \frac{\partial S_2}{\partial U} \\<br>\frac{\partial L}{\partial W} = \frac{\partial L}{\partial S_2} \frac{\partial S_2}{\partial W} \\<br>\frac{\partial L}{\partial b_a} = \frac{\partial L}{\partial S_2} \frac{\partial S_2}{\partial b_a}<br>\end{cases}$</p>
+</li>
+</ol>
+</li>
+<li><p>第一层</p>
+<ol>
+<li>$ \begin{cases}<br>\frac{\partial L}{\partial V} = \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial V} \<br>\frac{\partial L}{\partial b_y} = \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial b_y}<br>\end{cases} $</li>
+<li><p>对$ S_1 $的求导有些不同，因为它有3条路径可以到达损失函数: <script type="math/tex">\begin{aligned}
+& S_1 \to y_1 \to L_1 \to L \\
+& \downarrow \\
+& S_2 \to y_2 \to L_2 \to L \\
+& \downarrow \\
+& S_3 \to y_3 \to L_3 \to L
+\end{aligned}</script>  <strong>因此对$ S_1 $的导数为:</strong></p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial S_1} = \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial S_1} +
+
+\frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2} \frac{\partial S_2}{\partial S_1} +
+
+\frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial S_3} \frac{\partial S_3}{\partial S_2} \frac{\partial S_2}{\partial S_1} \\
+
+= \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial S_1} +
+
+\frac{\partial S_2}{\partial S_1} (\frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2}  +  \frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial S_3} \frac{\partial S_3}{\partial S_2} ) \\
+
+= \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial S_1} +
+\frac{\partial S_2}{\partial S_1} (\frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2} +
+\frac{\partial L}{\partial S_3}  \frac{\partial S_3}{\partial S_2} ) \\
+
+= \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial S_1} +
+\frac{\partial S_2}{\partial S_1} (\frac{\partial L}{\partial S_2})</script></li>
+<li><p>对另外3个参数的求导：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\frac{\partial L}{\partial U} = \frac{\partial L}{\partial S_1} \frac{\partial S_1}{\partial U} \\
+\frac{\partial L}{\partial W} = \frac{\partial L}{\partial S_1} \frac{\partial S_1}{\partial W} \\ 
+\frac{\partial L}{\partial b_a} = \frac{\partial L}{\partial S_1} \frac{\partial S_1}{\partial b_a}
+\end{cases}</script></li>
+</ol>
+</li>
+</ol>
+<h2 id="简要总结"><a href="#简要总结" class="headerlink" title="简要总结"></a>简要总结</h2><ul>
+<li>我们看到 <strong>U V W ba by参数是共享的</strong>，那我们为什么在计算最终更新用的梯度时需要将计算的每一层的 <strong>U V W ba by 的梯度相加呢？</strong>可以这么理解：<ul>
+<li>最终的损失函数其实是每一层的损失函数求和的形式，如上述：$ L = L_1 + L_2 +L_3 $</li>
+<li>那么其实对于每一层，我们求每一层的损失函数相对于 <strong>U V W ba by </strong>的梯度，这是如果要求 <strong>总的损失函数L 相对于 U V W ba by 的梯度，直接将每一层的损失函数求出的相对于U V W ba by 的梯度相加即可</strong></li>
+<li><strong>由于总的函数相对于每一层的损失函数的导数都是1，所以我们可以直接将L相对于U V W ba by的梯度直接相加即可</strong></li>
+<li><strong>问题：</strong>如果我们更看重某一层的输出，比如最后一层的输出，<strong>是不是可以将最后一层的损失函数前乘以一个权重系数来使学习的结果在最后一层输出的更为准确一些</strong>，比如写成$ L = 0.1L_1 + 0.1 L_2 + 0.8 L_3 $</li>
+</ul>
+</li>
+<li>另一种理解：微分量线性叠加<ul>
+<li>假设 U V W ba by均是一个数值，他们构成了一个 5维的线性空间</li>
+<li>每一层的 δU δV δW δba δby 都会对总的L产生 δL的变化</li>
+<li>每一层的 δU δV δW δba δby可以看成一个线性空间的微小向量 [δU δV δW δba δby]</li>
+<li>那么所有层的影响即将每一个层的微小的向量加起来即可，这样就可以得到整个网络综合 U V W ba by在每一层的微小变化带来的对损失函数的影响</li>
+</ul>
+</li>
+<li><p>通用公式总结：</p>
+<ol>
+<li><script type="math/tex; mode=display">
+\frac{\partial L}{\partial V} = \sum_{n=1}^3 \frac{\partial L}{\partial L_i} \frac{\partial L_i}{\partial y_i} \frac{\partial y_i}{\partial V} \\
+\frac{\partial L}{\partial b_y} = \sum_{n=1}^3 \frac{\partial L}{\partial L_i} \frac{\partial L_i}{\partial y_i} \frac{\partial y_i}{\partial b_y}</script></li>
+<li><script type="math/tex; mode=display">
+\frac{\partial L}{\partial S_i} = 
+
+=\frac{\partial L}{\partial L_i} \frac{\partial L_i}{\partial y_i} \frac{\partial y_i}{\partial S_i} +
+
+\frac{\partial L}{\partial S_{i+1}}  \frac{\partial S_{i+1}}{\partial S_i}</script></li>
+<li><script type="math/tex; mode=display">
+ \frac{\partial L}{\partial U} = \sum_{n=1}^3 \frac{\partial L}{\partial S_i} \frac{\partial S_i}{\partial U} \\
+ \frac{\partial L}{\partial W} = \sum_{n=1}^3 \frac{\partial L}{\partial S_i} \frac{\partial S_i}{\partial W} \\ 
+ \frac{\partial L}{\partial b_a} = \sum_{n=1}^3 \frac{\partial L}{\partial S_i} \frac{\partial S_i}{\partial b_a}</script></li>
+</ol>
+</li>
+<li><p><strong>梯度消失和梯度爆炸</strong></p>
+<ol>
+<li>说明：我理解的梯度消失可能和以前我认为的不一样，因为从上面的公式总结来看，即使存在梯度累乘的情况，比如：对于第一层的W， <script type="math/tex">\frac {\partial S_i}{\partial W}</script>可以写为<script type="math/tex">\frac{\partial S_i}{\partial W} = \frac{\partial S_i}{\partial S_{i-1}} \frac{\partial S_{i-1}}{\partial S_{i-2}} \frac{\partial S_{i-2}}{\partial S_{i-3}} ... \frac{\partial S_2}{\partial S_1} \frac{\partial S_1}{\partial W}</script>但这只是整个<strong>K层网络求</strong> <script type="math/tex">\frac{\partial L}{\partial W} = \sum_{n=1}^K \frac{\partial L}{\partial S_i} \frac{\partial S_i}{\partial W} \\</script> 累加的一个项，靠后的网络仍然还是能够计算出梯度的，只是靠前的久远的网络无法对梯度更新作出贡献了，<strong>并不代表 U V W ba by不能更新（记住，这些参数是共享的）</strong>，只是最后学习出来，网络可能只学习了后面几层的时序关系，也即无法捕获时序序列较久远（靠前）的信息而已，但并不会导致最优化求解失败。</li>
+<li>梯度爆炸：因为每一层都对 <strong>U V W ba by</strong>有贡献，那么如果通过累乘传递到较前的网络就直接导致较前网络计算出的梯度变大，同时由于每一层都会对 <strong>U V W ba by</strong>有贡献，极端情况下，如果前面层的贡献已经无穷大了，那么整个网络在学习时更新 <strong>U V W ba by</strong>就会失败。</li>
+</ol>
+</li>
+</ul>
+<h2 id="CWeRG">Reference</h2>
+
+<ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/31842423">https://zhuanlan.zhihu.com/p/31842423</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/44163528">https://zhuanlan.zhihu.com/p/44163528</a></li>
+<li><a href="https://link.zhihu.com/?target=http%3A//proceedings.mlr.press/v28/pascanu13.pdf">https://link.zhihu.com/?target=http%3A//proceedings.mlr.press/v28/pascanu13.pdf</a></li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/23/%E5%A4%A7%E5%AD%A6%E6%97%B6%E6%9C%9F%E7%9A%84%E4%BD%9C%E5%93%81/" class="archive-article-date">
-  	<time datetime="2022-04-23T09:22:29.389Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/23/%E5%A4%A7%E5%AD%A6%E6%97%B6%E6%9C%9F%E7%9A%84%E4%BD%9C%E5%93%81/">大学时光</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -220,365 +427,143 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/12/PX4%E4%BB%BF%E7%9C%9F%E4%B9%8BSIH/" class="archive-article-date">
-  	<time datetime="2022-04-12T14:22:41.571Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-12</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2025/04/18/FasterRCNNArchitecture/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Faster R-CNN Architecture</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/12/PX4%E4%BB%BF%E7%9C%9F%E4%B9%8BSIH/">PX4仿真之SIH</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">1.</span> <span class="toc-text">前向传播</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">2.</span> <span class="toc-text">反向传播</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E8%A6%81%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">简要总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWeRG"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2022-04-10T15:04:58.687Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/10/PX4%E4%BD%8D%E7%BD%AE%E6%8E%A7%E5%88%B6%E7%9A%84%E5%A7%BF%E6%80%81%E8%A7%92%E9%99%90%E5%88%B6%E5%AE%9E%E7%8E%B0/">PX4位置控制的姿态角限制实现</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:35:44.858Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/%E5%9B%BA%E5%AE%9A%E7%BF%BC%E8%B7%AF%E5%BE%84%E8%B7%9F%E8%B8%AAL1%E5%88%B6%E5%AF%BC%E5%BE%8B/">固定翼路径跟踪L1制导律</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%85%B3%E7%B3%BB/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.775Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/%E5%8E%9F%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%85%B3%E7%B3%BB/">原问题与对偶问题的定义和关系</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.770Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '754b3bd9d09ffd71286e',
+  	clientSecret: '2897e76ff7aa974792ab27bc60d45c0f017fa51c',
+  	repo: 'johnsmithdoc.github.io',
+  	owner: 'JohnSmithDoc',
+  	admin: ['JohnSmithDoc'],
+  	id: 'Wed Aug 27 2025 16:24:14 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SVM%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/">SVM算法理论推导</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SVM%E5%A4%84%E7%90%86%E9%9D%9E%E7%BA%BF%E6%80%A7%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.768Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SVM%E5%A4%84%E7%90%86%E9%9D%9E%E7%BA%BF%E6%80%A7%E9%97%AE%E9%A2%98/">SVM处理非线性问题理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.766Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/SMO%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/">SMO算法理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/LagrangeAndKKT/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.765Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/LagrangeAndKKT/">Lagrange And KKT</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/L1%E8%88%AA%E5%90%91%E8%A7%92%E9%80%9F%E7%8E%87%E8%AE%A1%E7%AE%97/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:21:06.763Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/L1%E8%88%AA%E5%90%91%E8%A7%92%E9%80%9F%E7%8E%87%E8%AE%A1%E7%AE%97/">L1航向角速率计算</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -621,8 +606,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
