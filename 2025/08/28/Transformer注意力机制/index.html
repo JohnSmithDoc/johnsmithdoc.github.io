@@ -6,20 +6,77 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
-  <title>RNN前向传播与反向传播 | Hexo</title>
+  <title>Transformer注意力机制 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="RNN前向传播与反向传播">
-<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/index.html">
+  <meta name="description" content="注：整个理解基于以下视频，主要是记录一下视频的重点  【【官方双语】GPT是什么？直观解释Transformer | 深度学习第5章】 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV13z421U7cs&#x2F;?share_source&#x3D;copy_web&amp;vd_source&#x3D;2d06b9a293d399ed58c19e183f9d84da 【【官方双语】直观解释注意力机制，T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer注意力机制">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="注：整个理解基于以下视频，主要是记录一下视频的重点  【【官方双语】GPT是什么？直观解释Transformer | 深度学习第5章】 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV13z421U7cs&#x2F;?share_source&#x3D;copy_web&amp;vd_source&#x3D;2d06b9a293d399ed58c19e183f9d84da 【【官方双语】直观解释注意力机制，T">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/RNNFB.jpeg">
-<meta property="article:published_time" content="2025-08-27T08:24:14.790Z">
-<meta property="article:modified_time" content="2025-08-27T08:24:14.790Z">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1751962105496-3aa58606-196f-4aa1-9f44-0d38f35f8277.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1751963154038-03feebeb-25b1-46bf-aed5-d69c1a28eb8e.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752212301400-62432ce1-9e74-43cd-abbf-5af3847cd2c8.jpeg">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752212858986-bc01b704-0107-4873-ae55-d62cc726d486.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752213279696-60308266-d2af-461a-af05-6bd523acdbb9.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752213515351-565f0ddc-46f1-4d15-b05a-102fde576c9c.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752213753805-971df3b0-0235-41c7-8f4c-1078100825ff.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752214042898-29f1aa21-9928-48d5-94e3-fea11983309f.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752214125111-9cb9d4d6-2d28-463b-bb7f-03147270c1f2.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752215467961-3ea189e8-1dd8-4311-a35d-4357ff7692ef.jpeg">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752215800644-caddafab-25e8-482e-ad3e-b593d8f97fef.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752216552272-9c9c3dd1-50fe-40fe-a513-bf5ce6ccb329.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752216620501-a9845539-c546-47c0-926e-3c38dc4227da.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752216697647-8f1dc422-6d47-4c52-9609-cdfdef2f2eb4.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752299935081-eeac1701-226c-49dc-a54e-ab4f89786ed9.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752300781758-8b931ec5-c052-46c9-a2cb-8ff41edfb927.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752305172178-19b1befa-1cb3-482d-b8cb-850efb4fc14a.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752306812985-de35ffee-dcbe-458c-9d24-f15cf35b2f4b.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752307268536-dcf54c25-9d2c-44a2-8e12-c8363da6c983.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752307653246-597d8355-2357-4ecd-8d41-a1652cdc164b.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752307962326-5d1ffdee-5ef2-439d-b155-5ee79a670a5a.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752308864149-2e0d5e1f-01b5-4cb8-a872-eaf62c33f918.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752308939053-3481c52e-0500-45cb-9c1f-d3b0cd458b7d.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309164847-ba2d07ab-8e01-4ecb-adf8-cc2d28b726e1.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309418805-7efe1195-68c3-4979-9931-8ff23ae128c9.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309503433-9e799e27-cb71-4a83-80f4-3a0a7f801766.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309599711-570c019e-37da-419e-822e-ff6787ab66c6.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309675138-55abc249-826a-476c-8b8d-def365a5e376.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752310009900-2c6d7582-d743-4c91-a592-fecd34dceece.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752310685161-39c373d9-0b11-4df4-b1d7-a358950898d5.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752316875449-b97d2ba6-4850-436e-9a8f-3583ce8849b3.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752316911236-ef88d853-0276-48a7-9139-ae036619ce0f.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752317150270-b0b5e0c7-e58a-4ef0-8253-70212ed0bbb0.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752320366682-02536101-6959-4ddf-a799-dc1aad006502.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752320670822-5ac738b7-e495-4fbf-88ad-ab801fe23480.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752473623593-b40d06db-0981-4ab7-aeba-f29a89b38cb5.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474131311-f1f0ec83-a14d-4cdf-a8e9-2b3bef69ea5a.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474237661-1adbdfb2-b9b8-44a9-9d24-b31437b28016.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474370392-0ef12a0e-04c9-4161-ae28-be7514fa0a65.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474472986-5e4b97bd-a9b9-40ef-bfbb-e2c7eea8324b.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474587685-e99277fd-30a5-4df8-af5b-053789ef17c0.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474648361-77778ed7-1ac4-4d38-903c-676fba0b3887.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474897251-a83190c8-ea1d-40fa-8c9c-50fe5ee9d458.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752475067427-957f3265-859d-44dc-a0e4-75f6ca1c57a4.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752475157031-83f1d763-f426-47e3-b254-a03bbb8eacc2.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752475262003-44df7a7c-a146-4fcb-9b4f-3ed829e8aa2e.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/imagedone.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476097706-8204bdf5-f5c0-4fc6-a558-233ffad0a966.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476178675-5dae8f93-7d5b-4af1-a1b9-74a7f4df8d64.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476519917-63f44d68-5774-46b2-80bc-ca56c3536c81.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476802236-28d077ad-61ca-4c23-8632-e4c5215c4829.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476916794-82beb842-cb1f-4f13-b529-a7391503da6a.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752477220311-af5c82ef-bf4d-424e-bc89-448b8853b234.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752478380169-6b87dac3-e377-4bc9-950d-b3b3cade198b.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752478571701-2f72f0de-393c-47e3-a8f4-b5e25dd70dfc.png">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752478701984-eddcd2f0-9d32-4110-be90-61b6c3aff91b.png">
+<meta property="article:published_time" content="2025-08-28T02:29:39.538Z">
+<meta property="article:modified_time" content="2025-08-28T02:29:39.538Z">
 <meta property="article:author" content="东边有棵树">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://johnsmithdoc.github.io/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/RNNFB.jpeg">
+<meta name="twitter:image" content="http://johnsmithdoc.github.io/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1751962105496-3aa58606-196f-4aa1-9f44-0d38f35f8277.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -184,20 +241,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-RNN前向传播与反向传播" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Transformer注意力机制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      RNN前向传播与反向传播
+      Transformer注意力机制
     </h1>
   
 
         
-        <a href="/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" class="archive-article-date">
-  	<time datetime="2025-08-27T08:24:14.790Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-27</time>
+        <a href="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2025-08-28T02:29:39.538Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-28</time>
 </a>
         
           <div style="margin-top:10px;">
@@ -205,7 +262,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.8k字</span>
+        <span class="post-count">4.1k字</span>
       </span>
     </span>
 
@@ -214,7 +271,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">8分</span>
+        <span class="post-count">14分</span>
       </span>
     </span>
 </div>
@@ -231,146 +288,129 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/RNNFB.jpeg" class="" title="RNNFB">
+        <p>注：整个理解基于以下视频，主要是记录一下视频的重点</p>
+<ol>
+<li>【【官方双语】GPT是什么？直观解释Transformer | 深度学习第5章】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13z421U7cs/?share_source=copy_web&amp;vd_source=2d06b9a293d399ed58c19e183f9d84da">https://www.bilibili.com/video/BV13z421U7cs/?share_source=copy_web&amp;vd_source=2d06b9a293d399ed58c19e183f9d84da</a></li>
+<li>【【官方双语】直观解释注意力机制，Transformer的核心 | 【深度学习第6章】】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1TZ421j7Ke/?share_source=copy_web&amp;vd_source=2d06b9a293d399ed58c19e183f9d84da">https://www.bilibili.com/video/BV1TZ421j7Ke/?share_source=copy_web&amp;vd_source=2d06b9a293d399ed58c19e183f9d84da</a></li>
+</ol>
 <span id="more"></span>
-<h2 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h2><ol>
-<li>第一层<ol>
-<li>$ S_1 = tanh(Ux_1+WS_0+b_a) $</li>
-<li>$ y_1 = softmax(VS_1+b_y) $    </li>
-<li>$ L_1 = L(y_1) $</li>
-</ol>
-</li>
-<li>第二层<ol>
-<li>$ S_2 = tanh(Ux_2+WS_1+b_a) $</li>
-<li>$ y_2 = softmax(VS_2+b_y) $    </li>
-<li>$ L_2 = L(y_2) $</li>
-</ol>
-</li>
-<li>第三层<ol>
-<li>$ S_3 = tanh(Ux_3+WS_2+b_a) $</li>
-<li>$ y_3 = softmax(VS_3+b_y) $    </li>
-<li>$ L_3 = L(y_3) $</li>
-</ol>
-</li>
-<li>对于最终的损失函数，是每一层的损失函数相加即：<ol>
-<li>$ L = L_1 + L_2 + L_3 $</li>
-</ol>
-</li>
-<li><strong>注：U V W ba by参数是共享的</strong></li>
-</ol>
-<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><ol>
-<li><p>第三层</p>
+<p><h2 id="ucYU2">简介</h2><br>Transformer是一种特殊的神经网络，一种机器学习模型，也是现在大语言模型的核心技术之一。大预言模型所做的事就是给模型输入一段话，然后让模型预测下一个词的概率，<strong>如果我们想让文本生成下去，那么就把新预测的词加入上一段对话，然后再把最新的对话再次输入Transformer，这样就可以持续进行文本生成。</strong><img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1751962105496-3aa58606-196f-4aa1-9f44-0d38f35f8277.png" class="">但其实<strong>Transformer</strong>能做的有很多，比如语言翻译，文本转语音，语音转文本，文本转图像等。</p>
+<p><h2 id="kzBds">Transformer架构</h2></p>
+<p><h3 id="A6gJQ">输入</h3><br>输入的一段话被切分成小块，称为token，在文本中，token往往是单词或者单词片段或其他常见的字符组合<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1751963154038-03feebeb-25b1-46bf-aed5-d69c1a28eb8e.png" class="">为了更好的理解，我们就先粗略的认为这些token是一个个单词。模型有一个预设的词汇库，包含所有可能得单词。</p>
+<p><h4 id="xkuQ9">Embedding Matrix</h4><br>对Embedding matrix的描述可参考下图</p>
+<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752212301400-62432ce1-9e74-43cd-abbf-5af3847cd2c8.jpeg" class="">
+<p>整个文本预测的简单的流程如下：例如一个代表“国王”的词向量，会被网络中的各个模块来回拉扯，最终指向一个更细致的具体的方向，也就是上下文最终将这个单词拉扯到了他应有的意义的方向上。<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752212858986-bc01b704-0107-4873-ae55-d62cc726d486.png" class=""></p>
+<p>在第一步，即没有上下文的时候（类似于我们在chatGPT中新建对话），即根据输入文本创建向量组时，每个向量都是直接从嵌入矩阵（Embedding Matrix）中拉出来的，即最开始，每个向量只能编码单个单词的含义，没有上下文信息。而之后，流经这个网络，就能使这个词获得比单个词更丰富更具体的含义。<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752213279696-60308266-d2af-461a-af05-6bd523acdbb9.png" class=""></p>
+<p>这种网络一次只能处理特定数量的向量，称作上下文长度，<strong>例如GPT-3的上下文长度为2048</strong>，因此流经网络的数据有2048列，每列12000多维度<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752213515351-565f0ddc-46f1-4d15-b05a-102fde576c9c.png" class=""></p>
+<p>这个上下文长度，限制了Transformer在预测下一个单词时能结合的文本量。这也是问啥早期的GPT版本在进行长对话时有时总感觉它会忘记一些东西。</p>
+<p><h3 id="hX3f5">输出</h3><br>经过整个网络之后，输出是下一个<strong>可能token的概率分布</strong><img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752213753805-971df3b0-0235-41c7-8f4c-1078100825ff.png" class=""></p>
+<p>这涉及到两个步骤：</p>
 <ol>
-<li>$\begin{cases} \frac{\partial L}{\partial V} = \frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial V} \\ \frac{\partial L}{\partial b_y} = \frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial b_y} \end{cases}$</li>
-<li>$ \frac{\partial L}{\partial S_3} = \frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial S_3} $    </li>
-<li>$\begin{cases} \frac{\partial L}{\partial U} = \frac{\partial L}{\partial S_3} \frac{\partial S_3}{\partial U} \\<br>\frac{\partial L}{\partial W} = \frac{\partial L}{\partial S_3} \frac{\partial S_3}{\partial W} \\<br>\frac{\partial L}{\partial b_a} = \frac{\partial L}{\partial S_3} \frac{\partial S_3}{\partial b_a} \end{cases} $</li>
+<li>将上下文中的最后一个向量，通过一个矩阵（称之为<strong>“解嵌入矩阵Unembeding matrix”，记为Wu</strong>）映射到一个包含<strong>50000个值的列表中</strong>（对于chatGPT来说是50257），每个值对应词库里的一个token:<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752214042898-29f1aa21-9928-48d5-94e3-fea11983309f.png" class=""></li>
+<li><strong>对那50257个值使用softmax将其归一化为概率分布：</strong><img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752214125111-9cb9d4d6-2d28-463b-bb7f-03147270c1f2.png" class=""></li>
 </ol>
-</li>
-<li><p>第二层</p>
+<p>此时让我们想一下，只用最后一个嵌入来做预测，是不是有些奇怪？毕竟在最后一层中，还有成千上万的其他向量，都蕴含着丰富的上下文信息，他们中的任何一个都可以用来预测下一个token的概率，因为他们中的任何一个也已经结合了上下文信息。如果都用最后一个来做预测，那么<strong>直接使模型的最后的输出为一个列向量就好了</strong>，<strong>为啥还要有这么多输出，但我们只选取最后一列</strong>？解释如下：</p>
+<p><strong>在训练过程中，效率最高的方法是利用最终层的每一个向量同时对紧随着这个向量的词进行预测（具体细节暂不列出）</strong></p>
+<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752215467961-3ea189e8-1dd8-4311-a35d-4357ff7692ef.jpeg" class="">
+<p><h4 id="QSOqg"><strong>Unembeding matrix</strong></h4><br><strong>解嵌入矩阵Wu</strong>和其他权重矩阵一样，它的初始值随机，将在训练过程中学习，Wu的维度很好确定，一共50257行，12288列，他和Embedding matrix类似，只是行列对调，所以参数一共有大约6.17亿个参数：<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752215800644-caddafab-25e8-482e-ad3e-b593d8f97fef.png" class=""></p>
+<p>注：softmax归一化之前的原始的未归一化的输出，一般会被成为<strong>logits</strong></p>
+<p><h4 id="AXp2x">Softmax函数小改动</h4><br>在某些情况下，例如chatGPT使用该分布生成下一词时，可以给这个函数加一些趣味性。给指数加个分母常量T，可以称之为“温度”：<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752216552272-9c9c3dd1-50fe-40fe-a513-bf5ce6ccb329.png" class=""></p>
 <ol>
-<li><p>$\begin{cases} \frac{\partial L}{\partial V} = \frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial V} \\<br>\frac{\partial L}{\partial b_y} = \frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial b_y} \end{cases}$</p>
-</li>
-<li><p>对$ S_2 $的求导有些不同，因为它有2条路径可以到达损失函数 </p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-& S_2 \to y_2 \to L_2 \to L\\
-& \downarrow \\
-& S_3 \to y_3 \to L_3 \to L
-\end{aligned}</script><p><strong>因此，对</strong>$ S_2 $​<strong>的求导为：</strong></p>
-<script type="math/tex; mode=display">
-\frac{\partial L}{\partial S_2} = \frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2} +
-
-\frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial S_3} \frac{\partial S_3}{\partial S_2} \\
-
-=\frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2} +
-
-\frac{\partial L}{\partial S_3}  \frac{\partial S_3}{\partial S_2}</script></li>
-<li><p>$ \begin{cases}<br>\frac{\partial L}{\partial U} = \frac{\partial L}{\partial S_2} \frac{\partial S_2}{\partial U} \\<br>\frac{\partial L}{\partial W} = \frac{\partial L}{\partial S_2} \frac{\partial S_2}{\partial W} \\<br>\frac{\partial L}{\partial b_a} = \frac{\partial L}{\partial S_2} \frac{\partial S_2}{\partial b_a}<br>\end{cases}$</p>
-</li>
+<li>T越大，会给低值赋予更多的权重，使得分布更均匀一些。这样可能会使得GPT生成的故事更新颖一些，不过有可能最后演变为无稽之谈<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752216620501-a9845539-c546-47c0-926e-3c38dc4227da.png" class=""></li>
+<li>T越小，较大的数值会更有优势。这会使GPT生成的故事更老套保守一些，但更不容易出现无稽之谈。<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752216697647-8f1dc422-6d47-4c52-9609-cdfdef2f2eb4.png" class=""></li>
 </ol>
-</li>
-<li><p>第一层</p>
+<p><h3 id="WX2Om">注意力机制</h3><br>在所有可能的嵌入向量构成的高维空间中，方向可能对应语义。以一个例子来说明注意力机制要实现的目标（这里仅仅是帮助形象的理解，实际机制是很难解释的）：</p>
 <ol>
-<li>$ \begin{cases}<br>\frac{\partial L}{\partial V} = \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial V} \<br>\frac{\partial L}{\partial b_y} = \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial b_y}<br>\end{cases} $</li>
-<li><p>对$ S_1 $的求导有些不同，因为它有3条路径可以到达损失函数: <script type="math/tex">\begin{aligned}
-& S_1 \to y_1 \to L_1 \to L \\
-& \downarrow \\
-& S_2 \to y_2 \to L_2 \to L \\
-& \downarrow \\
-& S_3 \to y_3 \to L_3 \to L
-\end{aligned}</script>  <strong>因此对$ S_1 $的导数为:</strong></p>
-<script type="math/tex; mode=display">
-\frac{\partial L}{\partial S_1} = \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial S_1} +
-
-\frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2} \frac{\partial S_2}{\partial S_1} +
-
-\frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial S_3} \frac{\partial S_3}{\partial S_2} \frac{\partial S_2}{\partial S_1} \\
-
-= \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial S_1} +
-
-\frac{\partial S_2}{\partial S_1} (\frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2}  +  \frac{\partial L}{\partial L_3} \frac{\partial L_3}{\partial y_3} \frac{\partial y_3}{\partial S_3} \frac{\partial S_3}{\partial S_2} ) \\
-
-= \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial S_1} +
-\frac{\partial S_2}{\partial S_1} (\frac{\partial L}{\partial L_2} \frac{\partial L_2}{\partial y_2} \frac{\partial y_2}{\partial S_2} +
-\frac{\partial L}{\partial S_3}  \frac{\partial S_3}{\partial S_2} ) \\
-
-= \frac{\partial L}{\partial L_1} \frac{\partial L_1}{\partial y_1} \frac{\partial y_1}{\partial S_1} +
-\frac{\partial S_2}{\partial S_1} (\frac{\partial L}{\partial S_2})</script></li>
-<li><p>对另外3个参数的求导：</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-\frac{\partial L}{\partial U} = \frac{\partial L}{\partial S_1} \frac{\partial S_1}{\partial U} \\
-\frac{\partial L}{\partial W} = \frac{\partial L}{\partial S_1} \frac{\partial S_1}{\partial W} \\ 
-\frac{\partial L}{\partial b_a} = \frac{\partial L}{\partial S_1} \frac{\partial S_1}{\partial b_a}
-\end{cases}</script></li>
+<li>考虑词“tower”的嵌入向量，也许是高维空间中某个很泛型，不具体的方向，也可以认为在高维空间中表示泛型的一个向量，和“高大的物体”一类名词相关联。总而言之，是个很泛型不具体的词</li>
+<li>如果这个词“tower”前面有一个词“Eiffel”，那应该有一个机制来更新这个“tower”向量，使更新后的向量更具体地指向 “埃菲尔铁塔”方向。</li>
+<li>如果词前面还有一个词 “Miniature”，那么嵌入的向量应该会被进一步更新，使其不再和高大的事物相关联，可能和“埃菲尔铁塔模型”或者“埃菲尔铁塔挂件之类”有关联</li>
+<li>图如下：<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752299935081-eeac1701-226c-49dc-a54e-ab4f89786ed9.png" class=""></li>
+<li>注意力模块不仅精细化了一个词的意义，还允许模型相互传递这些嵌入向量蕴含的信息，甚至可以传递的很远，即很远的上下文信息也可以相互传递<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752300781758-8b931ec5-c052-46c9-a2cb-8ff41edfb927.png" class=""></li>
 </ol>
-</li>
-</ol>
-<h2 id="简要总结"><a href="#简要总结" class="headerlink" title="简要总结"></a>简要总结</h2><ul>
-<li>我们看到 <strong>U V W ba by参数是共享的</strong>，那我们为什么在计算最终更新用的梯度时需要将计算的每一层的 <strong>U V W ba by 的梯度相加呢？</strong>可以这么理解：<ul>
-<li>最终的损失函数其实是每一层的损失函数求和的形式，如上述：$ L = L_1 + L_2 +L_3 $</li>
-<li>那么其实对于每一层，我们求每一层的损失函数相对于 <strong>U V W ba by </strong>的梯度，这是如果要求 <strong>总的损失函数L 相对于 U V W ba by 的梯度，直接将每一层的损失函数求出的相对于U V W ba by 的梯度相加即可</strong></li>
-<li><strong>由于总的函数相对于每一层的损失函数的导数都是1，所以我们可以直接将L相对于U V W ba by的梯度直接相加即可</strong></li>
-<li><strong>问题：</strong>如果我们更看重某一层的输出，比如最后一层的输出，<strong>是不是可以将最后一层的损失函数前乘以一个权重系数来使学习的结果在最后一层输出的更为准确一些</strong>，比如写成$ L = 0.1L_1 + 0.1 L_2 + 0.8 L_3 $</li>
-</ul>
-</li>
-<li>另一种理解：微分量线性叠加<ul>
-<li>假设 U V W ba by均是一个数值，他们构成了一个 5维的线性空间</li>
-<li>每一层的 δU δV δW δba δby 都会对总的L产生 δL的变化</li>
-<li>每一层的 δU δV δW δba δby可以看成一个线性空间的微小向量 [δU δV δW δba δby]</li>
-<li>那么所有层的影响即将每一个层的微小的向量加起来即可，这样就可以得到整个网络综合 U V W ba by在每一层的微小变化带来的对损失函数的影响</li>
-</ul>
-</li>
-<li><p>通用公式总结：</p>
+<p><h4 id="j7Xfd">Single head of attention</h4><br>以以下短语“<strong>a fluffy blue creature roamed the verdant forest</strong>”来说明和形象理解<strong>单头注意力机制</strong>，注意我们只关注“<strong>形容词调整对应名词的含义</strong>”这种类型的更新，以方便理解，实际注意力机制内部到底发生了什么是理解不了的，只是通过训练调整了大量的参数。需要再次注意两点：</p>
 <ol>
-<li><script type="math/tex; mode=display">
-\frac{\partial L}{\partial V} = \sum_{n=1}^3 \frac{\partial L}{\partial L_i} \frac{\partial L_i}{\partial y_i} \frac{\partial y_i}{\partial V} \\
-\frac{\partial L}{\partial b_y} = \sum_{n=1}^3 \frac{\partial L}{\partial L_i} \frac{\partial L_i}{\partial y_i} \frac{\partial y_i}{\partial b_y}</script></li>
-<li><script type="math/tex; mode=display">
-\frac{\partial L}{\partial S_i} = 
-
-=\frac{\partial L}{\partial L_i} \frac{\partial L_i}{\partial y_i} \frac{\partial y_i}{\partial S_i} +
-
-\frac{\partial L}{\partial S_{i+1}}  \frac{\partial S_{i+1}}{\partial S_i}</script></li>
-<li><script type="math/tex; mode=display">
- \frac{\partial L}{\partial U} = \sum_{n=1}^3 \frac{\partial L}{\partial S_i} \frac{\partial S_i}{\partial U} \\
- \frac{\partial L}{\partial W} = \sum_{n=1}^3 \frac{\partial L}{\partial S_i} \frac{\partial S_i}{\partial W} \\ 
- \frac{\partial L}{\partial b_a} = \sum_{n=1}^3 \frac{\partial L}{\partial S_i} \frac{\partial S_i}{\partial b_a}</script></li>
+<li>每个词的初始嵌入是一个高维向量，编码了改词的含义，和上下文没有关联</li>
+<li>向量还编码了词的位置信息（这里未详细说明，先跳过对这个的理解）</li>
+</ol>
+<p>所以最终的目标是经过一些列的计算，产生一组新的，更为精准的嵌入向量（比如经过形容词修饰的名词所对应的向量），如下图：</p>
+<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752305172178-19b1befa-1cb3-482d-b8cb-850efb4fc14a.png" class="">
+<p><h5 id="JZnHu">Q矩阵</h5></p>
+<ol>
+<li>每一个嵌入向量<strong>Ei</strong>，乘以一个<strong>WQ</strong>矩阵会得到一个<strong>Qi</strong>向量这个<strong>Qi</strong>向量仿佛在提出对应的问题（<strong>Query</strong>），比如我前面有形容词吗？<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752306812985-de35ffee-dcbe-458c-9d24-f15cf35b2f4b.png" class=""></li>
+<li>WQ的行为128行，列和Ei的维度相同，即12288，这样每一个Qi就是一个128维度的列向量但需注意，这里<strong>WQ才是带参数的矩阵，称为查询矩阵</strong>，在训练过程中会不断调整。</li>
+<li>为了方便理解，我们可以这么去认为：<ol>
+<li>这个查询矩阵WQ将“<strong>嵌入空间（12288维）</strong>”中的名词，映射到较小的“<strong>查询空间（128维）</strong>”中的<strong>某个方向，所有的Qi组成了Q矩阵</strong></li>
+<li><strong>这个方向</strong>（或者说向量）编码了“寻找前置形容词”的概念<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752307268536-dcf54c25-9d2c-44a2-8e12-c8363da6c983.png" class=""></li>
 </ol>
 </li>
-<li><p><strong>梯度消失和梯度爆炸</strong></p>
+</ol>
+<p><h5 id="Boi38">K矩阵</h5></p>
 <ol>
-<li>说明：我理解的梯度消失可能和以前我认为的不一样，因为从上面的公式总结来看，即使存在梯度累乘的情况，比如：对于第一层的W， <script type="math/tex">\frac {\partial S_i}{\partial W}</script>可以写为<script type="math/tex">\frac{\partial S_i}{\partial W} = \frac{\partial S_i}{\partial S_{i-1}} \frac{\partial S_{i-1}}{\partial S_{i-2}} \frac{\partial S_{i-2}}{\partial S_{i-3}} ... \frac{\partial S_2}{\partial S_1} \frac{\partial S_1}{\partial W}</script>但这只是整个<strong>K层网络求</strong> <script type="math/tex">\frac{\partial L}{\partial W} = \sum_{n=1}^K \frac{\partial L}{\partial S_i} \frac{\partial S_i}{\partial W} \\</script> 累加的一个项，靠后的网络仍然还是能够计算出梯度的，只是靠前的久远的网络无法对梯度更新作出贡献了，<strong>并不代表 U V W ba by不能更新（记住，这些参数是共享的）</strong>，只是最后学习出来，网络可能只学习了后面几层的时序关系，也即无法捕获时序序列较久远（靠前）的信息而已，但并不会导致最优化求解失败。</li>
-<li>梯度爆炸：因为每一层都对 <strong>U V W ba by</strong>有贡献，那么如果通过累乘传递到较前的网络就直接导致较前网络计算出的梯度变大，同时由于每一层都会对 <strong>U V W ba by</strong>有贡献，极端情况下，如果前面层的贡献已经无穷大了，那么整个网络在学习时更新 <strong>U V W ba by</strong>就会失败。</li>
+<li><strong>Wk</strong>也会可每一个嵌入向量<strong>Ei相乘，产生第二个向量序列Ki，成为键（keys），可以把“键”视为想要回答“查询”，所有的Ki组成了K矩阵</strong></li>
+<li><strong>Wk也是一个可调参数的矩阵，称为键矩阵</strong>会在训练过程中不停变化，和查询矩阵一样，他也会将嵌入向量映射到相同的低纬度空间（也是128维度）<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752307653246-597d8355-2357-4ecd-8d41-a1652cdc164b.png" class=""></li>
+<li>当“键”与“查询”的方向对齐时，就能认为他们相匹配。就本例而言，“键”矩阵会将形容词“fluffy毛茸茸的”和“blue蓝色”映射到与名词“creature生物”对应的查询向量Qi方向高度对齐的方向上。<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752307962326-5d1ffdee-5ef2-439d-b155-5ee79a670a5a.png" class=""></li>
+</ol>
+<p><h5 id="zGeRL">键-查询匹配程度</h5></p>
+<ol>
+<li>为了衡量每个“键”与每个“查询”匹配程度，计算所有可能的“键-查询”对之间的点积<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752308864149-2e0d5e1f-01b5-4cb8-a872-eaf62c33f918.png" class=""></li>
+<li>形象地用圆点来表示，圆点越大，点积就越大，“键”与“查询”就越对齐<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752308939053-3481c52e-0500-45cb-9c1f-d3b0cd458b7d.png" class=""></li>
+<li>对于这个例子来说，由“fluffy毛茸茸”和“blue蓝色”生成的键确实与“creature生物”产生的查询高度对齐。<strong>用机器学习的方式描述就是“fluffy毛茸茸的”和“blue蓝色”的嵌入注意到了“creature生物”的嵌入</strong><img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309164847-ba2d07ab-8e01-4ecb-adf8-cc2d28b726e1.png" class=""></li>
+<li>这样网格中的值可以是负无穷到正无穷的任何实数，这个值代表的是每个词与更新其他词含义有多相关，如果值小，意味着这个词对于更新其他词的含义相关性不大<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309418805-7efe1195-68c3-4979-9931-8ff23ae128c9.png" class=""></li>
+<li>对每一列使用Softmax进行归一化，<strong>注意这里是逐列计算Softmax</strong>  <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309503433-9e799e27-cb71-4a83-80f4-3a0a7f801766.png" class=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   这意味着此时就能将每一列看作<strong>权重</strong>，表示左侧的键与顶部的查询的相关程度  <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309599711-570c019e-37da-419e-822e-ff6787ab66c6.png" class="">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这个网格称之为注意力模式（attention pattern）<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752309675138-55abc249-826a-476c-8b8d-def365a5e376.png" class=""></li>
+<li>论文中的表达方式，dk是为了数值稳定性，这个后面再理解：<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752310009900-2c6d7582-d743-4c91-a592-fecd34dceece.png" class=""></li>
+</ol>
+<p><h5 id="Sijpg">训练过程</h5></p>
+<ol>
+<li>在训练过程中，效率比较高的方法是让模型<strong>同时预测每个初始token子序列之后所有可能的下一个token</strong>，这样一个样本就能提供多次训练机会 <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752310685161-39c373d9-0b11-4df4-b1d7-a358950898d5.png" class=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 但这意味着，对于注意力模式而言，不能让后词影响前词，不然会泄露之后的答案，这样就没法进行上述所说的训练了。这意味着我们要使注意力模式的左下方，这些代表着后方token影响前方token的地方能被强制变为0 <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752316875449-b97d2ba6-4850-436e-9a8f-3583ce8849b3.png" class="">方法就是先将他们都设为负无穷，然后经过softmax后，这些地方就变为0了。这一过程称之为<strong>“掩码”，当然，有些注意力机制，并不使用掩码</strong> <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752316911236-ef88d853-0276-48a7-9139-ae036619ce0f.png" class=""></li>
+<li>另一个注意的点是，注意力模式的大小，等于其上下文长度的平方。这也是为什么上下文长度会成为大语言模型的瓶颈。所以出现了许多的注意力机制变体，这里不介绍<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752317150270-b0b5e0c7-e58a-4ef0-8253-70212ed0bbb0.png" class=""></li>
+</ol>
+<p><h5 id="ii5IR">V矩阵</h5></p>
+<ol>
+<li>算出该模式，就能让模型推断出每个词与其他哪些词有关。然后要做的就是去更新嵌入向量，把各词的信息传递给与之相关的其他词<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752320366682-02536101-6959-4ddf-a799-dc1aad006502.png" class=""></li>
+<li>此时就要引入<strong>值权重矩阵Wv,</strong>用它乘以前面那个词的嵌入向量(如fluffy)得到值向量，这就是你要给后面的词嵌入(如creature)所加的向量。所以值向量与嵌入向量处于同一个高维空间。可以这样理解：<strong>如果这个词，需要调整目标词的含义，那么要反映这一点，得对目标词的嵌入，加上什么向量呢？</strong><img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752320670822-5ac738b7-e495-4fbf-88ad-ab801fe23480.png" class=""></li>
+<li>再次回到注意力模式网格，通过之前的Q K矩阵，我们已经计算出了各个单词之间的注意力模式，那么其实接下来需要的就是，利用<strong>Wv矩阵</strong>，计算出一系列<strong>值向量。这些值向量，</strong>可以想象成是与对应的键向量相关联。然后：<ol>
+<li>对每个值向量，乘上该列对应的权重，这里也好理解，因为权重越大意味着这两个词关联性越强。例如这里对于“creature生物”一词的嵌入，要加上“fluffy毛茸茸的”和“blue蓝色的”的值向量的大部分贡献。<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752473623593-b40d06db-0981-4ab7-aeba-f29a89b38cb5.png" class=""></li>
+<li>然后为了更新该列对应的嵌入向量，也就是一上来没有上下文含义的“creature生物”的词嵌入，将该列中所有带权值的值向量加和（加权和）得到想要引入的变化量δE，然后把这个δE加入到原始的嵌入向量上，预期得到一个更精准的向量，编码了更丰富的上下文信息<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474131311-f1f0ec83-a14d-4cdf-a8e9-2b3bef69ea5a.png" class=""></li>
+<li>当然不只是一列，而是对每一列都进行上述的操作，从而通过注意力模块，得到一系列更精准的嵌入向量<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474237661-1adbdfb2-b9b8-44a9-9d24-b31437b28016.png" class=""></li>
 </ol>
 </li>
-</ul>
-<h2 id="CWeRG">Reference</h2>
-
+</ol>
+<p><h5 id="PNMz2">小结</h5><br>上述整个过程就是单头注意力的过程，这个过程由三种充满了可调参数的矩阵实现，the key, the query, the value。<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474370392-0ef12a0e-04c9-4161-ae28-be7514fa0a65.png" class=""></p>
+<p>接下来稍稍计算一下整体参数量</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/31842423">https://zhuanlan.zhihu.com/p/31842423</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/44163528">https://zhuanlan.zhihu.com/p/44163528</a></li>
-<li><a href="https://link.zhihu.com/?target=http%3A//proceedings.mlr.press/v28/pascanu13.pdf">https://link.zhihu.com/?target=http%3A//proceedings.mlr.press/v28/pascanu13.pdf</a></li>
+<li>Key和Query矩阵均是128行，12288列，大约每一个150万个参数<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474472986-5e4b97bd-a9b9-40ef-bfbb-e2c7eea8324b.png" class=""></li>
+<li>对于值矩阵，因为其输出和输出都在嵌入空间，所以应当是一个12288的方阵 <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474587685-e99277fd-30a5-4df8-af5b-053789ef17c0.png" class=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如果真这样做，这意味着要增加约1.5亿个参数：<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474648361-77778ed7-1ac4-4d38-903c-676fba0b3887.png" class=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 但实际上更高效的做法是让<strong>值矩阵所需的参数量=键矩阵参数量+查询矩阵参数量，这对并行运行多个注意力头来说，至关重要。方法就是将值矩阵分解为两个小矩阵的乘积。但还是要把这两个整体看成一个映射矩阵，属于嵌入空间到嵌入空间的映射</strong> <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752474897251-a83190c8-ea1d-40fa-8c9c-50fe5ee9d458.png" class=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只是实践上分成两步：<ol>
+<li>右边第一个矩阵，可以看作是将较大的嵌入向量，降维到较小空间，非官方命名，临时叫作value down matrix<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752475067427-957f3265-859d-44dc-a0e4-75f6ca1c57a4.png" class=""></li>
+<li>左侧的第二个矩阵，则是从小空间映射回嵌入空间，非官方命名，叫作 value up matrix<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752475157031-83f1d763-f426-47e3-b254-a03bbb8eacc2.png" class=""></li>
+</ol>
+</li>
+<li>把他们加起来，一个注意力头（自注意力头）包含约630万个参数<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752475262003-44df7a7c-a146-4fcb-9b4f-3ed829e8aa2e.png" class=""></li>
+</ol>
+<p><h4 id="ZbTCR">Multi-headed attention</h4></p>
+<ol>
+<li>Transformer内<strong>完整的注意力模块（对于GPT，这个注意力模块也有多个!!!）</strong>，<strong>由多头注意力组成</strong>，大量并行的执行类似于单头注意力的操作。我们可以认为每一个单头注意力有不同的注意力模式。<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/imagedone.png" class=""></li>
+<li>96个注意力头，产生96个不同的注意力模式，<strong>每个注意力头都有独特的值矩阵，用来产生96个“值向量序列”</strong><img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476097706-8204bdf5-f5c0-4fc6-a558-233ffad0a966.png" class=""><ol>
+<li>全部都将以对应注意力模式作为权重，分别进行加权求和<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476178675-5dae8f93-7d5b-4af1-a1b9-74a7f4df8d64.png" class=""></li>
+<li>这意味着，对于上下文中的每个位置，也就是每个token，每个注意力头都会给出一个要加入到该位置嵌入向量的变化量，然后要做的就是把各个注意力头给出的变化量加起来，然后给该位置的初始嵌入加上这个加和  <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476519917-63f44d68-5774-46b2-80bc-ca56c3536c81.png" class=""> &nbsp;&nbsp;这个总和，就是多头注意力模块输出的一列。也即通过这个模块，能得到一个更精准的嵌入 <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476802236-28d077ad-61ca-4c23-8632-e4c5215c4829.png" class=""></li>
+</ol>
+</li>
+<li>整体可以这样去理解：<strong>通过并行多头运算，模型能学习到根据上下文来改变语义的多种方式</strong><img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752476916794-82beb842-cb1f-4f13-b529-a7391503da6a.png" class=""></li>
+<li>参数统计：<ol>
+<li><strong>每个多头注意力模块</strong>，<strong>最终会有大约6亿个参数（注意这里是每个多头注意力模块）</strong><img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752477220311-af5c82ef-bf4d-424e-bc89-448b8853b234.png" class=""></li>
+</ol>
+</li>
+</ol>
+<p><h3 id="J3Vai">GPT组成</h3></p>
+<ol>
+<li>对于GPT来说，有许多个Attention模块，每个Attention模块之间通过神经网络（多层感知层）连接<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752478380169-6b87dac3-e377-4bc9-950d-b3b3cade198b.png" class=""></li>
+<li>GPT-3包含了96个不同的层，所以 键、查询、值的参数总和，还得再乘以96，使得所有注意力头参数总和接近580亿个<img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752478571701-2f72f0de-393c-47e3-a8f4-b5e25dd70dfc.png" class=""></li>
+<li>580亿参数量很多，但也只占了整个网络参数量1750亿的大约三分之一，所以其实大量参数都来自于Attention模块之间的多层感知模块  <img src="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/1752478701984-eddcd2f0-9d32-4110-be90-61b6c3aff91b.png" class=""></li>
+<li>多层感知模块即神经网络的介绍此处不涉及</li>
+</ol>
+<p><h2 id="Pu6hK">参考</h2></p>
+<ol>
+<li>【【官方双语】GPT是什么？直观解释Transformer | 深度学习第5章】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13z421U7cs/?share_source=copy_web&amp;vd_source=2d06b9a293d399ed58c19e183f9d84da">https://www.bilibili.com/video/BV13z421U7cs/?share_source=copy_web&amp;vd_source=2d06b9a293d399ed58c19e183f9d84da</a></li>
+<li>【【官方双语】直观解释注意力机制，Transformer的核心 | 【深度学习第6章】】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1TZ421j7Ke/?share_source=copy_web&amp;vd_source=2d06b9a293d399ed58c19e183f9d84da">https://www.bilibili.com/video/BV1TZ421j7Ke/?share_source=copy_web&amp;vd_source=2d06b9a293d399ed58c19e183f9d84da</a></li>
 </ol>
 
       
@@ -477,7 +517,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -491,18 +531,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Transformer注意力机制
-        
-      </div>
-    </a>
   
-  
-    <a href="/2025/04/18/FasterRCNNArchitecture/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Faster R-CNN Architecture</div>
+    <a href="/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RNN前向传播与反向传播</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -529,7 +560,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">1.</span> <span class="toc-text">前向传播</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">2.</span> <span class="toc-text">反向传播</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E8%A6%81%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">简要总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWeRG"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ucYU2"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kzBds"><span class="toc-number">2.</span> <span class="toc-text">Transformer架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A6gJQ"><span class="toc-number">2.1.</span> <span class="toc-text">输入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#xkuQ9"><span class="toc-number">2.1.1.</span> <span class="toc-text">Embedding Matrix</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hX3f5"><span class="toc-number">2.2.</span> <span class="toc-text">输出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#QSOqg"><span class="toc-number">2.2.1.</span> <span class="toc-text">Unembeding matrix</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AXp2x"><span class="toc-number">2.2.2.</span> <span class="toc-text">Softmax函数小改动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WX2Om"><span class="toc-number">2.3.</span> <span class="toc-text">注意力机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#j7Xfd"><span class="toc-number">2.3.1.</span> <span class="toc-text">Single head of attention</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#JZnHu"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">Q矩阵</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Boi38"><span class="toc-number">2.3.1.2.</span> <span class="toc-text">K矩阵</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#zGeRL"><span class="toc-number">2.3.1.3.</span> <span class="toc-text">键-查询匹配程度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Sijpg"><span class="toc-number">2.3.1.4.</span> <span class="toc-text">训练过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ii5IR"><span class="toc-number">2.3.1.5.</span> <span class="toc-text">V矩阵</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PNMz2"><span class="toc-number">2.3.1.6.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ZbTCR"><span class="toc-number">2.3.2.</span> <span class="toc-text">Multi-headed attention</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#J3Vai"><span class="toc-number">2.4.</span> <span class="toc-text">GPT组成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pu6hK"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -562,7 +593,7 @@ if(true){
   	repo: 'johnsmithdoc.github.io',
   	owner: 'JohnSmithDoc',
   	admin: ['JohnSmithDoc'],
-  	id: 'Wed Aug 27 2025 16:24:14 GMT+0800',
+  	id: 'Thu Aug 28 2025 10:29:39 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
