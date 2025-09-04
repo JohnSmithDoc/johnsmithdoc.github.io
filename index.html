@@ -360,6 +360,118 @@
 
 
   
+    <article id="post-MPC模型预测控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/09/04/MPC%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6/">MPC模型预测控制</a>
+    </h1>
+  
+
+        
+        <a href="/2025/09/04/MPC%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2025-09-04T05:37:26.352Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-04</time>
+</a>
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.2k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">9分</span>
+      </span>
+    </span>
+</div>
+		  
+
+          
+
+		
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>最优控制：在约束条件下达到最优的系统表现</strong></p>
+<ul>
+<li>约束条件是比较确定的，比如物理限制</li>
+<li>最优的系统表现则是设计人员来确定的，比如自动驾驶中汽车转弯的快速性和舒适性，如何更好的达到两者的平衡</li>
+</ul>
+<p>对于一个多目标相互约束问题，比如汽车变道，一方面要求轨迹误差尽可能小，另一方面要求侧向控制输入尽可能小（为了舒适度）。在这种情况下，定义一个代价函数$J$​，该函数为误差和控制输入的加权线性组合，通过最小化这个代价函数来实现最优控制，通过调整加权值，可以调整我们更侧重于误差更小还是输入更小（即能耗更少或更舒适）：</p>
+<script type="math/tex; mode=display">
+J = \int_0^t q e^2 + r u^2 dt</script><p>其中，$u,e$分别表示控制输入和跟踪误差，$q,r$权重用于调整系统的整体表现，如果$q&gt;&gt;r$，说明我们更看重误差，如果$r&gt;&gt;q$，说明我们更看重输入。对于上面公式所表述的最优控制来说，我们就是希望求出控制输入$u$，使得代价函数最小。对于多输入多输出系统，上述可以写为矩阵形式：</p>
+<script type="math/tex; mode=display">
+J = \int_0^t E^T Q E + U^T R U dt</script>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/09/04/MPC%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-LSTM随记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1162,109 +1274,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/09/06/%E5%A4%9A%E6%97%8B%E7%BF%BC%E5%8A%A8%E5%8A%9B%E5%A4%B1%E6%95%88%E4%BF%9D%E6%8A%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-VTOL多旋翼模式下抗风优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/05/VTOL%E5%A4%9A%E6%97%8B%E7%BF%BC%E6%A8%A1%E5%BC%8F%E4%B8%8B%E6%8A%97%E9%A3%8E%E4%BC%98%E5%8C%96/">VTOL多旋翼模式下的抗风功能</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/05/VTOL%E5%A4%9A%E6%97%8B%E7%BF%BC%E6%A8%A1%E5%BC%8F%E4%B8%8B%E6%8A%97%E9%A3%8E%E4%BC%98%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2022-09-05T15:27:43.127Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-05</time>
-</a>
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">119字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		  
-
-          
-
-		
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>PX4自身所带的VTOL多旋翼下的抗风机制主要是通过<strong>尾推 + 风向标</strong>的模式，仿真测试发现效果还不错</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/05/VTOL%E5%A4%9A%E6%97%8B%E7%BF%BC%E6%A8%A1%E5%BC%8F%E4%B8%8B%E6%8A%97%E9%A3%8E%E4%BC%98%E5%8C%96/">展开全文 >></a>
         </p>
       
 
