@@ -249,9 +249,11 @@ J = \int_0^t E^T Q E + U^T R U dt</script><span id="more"></span>
 <ul>
 <li><p>Step1：估计/测量当前系统状态</p>
 </li>
-<li><p>Step2：基于$u<em>k,u</em>{k+1} … u_{k+N}$来进行优化，此时代价函数就可以写成下面的形式：</p>
+<li><p>Step2：基于<script type="math/tex">u_k,u_{k+1}...u_{k+N}</script>来进行优化，此时代价函数就可以写成下面的形式：</p>
 <script type="math/tex; mode=display">
-J = \sum_k^{N-1} E_k^T Q E_k + u_k^T R u_k + E_N^T F E_N</script><p>其中最后一个项 $E<em>N^T F E_N$表示的是预测区间最后一个时间点的误差的代价函数，即我们除了希望整体的误差小，当然也希望一系列控制输入之后，最后时刻的误差能够变为0。我们需要求出控制序列 $u_k, u</em>{k+1} … u_{k+N}$，来使上面的代价函数最小</p>
+J = \sum_k^{N-1} E_k^T Q E_k + u_k^T R u_k + E_N^T F E_N</script><ul>
+<li>其中最后一个项<script type="math/tex">E_N^TFE_N</script>表示的是预测区间最后一个时间点的误差的代价函数，即我们除了希望整体的误差小，当然也希望一系列控制输入之后，最后时刻的误差能够变为0。我们需要求出控制序列<script type="math/tex">u_k, u_{k+1} ... u_{k+N}</script>来使上面的代价函数最小。</li>
+</ul>
 </li>
 <li><p><strong>Step3：在 $k$时刻计算出来的最优化结果，在实施的时候只实施$u_k$这一步，而不是将所有控制序列依次实施，然后再重新求解。而是每次都实施最前面一个的控制序列，以新的时刻作为$k$时刻，再重复上述的计算，这个过程，叫作滚动优化控制</strong></p>
 </li>
