@@ -209,7 +209,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">747字</span>
+        <span class="post-count">921字</span>
       </span>
     </span>
 
@@ -218,7 +218,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">2分</span>
+        <span class="post-count">3分</span>
       </span>
     </span>
 </div>
@@ -253,6 +253,13 @@
 <li>一次 epoch 完成后，数据集会被重新随机划分为新的 Batch</li>
 <li>训练多个 epoch （也即我们使用数据集进行多次训练） 的目的是让模型不断地学习，提高性能，直到收敛到最佳性能或达到停止条件</li>
 </ul>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>使用batch进行梯度计算的时候这个梯度是怎么计算的呢？猜想如下：</p>
+<ul>
+<li>根据本次batch构建误差函数，那么就可以得到这个误差函数关于模型参数的函数</li>
+<li>根据上次batch计算出的梯度更新了模型参数，在上次更新的模型参数上，利用本次batch计算出的梯度再次更新模型参数，以便下次使用新的batch的时候使用</li>
+<li>重复上述两步直到一次epoch完成或者收敛或者达到停止条件</li>
+</ul>
+<p>具体正确的实现过程后续有精力了再仔细查找资料和验证。</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47872288/article/details/133925235">剖析深度学习中的epoch与batch_size关系、代码_batchsize和epoch关系-CSDN博客</a></p>
 </li>
@@ -407,7 +414,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LSTM%E7%9A%84%E9%9A%90%E8%97%8F%E8%BE%93%E5%87%BA%E7%BB%B4%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">LSTM的隐藏输出维度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSTM%E6%8C%89%E6%97%B6%E9%97%B4%E5%B1%95%E5%BC%80"><span class="toc-number">2.</span> <span class="toc-text">LSTM按时间展开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%9C%AF%E8%AF%AD"><span class="toc-number">3.</span> <span class="toc-text">训练术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch-Size%EF%BC%88%E6%89%B9%E5%A4%A7%E5%B0%8F%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">Batch Size（批大小）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Epoch%EF%BC%88%E5%91%A8%E6%9C%9F%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">Epoch（周期）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LSTM%E7%9A%84%E9%9A%90%E8%97%8F%E8%BE%93%E5%87%BA%E7%BB%B4%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">LSTM的隐藏输出维度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSTM%E6%8C%89%E6%97%B6%E9%97%B4%E5%B1%95%E5%BC%80"><span class="toc-number">2.</span> <span class="toc-text">LSTM按时间展开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%9C%AF%E8%AF%AD"><span class="toc-number">3.</span> <span class="toc-text">训练术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch-Size%EF%BC%88%E6%89%B9%E5%A4%A7%E5%B0%8F%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">Batch Size（批大小）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Epoch%EF%BC%88%E5%91%A8%E6%9C%9F%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">Epoch（周期）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
                     </div>
                 </span>
             </div>
