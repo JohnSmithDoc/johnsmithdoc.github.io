@@ -360,6 +360,111 @@
 
 
   
+    <article id="post-LSTM实践时几个术语理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/">LSTM实践时几个术语理解</a>
+    </h1>
+  
+
+        
+        <a href="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2025-09-12T04:59:05.674Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-12</time>
+</a>
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">747字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">2分</span>
+      </span>
+    </span>
+</div>
+		  
+
+          
+
+		
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>注：以下皆为个人理解，如有错误请大家指正</strong></p>
+<h2 id="LSTM的隐藏输出维度"><a href="#LSTM的隐藏输出维度" class="headerlink" title="LSTM的隐藏输出维度"></a>LSTM的隐藏输出维度</h2><p>在使用keras搭建多层LSTM神经网络的时候，有时会这么写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = Sequential()</span><br><span class="line">model.add(LSTM(128, input_dim=64, input_length=5, return_sequences=True))</span><br><span class="line">model.add(LSTM(256, return_sequences=False))</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-MPC模型预测控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1171,109 +1276,6 @@ J = \int_0^t E^T Q E + U^T R U dt</script><p><strong>注：后面我们仅基于
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/09/29/%E9%99%8D%E8%90%BD%E4%BC%9E%E8%87%AA%E4%B8%BB%E5%BC%80%E4%BC%9E%E6%B5%8B%E8%AF%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-多旋翼动力失效保护" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/06/%E5%A4%9A%E6%97%8B%E7%BF%BC%E5%8A%A8%E5%8A%9B%E5%A4%B1%E6%95%88%E4%BF%9D%E6%8A%A4/">多旋翼动力失效保护</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/06/%E5%A4%9A%E6%97%8B%E7%BF%BC%E5%8A%A8%E5%8A%9B%E5%A4%B1%E6%95%88%E4%BF%9D%E6%8A%A4/" class="archive-article-date">
-  	<time datetime="2022-09-06T13:38:12.499Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-06</time>
-</a>
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">67字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		  
-
-          
-
-		
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>多旋翼无人机飞行时，当出现一个电机失效的情况，无人机仍可飞行，仍具有有位置控制能力</strong><br>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/06/%E5%A4%9A%E6%97%8B%E7%BF%BC%E5%8A%A8%E5%8A%9B%E5%A4%B1%E6%95%88%E4%BF%9D%E6%8A%A4/">展开全文 >></a>
         </p>
       
 

@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
-  <title>Archives | Hexo</title>
+  <title>LSTM实践时几个术语理解 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/archives/index.html">
+  <meta name="description" content="注：以下皆为个人理解，如有错误请大家指正 LSTM的隐藏输出维度在使用keras搭建多层LSTM神经网络的时候，有时会这么写： 123model &#x3D; Sequential()model.add(LSTM(128, input_dim&#x3D;64, input_length&#x3D;5, return_sequences&#x3D;True))model.add(LSTM(256, return_sequences&#x3D;Fal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LSTM实践时几个术语理解">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="注：以下皆为个人理解，如有错误请大家指正 LSTM的隐藏输出维度在使用keras搭建多层LSTM神经网络的时候，有时会这么写： 123model &#x3D; Sequential()model.add(LSTM(128, input_dim&#x3D;64, input_length&#x3D;5, return_sequences&#x3D;True))model.add(LSTM(256, return_sequences&#x3D;Fal">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/lstmoutputdim.jpg">
+<meta property="og:image" content="http://johnsmithdoc.github.io/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/lstm_exspan_by_time.jpg">
+<meta property="article:published_time" content="2025-09-12T04:59:05.674Z">
+<meta property="article:modified_time" content="2025-09-12T04:59:05.674Z">
 <meta property="article:author" content="东边有棵树">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://johnsmithdoc.github.io/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/lstmoutputdim.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -180,416 +188,269 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-LSTM实践时几个术语理解" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      LSTM实践时几个术语理解
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2025" class="archive-year">2025</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/" class="archive-article-date">
+
+        
+        <a href="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/" class="archive-article-date">
   	<time datetime="2025-09-12T04:59:05.674Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-12</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/">LSTM实践时几个术语理解</a>
-    </h1>
-  
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">747字</span>
+      </span>
+    </span>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">2分</span>
+      </span>
+    </span>
+</div>
+		  
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/09/04/MPC%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2025-09-04T05:37:26.352Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/09/04/MPC%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6/">MPC模型预测控制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
+        <span class="archive-article-date">
+          阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
           
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+		
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/08/30/LSTM%E9%9A%8F%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2025-08-30T01:45:24.891Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/08/30/LSTM%E9%9A%8F%E8%AE%B0/">LSTM随记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/08/28/Resnet%E7%AE%80%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2025-08-28T09:56:21.880Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/08/28/Resnet%E7%AE%80%E8%AE%B0/">Resnet简记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2025-08-28T02:29:39.538Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/08/28/Transformer%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">Transformer注意力机制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" class="archive-article-date">
-  	<time datetime="2025-08-27T08:24:14.790Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/08/27/RNN%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/">RNN前向传播与反向传播</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/04/18/FasterRCNNArchitecture/" class="archive-article-date">
-  	<time datetime="2025-04-18T04:20:00.723Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/04/18/FasterRCNNArchitecture/">Faster R-CNN Architecture</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/02/27/Gazebo%E4%B8%8B%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BA%8C%E7%BB%B4%E7%A0%81%E9%99%8D%E8%90%BD%E4%BB%BF%E7%9C%9F/" class="archive-article-date">
-  	<time datetime="2025-02-27T08:44:13.019Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-02-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/02/27/Gazebo%E4%B8%8B%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BA%8C%E7%BB%B4%E7%A0%81%E9%99%8D%E8%90%BD%E4%BB%BF%E7%9C%9F/">Gazebo下无人机二维码降落仿真</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">飞控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
+        <p><strong>注：以下皆为个人理解，如有错误请大家指正</strong></p>
+<h2 id="LSTM的隐藏输出维度"><a href="#LSTM的隐藏输出维度" class="headerlink" title="LSTM的隐藏输出维度"></a>LSTM的隐藏输出维度</h2><p>在使用keras搭建多层LSTM神经网络的时候，有时会这么写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = Sequential()</span><br><span class="line">model.add(LSTM(128, input_dim=64, input_length=5, return_sequences=True))</span><br><span class="line">model.add(LSTM(256, return_sequences=False))</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>其中LSTM的第一个参数，如上述代码中的128，256，代表的其实不能叫作神经元的个数，应该理解为<strong>隐藏层输出的维度</strong>，或者<strong>隐藏层输出的神经元个数</strong>。对于多层LSTM，也需要输出到下一层的LSTM，如下图，第一层LSTM的隐藏层的输出维度为5： <img src="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/lstmoutputdim.jpg" class="" title="yuque_diagram (1)"></p>
+<h2 id="LSTM按时间展开"><a href="#LSTM按时间展开" class="headerlink" title="LSTM按时间展开"></a>LSTM按时间展开</h2><p>实际LSTM的空间结构就像上面的一样，只是为了方便图示化，所以按时间展开，在代码实现时需要指定在哪一个时间步外接（或者说计算）多层感知机。一般如果是按时间序列的所有前面时间的特征来预测下一时刻的特征，则在<strong>最后一个时间步</strong>接多层感知机。接了多层感知机也可以进行分类或回归任务。<img src="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/lstm_exspan_by_time.jpg" class="" title="lstm_exspan_by_time"></p>
+<h2 id="训练术语"><a href="#训练术语" class="headerlink" title="训练术语"></a>训练术语</h2><h3 id="Batch-Size（批大小）"><a href="#Batch-Size（批大小）" class="headerlink" title="Batch Size（批大小）"></a>Batch Size（批大小）</h3><ul>
+<li>有时整个数据集过大，如果一次性使用全部数据集，可能会耗费很大的资源，比如需要较大的存储和训练时间，所以将整个数据集分为 N 个 Batch，然后每次用一个 Batch进行<strong>一次</strong>梯度下降迭代</li>
+<li>Batch size 指的是<strong>每次模型权重更新时</strong>所使用的样本数（注意这里是指更新一次参数，也即梯度下降迭代一次）</li>
+<li>经过N个Batch的就相当于进行了 N次梯度下降迭代，此时其实也可能已经找到了最优参数</li>
+<li>这里的一大假设就是数据来源同分布(distribution)，那么即使是不同Batch的数据也是同一分布，那么我们就可以使用每一个Batch计算一个梯度，进行<strong>一次迭代（iteration）</strong>，最终能够完成整个梯度下降</li>
+</ul>
+<h3 id="Epoch（周期）"><a href="#Epoch（周期）" class="headerlink" title="Epoch（周期）"></a>Epoch（周期）</h3><ul>
+<li>Epoch 是指整个训练数据集被神经网络完整地遍历一次的次数</li>
+<li>在每个 epoch 中，模型会一次又一次地使用数据集中的不同样本（<strong>即上面的一个Batch</strong>）进行训练，每使用一个Batch进行一次梯度下降迭代（iteration），更新一次权重，经历N次迭代，遍历了所有数据集，完成一次Epoch</li>
+<li>一次 epoch 完成后，数据集会被重新随机划分为新的 Batch</li>
+<li>训练多个 epoch （也即我们使用数据集进行多次训练） 的目的是让模型不断地学习，提高性能，直到收敛到最佳性能或达到停止条件</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47872288/article/details/133925235">剖析深度学习中的epoch与batch_size关系、代码_batchsize和epoch关系-CSDN博客</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/639434938/answer/3374853335">(49 封私信) 每个batch对应的损失函数只下降了一次吗？ - 知乎 (zhihu.com)</a></p>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2024/11/28/%E7%9B%B8%E5%86%8C/" class="archive-article-date">
-  	<time datetime="2024-11-28T07:29:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/11/28/%E7%9B%B8%E5%86%8C/">随拍</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">相册</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2024/11/28/CurriculumVitae%E2%80%8C/" class="archive-article-date">
-  	<time datetime="2024-11-28T06:25:36.865Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-28</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2025/09/04/MPC%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MPC模型预测控制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/11/28/CurriculumVitae%E2%80%8C/">Curriculum Vitae</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">主页</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LSTM%E7%9A%84%E9%9A%90%E8%97%8F%E8%BE%93%E5%87%BA%E7%BB%B4%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">LSTM的隐藏输出维度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSTM%E6%8C%89%E6%97%B6%E9%97%B4%E5%B1%95%E5%BC%80"><span class="toc-number">2.</span> <span class="toc-text">LSTM按时间展开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%9C%AF%E8%AF%AD"><span class="toc-number">3.</span> <span class="toc-text">训练术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch-Size%EF%BC%88%E6%89%B9%E5%A4%A7%E5%B0%8F%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">Batch Size（批大小）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Epoch%EF%BC%88%E5%91%A8%E6%9C%9F%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">Epoch（周期）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
+
+  
+
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '754b3bd9d09ffd71286e',
+  	clientSecret: '2897e76ff7aa974792ab27bc60d45c0f017fa51c',
+  	repo: 'johnsmithdoc.github.io',
+  	owner: 'JohnSmithDoc',
+  	admin: ['JohnSmithDoc'],
+  	id: 'Fri Sep 12 2025 12:59:05 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
+  
+  
+  
+
 
 
           </div>
@@ -632,8 +493,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
