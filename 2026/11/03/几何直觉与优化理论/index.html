@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://johnsmithdoc.github.io/# http://example.com">
-  <title>Curriculum Vitae | Hexo</title>
+  <title>几何直觉与优化理论：从普通梯度下降到李群流形优化 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="YANG GuodongHeze, Shandong, China    (+86)18812637819;  youngguodong@gmail.com    Personal URL: https:&#x2F;&#x2F;johnsmithdoc.github.io&#x2F; EDUCATION 09&#x2F;2014-06&#x2F;2018  Civil Aviation University of China Bachelor’s">
+  <meta name="description" content="核心认知重构：两个世界的彻底分离在理解任何优化算法之前，必须首先建立“双重空间”视角。绝大多数概念混淆，均源于将这两个空间融为一体：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Curriculum Vitae">
-<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2024/11/28/CurriculumVitae%E2%80%8C/index.html">
+<meta property="og:title" content="几何直觉与优化理论：从普通梯度下降到李群流形优化">
+<meta property="og:url" content="http://johnsmithdoc.github.io/#%20http://example.com/2026/11/03/%E5%87%A0%E4%BD%95%E7%9B%B4%E8%A7%89%E4%B8%8E%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="YANG GuodongHeze, Shandong, China    (+86)18812637819;  youngguodong@gmail.com    Personal URL: https:&#x2F;&#x2F;johnsmithdoc.github.io&#x2F; EDUCATION 09&#x2F;2014-06&#x2F;2018  Civil Aviation University of China Bachelor’s">
+<meta property="og:description" content="核心认知重构：两个世界的彻底分离在理解任何优化算法之前，必须首先建立“双重空间”视角。绝大多数概念混淆，均源于将这两个空间融为一体：">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-11-28T06:25:36.865Z">
-<meta property="article:modified_time" content="2024-11-28T06:25:36.865Z">
+<meta property="article:published_time" content="2026-11-03T05:40:54.000Z">
+<meta property="article:modified_time" content="2026-11-03T05:40:54.000Z">
 <meta property="article:author" content="东边有棵树">
-<meta property="article:tag" content="主页">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -185,20 +185,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-CurriculumVitae‌" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-几何直觉与优化理论" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Curriculum Vitae
+      几何直觉与优化理论：从普通梯度下降到李群流形优化
     </h1>
   
 
         
-        <a href="/2024/11/28/CurriculumVitae%E2%80%8C/" class="archive-article-date">
-  	<time datetime="2024-11-28T06:25:36.865Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-28</time>
+        <a href="/2026/11/03/%E5%87%A0%E4%BD%95%E7%9B%B4%E8%A7%89%E4%B8%8E%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/" class="archive-article-date">
+  	<time datetime="2026-11-03T05:40:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-11-03</time>
 </a>
         
           <div style="margin-top:10px;">
@@ -206,7 +206,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">529字</span>
+        <span class="post-count">1.4k字</span>
       </span>
     </span>
 
@@ -215,7 +215,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">3分</span>
+        <span class="post-count">5分</span>
       </span>
     </span>
 </div>
@@ -232,82 +232,109 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="YANG-Guodong"><a href="#YANG-Guodong" class="headerlink" title="YANG Guodong"></a>YANG Guodong</h2><p>Heze, Shandong, China<br>    (+86)18812637819;  youngguodong@gmail.com<br>    Personal URL: <a href="https://johnsmithdoc.github.io/">https://johnsmithdoc.github.io/</a></p>
-<h2 id="EDUCATION"><a href="#EDUCATION" class="headerlink" title="EDUCATION"></a>EDUCATION</h2><ul>
-<li><strong>09/2014-06/2018</strong>  <strong>Civil Aviation</strong> <strong>University of China</strong><ul>
-<li>Bachelor’s degree in Engineering</li>
-<li>Specialty: Electronic Information Engineering</li>
+        <h2 id="核心认知重构：两个世界的彻底分离"><a href="#核心认知重构：两个世界的彻底分离" class="headerlink" title="核心认知重构：两个世界的彻底分离"></a>核心认知重构：两个世界的彻底分离</h2><p>在理解任何优化算法之前，必须首先建立<strong>“双重空间”</strong>视角。绝大多数概念混淆，均源于将这两个空间融为一体：</p>
+<span id="more"></span>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">空间</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">特征</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>1. 代价景观 / 误差山坡</strong><br>(Cost Landscape)</td>
+<td style="text-align:left">误差/损失函数 $f(x)$ 的取值高低</td>
+<td style="text-align:left">通常弯曲、起伏不平（如山谷、抛物面）</td>
+<td style="text-align:left">决定我们“往哪里走”（找到谷底/最小值点）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2. 参数空间 / 变量舞台</strong><br>(Parameter Space)</td>
+<td style="text-align:left">自变量 $x$（参数、状态量）所在的空间</td>
+<td style="text-align:left">天然平坦的欧氏空间，或弯曲的李群流形</td>
+<td style="text-align:left">决定我们“怎么迈步”（加减法则与更新机制）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>代价景观负责评估误差、提供方向，参数空间决定具体的迈步方式。</p>
+</blockquote>
+<hr>
+<h2 id="一、-梯度的本质与数学来源"><a href="#一、-梯度的本质与数学来源" class="headerlink" title="一、 梯度的本质与数学来源"></a>一、 梯度的本质与数学来源</h2><h3 id="1-1-什么是梯度？"><a href="#1-1-什么是梯度？" class="headerlink" title="1.1 什么是梯度？"></a>1.1 什么是梯度？</h3><p>在 $n$ 维参数空间中，函数 $f(\mathbf{x})$ 的梯度是一个由各偏导数构成的向量：</p>
+<script type="math/tex; mode=display">\nabla f(\mathbf{x}) = \begin{bmatrix} \frac{\partial f}{\partial x_1} & \frac{\partial f}{\partial x_2} & \dots & \frac{\partial f}{\partial x_n} \end{bmatrix}^T</script><ul>
+<li><strong>几何意义</strong>：它是一个“灵敏度指示器”，指向<strong>函数值增长最快（上坡最陡）</strong>的方向。</li>
+<li><strong>模长意义</strong>：表示该方向上坡度的陡峭程度。</li>
 </ul>
-</li>
-<li><strong>09/2024-07/2026</strong>  <strong>The Hong Kong Polytechnic University</strong><ul>
-<li>Master’s degree in Science</li>
-<li>Specialty: Aviation Engineering (Aeronautical Engineering)     </li>
+<hr>
+<h3 id="1-2-为什么梯度下降能保证“参数更新后误差变小”？"><a href="#1-2-为什么梯度下降能保证“参数更新后误差变小”？" class="headerlink" title="1.2 为什么梯度下降能保证“参数更新后误差变小”？"></a>1.2 为什么梯度下降能保证“参数更新后误差变小”？</h3><p>梯度下降的根基建立在<strong>一阶泰勒展开（Taylor Expansion）</strong>的数学担保上。</p>
+<p>假设当前位置为 $\mathbf{x}$，迈出微小步长 $\Delta \mathbf{x}$ 到达新位置 $\mathbf{x} + \Delta \mathbf{x}$：</p>
+<script type="math/tex; mode=display">f(\mathbf{x} + \Delta\mathbf{x}) \approx f(\mathbf{x}) + \nabla f(\mathbf{x})^T \Delta\mathbf{x}</script><p>为了让新位置的误差比原来小，即 $f(\mathbf{x} + \Delta\mathbf{x}) - f(\mathbf{x}) &lt; 0$，我们需要使：</p>
+<script type="math/tex; mode=display">\nabla f(\mathbf{x})^T \Delta\mathbf{x} < 0</script><h4 id="黄金方向的选择："><a href="#黄金方向的选择：" class="headerlink" title="黄金方向的选择："></a>黄金方向的选择：</h4><p>令更新量 $\Delta \mathbf{x}$ 正比于梯度的反方向（其中步长 $\alpha &gt; 0$）：</p>
+<script type="math/tex; mode=display">\Delta\mathbf{x} = -\alpha \nabla f(\mathbf{x})</script><p>代入泰勒展开近似表达式中：</p>
+<script type="math/tex; mode=display">\nabla f(\mathbf{x})^T \big(-\alpha \nabla f(\mathbf{x})\big) = -\alpha \|\nabla f(\mathbf{x})\|^2 \le 0</script><ul>
+<li><strong>结论</strong>：只要向量模长 $|\nabla f(\mathbf{x})| \neq 0$，该值<strong>必然恒小于 0</strong>。这证明了：<strong>只要步长在泰勒展开有效的局部范围内，沿梯度反方向迈步，误差必降</strong>。</li>
 </ul>
-</li>
-</ul>
-<h2 id="WORK-EXPERIENCE"><a href="#WORK-EXPERIENCE" class="headerlink" title="WORK EXPERIENCE"></a>WORK EXPERIENCE</h2><ul>
-<li><strong>09/2020-Present:  Hangzhou Antwork Technology Co., Ltd.</strong><ul>
-<li>Position: Flight Control R &amp; D Engineer<ul>
-<li>In charge of flight data analysis, controller parameters tuning, and flight control firmware iterative releases</li>
-<li>Developed an automatic analysis tool for flight control log based on my work experience</li>
-<li>Led group members complete airspeed reconstruction algorithm based on aerodynamic model</li>
-<li>Complete the problem convergence and iteration as well as function optimization of VTOL model to ensure its timely deployment</li>
-<li>Embed accurate VTOL model into Airsim, thus to provide a visual hardware-in-the-loop ( HIL ) simulation approach that can quickly verify control algorithms and flight logic</li>
-<li>Participate in the work on the function of multi-rotor single motor failure protection</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>05/2019-09/2020:  Company: Helipeller General Aircraft Co., Ltd.</strong><ul>
-<li>Position: Flight Control R &amp; D Engineer<ul>
-<li>In charge of research and development of flight control system for multi-rotor and fixed-wing UAVs</li>
-<li>Completed the design of the entire flight control programming structure</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="RESEARCH-PROJECTS"><a href="#RESEARCH-PROJECTS" class="headerlink" title="RESEARCH PROJECTS"></a>RESEARCH PROJECTS</h2><ul>
-<li><strong>09/2017  National Undergraduate Electronics Design Contest</strong><ul>
-<li>Completed the entire design of detection system of multi-rotor UAV in 3 days</li>
-<li>Achieved multiple functions such as autonomous take-off, recognition and tracing of moving objects, and autonomous landing</li>
-</ul>
-</li>
-<li><strong>11/2016  Final of China Area, Thales Project Arduino</strong><ul>
-<li>Designed ‘Red Alert’, a laser detection and notification device based on Arduino</li>
-<li>Applied laser and other sensors to achieve multiple functions such as notification of security line crossing on railway platform and traffic lights, etc</li>
-<li>Delivered final English presentation and defenses</li>
-</ul>
-</li>
-<li><strong>05/2016  College Innovation and Entrepreneurship Project: Design and Implementation of Intelligent Table Lamp based on Microprocessor</strong><ul>
-<li>In charge of program writing and debugging, and overfulfilled anticipated targets through cooperation with team members</li>
-<li>Realized several functions such as sitting posture detection, sedentary timing, automatic switch, and alarm setting, etc</li>
-</ul>
-</li>
-</ul>
-<h2 id="AWARDS-amp-HONORS"><a href="#AWARDS-amp-HONORS" class="headerlink" title="AWARDS &amp; HONORS"></a>AWARDS &amp; HONORS</h2><ul>
-<li>09/2017    1st Prize of Tianjin Area, National Undergraduate Electronics Design Contest</li>
-<li>07/2017    3rd Prize, ‘Challenge Cup’ Tianjin College Students’ Extracurricular Academic and Sci-tech Works</li>
-<li>04/2017    1st Prize, The 2nd Electronic Design Competition of Civil Aviation University of China</li>
-<li>08/2016    3rd Prize, ‘TI Cup’ Tianjin College Students’ Electronic Design Competition</li>
-<li>07/2016    2nd Prize of North China Area, ‘NXP Cup’ Intelligent Vehicle Contest</li>
-<li>05/2016    1st Prize of Group of Creativity, The 4th Aircraft Contest of Civil Aviation University of China</li>
-<li>03/2016    3rd Prize, ‘Beidou Cup’ China Adolescents Science and Technology Innovation Contest</li>
-</ul>
-<h2 id="SKILLS"><a href="#SKILLS" class="headerlink" title="SKILLS"></a>SKILLS</h2><ul>
-<li>Familiar with the PX4 code architecture(limited to PX4 V1.11.1 version), adequate experience in PX4 secondary development</li>
-<li>Tools: Git, ROS, RTOS, C/C++(basic use), Python(basic use), Matlab(basic use)</li>
-</ul>
-<h2 id="EXTRACURRICULAR-ACTIVITIES"><a href="#EXTRACURRICULAR-ACTIVITIES" class="headerlink" title="EXTRACURRICULAR ACTIVITIES"></a>EXTRACURRICULAR ACTIVITIES</h2><ul>
-<li>03/2016-06/2018    Practice Base for Electronic and Sci-tech Innovation and Entrepreneurship<ul>
-<li>Position: Superintendent of Multi-rotor Section<ul>
-<li>Introduced fundamental knowledge to college students and recruited new members</li>
-<li>Assisted professors to manage relevant issues of the base</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<hr>
+<h2 id="二、-平坦空间-vs-弯曲流形"><a href="#二、-平坦空间-vs-弯曲流形" class="headerlink" title="二、 平坦空间 vs. 弯曲流形"></a>二、 平坦空间 vs. 弯曲流形</h2><p>决定参数更新机制的，不是“代价景观”，而是“参数舞台”的几何性质。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">维度</th>
+<th style="text-align:left">普通梯度下降 (欧氏空间 $\mathbb{R}^n$)</th>
+<th style="text-align:left">流形优化 / SLAM (弯曲流形如 $SO(3)$)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>参数舞台</strong></td>
+<td style="text-align:left"><strong>天然平坦</strong>（欧几里得空间）</td>
+<td style="text-align:left"><strong>弯曲且闭合</strong>（如三维旋转李群）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>坐标关系</strong></td>
+<td style="text-align:left">整个空间本身就是它自己的切平面</td>
+<td style="text-align:left">全局无平直坐标系，仅局部可近似平坦</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>合法性约束</strong></td>
+<td style="text-align:left">无约束，任意加减得到的依然是有效点</td>
+<td style="text-align:left">有严格几何约束（如 $R^{\top}R=I,\ \det(R)=1$）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>更新动作</strong></td>
+<td style="text-align:left"><strong>直接做向量加减法</strong></td>
+<td style="text-align:left"><strong>不能直接加减</strong>（相加会破坏矩阵正交性）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>更新机制</strong></td>
+<td style="text-align:left">借由全域坐标网格直接迈步</td>
+<td style="text-align:left">必须借助<strong>局部切面（李代数）</strong>与<strong>指数映射</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>即普通梯度下降（欧氏空间 $\mathbb{R}^n$）的更新规则为：</p>
+<script type="math/tex; mode=display">\mathbf{x}_{\text{new}} = \mathbf{x}_{\text{old}} - \alpha \nabla f</script><hr>
+<h2 id="三、-李群与李代数：流形优化的闭环几何逻辑"><a href="#三、-李群与李代数：流形优化的闭环几何逻辑" class="headerlink" title="三、 李群与李代数：流形优化的闭环几何逻辑"></a>三、 李群与李代数：流形优化的闭环几何逻辑</h2><p>以 SLAM 中三维旋转矩阵 $R \in SO(3)$ 的优化为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">      【宏观大曲面：李群 SO(3)】 (永恒存在，合法矩阵的栖息地)</span><br><span class="line">           /                   \</span><br><span class="line">          /                     \   指数映射 exp(δφ^)</span><br><span class="line">A点 (当前状态 R_k)          B点 (更新后的状态 R_&#123;k+1&#125;)</span><br><span class="line">        │                        ▲</span><br><span class="line">        │ 建立局部切空间         │</span><br><span class="line">        ▼                        │</span><br><span class="line"> 【局部平整切面：李代数 so(3)】 ────┴── 在切平面解出微小量 δφ</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-核心迭代五步法："><a href="#3-1-核心迭代五步法：" class="headerlink" title="3.1 核心迭代五步法："></a>3.1 核心迭代五步法：</h3><ol>
+<li><strong>站稳大状态</strong>：当前位于宏观大曲面（李群 $SO(3)$）上的节点 $R_k$。大曲面客观存在且固定不变。</li>
+<li><strong>就地切面（线性化）</strong>：在 $R_k$ 的“脚底板”建立局部的平整切空间（李代数 $\mathfrak{so}(3)$）。相当于在 $R_k$ 处重新做一阶泰勒展开。</li>
+<li><strong>计算微小量</strong>：在平整的切空间内部，把复杂的非线性优化转化为局部线性最小二乘问题，求解出切空间内的三维微小扰动向量 $\delta\phi$。</li>
+<li><strong>投影回曲面（指数映射）</strong>：通过指数映射 $\exp(\delta\phi^\wedge)$，将切平面上的平直微小向量“包装”为合法的旋转矩阵，并以<strong>左乘</strong>方式更新大状态：<script type="math/tex; mode=display">R_{k+1} = \exp(\delta\phi^\wedge) R_k</script>更新后的 $R_{k+1}$ <strong>严丝合缝地重新落回宏观大曲面上</strong>。</li>
+<li><strong>扔掉旧切面，重复迭代</strong>：旧的切面完成使命后立刻废弃。算法在全新的落脚点 $R_{k+1}$ 重新建立新的切平面，直至收敛到山谷底。</li>
+</ol>
+<hr>
+<h2 id="四、-核心直觉总结"><a href="#四、-核心直觉总结" class="headerlink" title="四、 核心直觉总结"></a>四、 核心直觉总结</h2><ol>
+<li><strong>梯度的本质</strong>：梯度下降不是瞎猜，而是微积分通过泰勒展开在局部给出的“稳降不升”的黄金保证。</li>
+<li><strong>欧氏梯度下降</strong>：在无限光滑平坦的球场地板上行走，直接加减向量，永远不会出界。</li>
+<li><strong>流形优化</strong>：<strong>“穿着芭蕾舞鞋、戴着镣铐的梯度下降”</strong>。因舞台是弯曲的，只能“走到哪、在哪切”，利用“用完即弃”的局部切平面解出微小量，再用指数映射安全地拉回曲面上。</li>
+</ol>
 
       
 
@@ -357,7 +384,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">主页</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
@@ -413,7 +440,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2024/11/28/CurriculumVitae%E2%80%8C/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://johnsmithdoc.github.io/#%20http://example.com/2026/11/03/%E5%87%A0%E4%BD%95%E7%9B%B4%E8%A7%89%E4%B8%8E%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -427,18 +454,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/11/28/%E7%9B%B8%E5%86%8C/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2026/11/03/CurriculumVitae%E2%80%8C/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          随拍
+          Curriculum Vitae
         
       </div>
     </a>
   
   
-    <a href="/2023/09/29/%E9%99%8D%E8%90%BD%E4%BC%9E%E8%87%AA%E4%B8%BB%E5%BC%80%E4%BC%9E%E6%B5%8B%E8%AF%95/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">降落伞自主开伞测试</div>
+    <a href="/2025/09/12/LSTM%E5%AE%9E%E8%B7%B5%E6%97%B6%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E7%90%86%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LSTM实践时几个术语理解</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -465,7 +492,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#YANG-Guodong"><span class="toc-number">1.</span> <span class="toc-text">YANG Guodong</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EDUCATION"><span class="toc-number">2.</span> <span class="toc-text">EDUCATION</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WORK-EXPERIENCE"><span class="toc-number">3.</span> <span class="toc-text">WORK EXPERIENCE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RESEARCH-PROJECTS"><span class="toc-number">4.</span> <span class="toc-text">RESEARCH PROJECTS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWARDS-amp-HONORS"><span class="toc-number">5.</span> <span class="toc-text">AWARDS &amp; HONORS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SKILLS"><span class="toc-number">6.</span> <span class="toc-text">SKILLS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXTRACURRICULAR-ACTIVITIES"><span class="toc-number">7.</span> <span class="toc-text">EXTRACURRICULAR ACTIVITIES</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%AE%A4%E7%9F%A5%E9%87%8D%E6%9E%84%EF%BC%9A%E4%B8%A4%E4%B8%AA%E4%B8%96%E7%95%8C%E7%9A%84%E5%BD%BB%E5%BA%95%E5%88%86%E7%A6%BB"><span class="toc-number">1.</span> <span class="toc-text">核心认知重构：两个世界的彻底分离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E6%A2%AF%E5%BA%A6%E7%9A%84%E6%9C%AC%E8%B4%A8%E4%B8%8E%E6%95%B0%E5%AD%A6%E6%9D%A5%E6%BA%90"><span class="toc-number">2.</span> <span class="toc-text">一、 梯度的本质与数学来源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%A2%AF%E5%BA%A6%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 什么是梯度？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E8%83%BD%E4%BF%9D%E8%AF%81%E2%80%9C%E5%8F%82%E6%95%B0%E6%9B%B4%E6%96%B0%E5%90%8E%E8%AF%AF%E5%B7%AE%E5%8F%98%E5%B0%8F%E2%80%9D%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 为什么梯度下降能保证“参数更新后误差变小”？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%84%E9%87%91%E6%96%B9%E5%90%91%E7%9A%84%E9%80%89%E6%8B%A9%EF%BC%9A"><span class="toc-number">2.2.1.</span> <span class="toc-text">黄金方向的选择：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E5%B9%B3%E5%9D%A6%E7%A9%BA%E9%97%B4-vs-%E5%BC%AF%E6%9B%B2%E6%B5%81%E5%BD%A2"><span class="toc-number">3.</span> <span class="toc-text">二、 平坦空间 vs. 弯曲流形</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81-%E6%9D%8E%E7%BE%A4%E4%B8%8E%E6%9D%8E%E4%BB%A3%E6%95%B0%EF%BC%9A%E6%B5%81%E5%BD%A2%E4%BC%98%E5%8C%96%E7%9A%84%E9%97%AD%E7%8E%AF%E5%87%A0%E4%BD%95%E9%80%BB%E8%BE%91"><span class="toc-number">4.</span> <span class="toc-text">三、 李群与李代数：流形优化的闭环几何逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%A0%B8%E5%BF%83%E8%BF%AD%E4%BB%A3%E4%BA%94%E6%AD%A5%E6%B3%95%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 核心迭代五步法：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81-%E6%A0%B8%E5%BF%83%E7%9B%B4%E8%A7%89%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">四、 核心直觉总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -498,7 +525,7 @@ if(true){
   	repo: 'johnsmithdoc.github.io',
   	owner: 'JohnSmithDoc',
   	admin: ['JohnSmithDoc'],
-  	id: 'Thu Nov 28 2024 14:25:36 GMT+0800',
+  	id: 'Tue Nov 03 2026 13:40:54 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
@@ -646,11 +673,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">主页</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">主页</a>
               </li>
              
               <li class="article-tag-list-item">
